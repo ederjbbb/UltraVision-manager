@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dash.iml" filepath="$PROJECT_DIR$/Dash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DashCA.iml" filepath="$PROJECT_DIR$/DashCA.iml" />
     </modules>
   </component>
 </project>

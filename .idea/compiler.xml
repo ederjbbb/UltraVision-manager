@@ -14,7 +14,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Dash" options="--add-exports javafx.graphics/com.sun.javafx.css=Dash" />
+      <module name="DashCA" options="--add-exports javafx.graphics/com.sun.javafx.css=Dash" />
     </option>
   </component>
 </project>

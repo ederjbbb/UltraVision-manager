@@ -1,4 +1,4 @@
-module Dash {
+module DashCA {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;
