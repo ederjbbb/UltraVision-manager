@@ -4,7 +4,7 @@ import classManagers.ItemsManager;
 import controllers.LoginController;
 import controllers.MainController;
 import controllers.MainWindowController;
-import controllers.UserController;
+import controllers.UsersTableController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -51,7 +51,7 @@ public class ViewFactory{
 
     }
     public void showUsersWindow() {
-        MainController controller = new UserController(itemsManager,this, "Users.fxml");
+        MainController controller = new UsersTableController(itemsManager,this, "UsersTable.fxml");
         initializeStage(controller);
     }
 

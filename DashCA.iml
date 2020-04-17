@@ -20,10 +20,10 @@
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="javafx-swt" level="application" />
     <orderEntry type="library" name="javafx-swt" level="project" />
-    <orderEntry type="library" name="bootstrapfx-core-0.2.4" level="project" />
-    <orderEntry type="library" name="bootstrap-142.1" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.8" level="project" />
     <orderEntry type="library" name="javafx.base" level="project" />
-    <orderEntry type="library" name="javafx-swt1" level="application" />
+    <orderEntry type="library" name="javax.mail" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.18" level="project" />
+    <orderEntry type="library" name="activation-1.1" level="project" />
   </component>
 </module>

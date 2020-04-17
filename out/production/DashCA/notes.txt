@@ -15,3 +15,215 @@
 //
 //        stage.show();
 //************************************************************************
+// code to be used for login conetion
+package models;
+
+import userAndCustomer.User;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Connection {
+
+
+   String dbServer = "ultra-vision.cdvsl6kqlerc.eu-west-1.rds.amazonaws.com";
+   String user = "root";
+   String password = "Pass1234!";
+   String port = "3306";
+   String dbName = "UltraVision";
+   java.sql.Connection conn = null;
+   Statement stmt = null;
+   String query = "SELECT * FROM Users ";
+   String jdbcUrl = "jdbc:mysql://" + dbServer + ":" +
+           port + "/" + dbName + "?user=" + user + "&password=" + password;
+   ResultSet result;
+//  query to select user and email from data base
+//     String userQuery = "SELECT * FROM Users WHERE email = '" + userLogged.getUn() + "' AND second_name = '" + userLogged.getPw() + "';";
+
+
+   public Connection() {
+      getConnection(query);
+
+   }
+
+   public ResultSet getConnection(String query) {
+
+      try{
+         // Get a connection to the database
+         conn = DriverManager.getConnection(jdbcUrl) ;
+
+         // Get a statement from the connection
+         stmt = conn.createStatement() ;
+         result = stmt.executeQuery(query);
+         return result;
+
+
+      }
+      catch( SQLException se ){
+         System.out.println( "SQL Exception:" ) ;
+
+         // Loop through the SQL Exceptions
+         while( se != null ){
+            System.out.println( "State  : " + se.getSQLState()  ) ;
+            System.out.println( "Message: " + se.getMessage()   ) ;
+            System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+            se = se.getNextException() ;
+         }
+      }
+      catch( Exception e ){
+         System.out.println( e ) ;
+      }
+      return result;
+
+
+
+   }
+
+
+
+   // This method is only in charge of asking the DB if a user exists
+// Notice that it is using the variables initialised by the constructor
+   public boolean login(User userLogged){
+
+      // Variable to define if the login is successful
+      boolean login = false;
+      try{
+         // Building the query
+
+
+         String query = "SELECT * FROM Users WHERE email = '" +userLogged.getEmail() + "' AND password = '" + userLogged.getPassword() + "';";
+         ResultSet rs = stmt.executeQuery(query);
+
+//
+         // Sending the query to the database
+
+
+         // If there is an entry in the database that satisfies
+         // the email and password, then the login is successful
+         // otherwise it fails
+         login = rs.next();
+
+         // Close the result set, statement and the connection
+         rs.close() ;
+
+         // Calling the method in charge of closing the connections
+         closings();
+
+      }
+      catch( SQLException se ){
+         System.out.println( "SQL Exception:" ) ;
+
+         // Loop through the SQL Exceptions
+         while( se != null ){
+            System.out.println( "State  : " + se.getSQLState()  ) ;
+            System.out.println( "Message: " + se.getMessage()   ) ;
+            System.out.println( "Error  : " + se.getErrorCode() ) ;
+
+            se = se.getNextException() ;
+         }
+      }
+      catch( Exception e ){
+         System.out.println( e ) ;
+      }
+
+      // Retuning the login status
+      return login;
+   }
+
+// This method is only in charge of saving a new user into the the DB
+//public void register(User userLogged) throws SQLException{
+//
+//    try{
+//        // Building the query
+////        String query = "INSERT INTO user (first_name, second_name) VALUES ('"+userLogged.getUn()+"', '"+userLogged.getPw()+"');";
+//
+//        // Execute the query
+////        stmt.execute(query) ;
+//
+//        // Calling the method in charge of closing the connections
+//        closings();
+//    }
+//    catch( Exception e ){
+//            System.out.println( e ) ;
+//    }
+//
+//
+//}
+
+   // Separeating closing statements for better code structure
+   private void closings() {
+      try {
+         stmt.close();
+         conn.close();
+      } catch (SQLException ex) {
+
+      }
+   }
+}
+/////////////////////////////
+gmail : ultravision199
+pass: ultravision123
+
+// while loop
+
+while(result.next()){
+            System.out.println("Name: "+result.getString("firstname") + ", Email: "+ result.getString("email") );
+         }
+
+         ========================SENDING EMAILS==========================
+         package emailtest;
+
+         import java.util.Properties;
+         import javax.mail.*;
+         import javax.mail.internet.*;
+
+         public class SendEmail {
+             public static void main(String[] args) {
+
+
+                 String host="mail.gmail.com";
+                 final String user="visionultra199@gmail.com";//change accordingly
+                 final String password="redeREDE4812";//change accordingly
+
+                 String to="visionultra1991987@gmail.com";//change accordingly
+
+                 //Get the session object
+                 Properties props = new Properties();
+
+                 props.put("mail.smtp.host","smtp.gmail.com");
+                 props.put("mail.smtp.post","465");
+                 props.put("mail.smtp.auth", "true");
+                 props.put("mail.smtp.socketFactory.port", "465");
+         //        props.put("mail.smtp.socketFactory.class", "javafx.net.ssl.SSLSocketFactory");
+                 props.put("mail.smtp.starttls.enable", "true");
+
+
+                 Session session = Session.getInstance(props,
+                         new javax.mail.Authenticator() {
+                             protected PasswordAuthentication getPasswordAuthentication() {
+                                 return new PasswordAuthentication(user,password);
+                             }
+                         });
+
+                 //Compose the message
+                 try {
+                     MimeMessage message = new MimeMessage(session);
+                     message.setFrom(new InternetAddress(user));
+                     message.addRecipient(Message.RecipientType.TO,new InternetAddress("visionultra199@gmail.com"));
+                     message.setSubject("password Ultra Vision");
+                     message.setText("123456");
+
+                     //send the message
+                     Transport.send(message);
+
+                     System.out.println("message sent successfully...");
+
+                 } catch (MessagingException e) {e.printStackTrace();}
+
+             }
+
+
+         }

@@ -4,10 +4,14 @@ import classManagers.ItemsManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import models.Connection;
 import view.ViewFactory;
 
-public class UserController extends MainController{
-    public UserController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
+import java.sql.SQLException;
+
+public class UsersTableController extends MainController{
+
+    public UsersTableController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
     }
 
@@ -28,7 +32,14 @@ public class UserController extends MainController{
 
     @FXML
     void exitOnClick(){
-
+        String query = " SELECT email, password from Users;";
+        Connection connection = new Connection();
+        try {
+            connection.getConnection(query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        System.out.println();
         Stage stage = (Stage)deleteButton.getScene().getWindow();
         viewFactory.closeStage(stage);
 

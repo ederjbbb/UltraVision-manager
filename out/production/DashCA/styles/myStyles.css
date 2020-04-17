@@ -41,6 +41,16 @@ Login stylesheet beginshere
 
 }
 
+#forgotPassword{
+    -fx-font-color: red;
+    -fx-font-size: 12px;
+
+}
+#forgotPassword:hover{
+    -fx-background: black;
+
+}
+
 /*
 Login stylesheet finishes here
 
