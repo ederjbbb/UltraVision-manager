@@ -65,7 +65,7 @@ public class LoginController extends MainController {
                 if(dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())){
                         viewFactory.showMainWindow();
                 }else{
-                    System.out.println("user not found");
+                    viewFactory.showNotFound();
                 }
 
 
