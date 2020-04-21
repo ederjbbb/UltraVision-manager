@@ -39,6 +39,6 @@
       <TextField layoutX="239.0" layoutY="103.0" promptText="Last name" />
       <TextField layoutX="429.0" layoutY="103.0" promptText="E-mail" />
       <TextField layoutX="617.0" layoutY="103.0" promptText="Password" />
-      <Button layoutX="806.0" layoutY="103.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="84.0" text="Add user" />
+      <Button layoutX="806.0" layoutY="103.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="132.0" text="Add user" />
    </children>
 </AnchorPane>

@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Connection;
-import models.EmailSender;
+import models.EmailChecker;
 import userAndCustomer.User;
 import view.ViewFactory;
 
@@ -20,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LoginController extends MainController {
-        EmailSender emailSender;
+
         User user ;
         private ArrayList dataList ;
         Connection connection;
@@ -30,14 +28,8 @@ public class LoginController extends MainController {
                 dataList = new ArrayList<String>();
         }
 
-        @FXML
-        private AnchorPane Loginwindow;
 
-        @FXML
-        private Label labelWindow;
 
-        @FXML
-        private ImageView imageWindow;
 
         @FXML
         private Label labelborder;
@@ -73,14 +65,8 @@ public class LoginController extends MainController {
                 if(dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())){
                         viewFactory.showMainWindow();
                 }else{
-
+                    System.out.println("user not found");
                 }
-
-
-
-
-
-
 
 
                 Stage stage = (Stage)labelborder.getScene().getWindow();
@@ -88,24 +74,35 @@ public class LoginController extends MainController {
         }
         @FXML
         void loginWindowExit(){
-
-
+            // for the exit button , exit on click
                 Stage stage = (Stage)labelborder.getScene().getWindow();
                 viewFactory.closeStage(stage);
         }
-//This methos is called when the user click on forgt password
+//This methos is called when the user click on forgot password
          @FXML
-        void passwordRecover(){
-
-            String email = textField.getText();
-            if(!email.equals(null)){
+        void passwordRecover() throws SQLException {
 
 
-            }else{
-                System.out.println("Inform an easdfamail");
-            }
+             EmailChecker emailChecker = new EmailChecker(textField.getText());
+
+             if (emailChecker.isEmail(textField.getText())){
+                 EmailChecker.EmailSender emailSender = emailChecker.new EmailSender(textField.getText());
+                emailSender.sendMessage();
+
+             }else{
+                 viewFactory.showNotFound();
+             }
+
+
+
+
+
+
+
+
 
         }
+
 
 
 }

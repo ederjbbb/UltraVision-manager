@@ -1,10 +1,7 @@
 package view;
 
 import classManagers.ItemsManager;
-import controllers.LoginController;
-import controllers.MainController;
-import controllers.MainWindowController;
-import controllers.UsersTableController;
+import controllers.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -52,6 +49,10 @@ public class ViewFactory{
     }
     public void showUsersWindow() {
         MainController controller = new UsersTableController(itemsManager,this, "UsersTable.fxml");
+        initializeStage(controller);
+    }
+    public void showNotFound() {
+        MainController controller = new NotFoundController(itemsManager,this, "notfound.fxml");
         initializeStage(controller);
     }
 
