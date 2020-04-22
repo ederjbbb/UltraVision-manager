@@ -17,7 +17,7 @@ public class Launcher extends Application {
         ViewFactory viewFactory = new ViewFactory(new ItemsManager());
 
 
-        viewFactory.showLoginWindow();
+        viewFactory.showUsersWindow();
 
 
 
