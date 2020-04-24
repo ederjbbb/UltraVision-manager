@@ -8,10 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import models.Connection;
 import models.UserData;
 import view.ViewFactory;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,7 +70,40 @@ public class UsersTableController extends MainController implements Initializabl
     @FXML
     private TableColumn<UserData, CheckBox> col_select;
 
+// ALL THIS THREE METHODS TO BE REVISED IF POSSIBLE **REMINDER**  ******************************
+    @FXML
+        // This method is to enable editing of the cell individually
+    void editEmailOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
+        UserData userData = table.getSelectionModel().getSelectedItem();
+        userData.setEmail(userDataStringCellEditEvent.getNewValue());
+    }
 
+    @FXML
+        // This method is to enable editing of the cell individually
+    void editLastnameOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
+        UserData userData = table.getSelectionModel().getSelectedItem();
+        userData.setLastname(userDataStringCellEditEvent.getNewValue());
+
+    }
+//******************************************************************
+    @FXML
+        // This method is to enable editing of the cell individually
+    void editNameOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
+        UserData userData = table.getSelectionModel().getSelectedItem();
+        userData.setFirstname(userDataStringCellEditEvent.getNewValue());
+        System.out.println(userDataStringCellEditEvent.getNewValue());
+        UserData getCellContent = table.getSelectionModel().getSelectedItem();
+
+        System.out.println(getCellContent.getLastname());
+        System.out.println(getCellContent.getEmail());
+//                ******************************************************
+//                ********************************************************
+
+//        executeQueryUpdate();
+
+
+
+    }
 
 
     @FXML
@@ -86,9 +121,27 @@ public class UsersTableController extends MainController implements Initializabl
 
     @FXML
     void addOnClick() throws SQLException {
-//        String addQuery = "INSERT INTO Users ( '"+firstnameField.getText()+"') " +
-//                "( '"+lasnameField.getText()+"') ( '"+emailField.getText()+"') ( '"+passwordField.getText()+"')";
-//        ResultSet row  = connection.makeUpdate(addQuery);
+        String addQuery = "INSERT INTO Users (firstname , lastname , email , password) values ('"+firstnameField.getText()+"','"+lasnameField.getText()+"','"+emailField.getText()+"','"+passwordField.getText()+"');";
+        int row = 0;
+        if(firstnameField.getText().isEmpty() || lasnameField.getText().isEmpty() ||
+                emailField.getText().isEmpty() || passwordField.getText().isEmpty()){
+            viewFactory.showActionConfirmation();
+        }else{
+             row  = connection.updateOrDelete(addQuery);
+        }
+
+
+
+
+        if(row > 0){
+            Stage stage = (Stage) deleteButton.getScene().getWindow();
+            viewFactory.closeStage(stage);
+            viewFactory.showUsersWindow();
+
+        }else{
+            viewFactory.showActionConfirmation();
+        }
+
     }
 
     @FXML
@@ -103,16 +156,21 @@ public class UsersTableController extends MainController implements Initializabl
         String password =  passwordField.getText();
         int id = Integer.parseInt(idField.getText());
 
-        String query = "UPDATE Users SET firstname = '"+firstname+"', lastname = '"+lastname+"', " +
+        String updateQuery = "UPDATE Users SET firstname = '"+firstname+"', lastname = '"+lastname+"', " +
                 "                                       email ='"+email+"'  WHERE id = "+id+";";
+        executeQueryUpdate(updateQuery);
 
+
+    }
+        // This method is seperate to be used in other 3 methos as all of them  are to update
+    //    individual cells
+    private void executeQueryUpdate(String query) {
         Connection connection = new Connection();
         try{
             connection.updateOrDelete(query);
         }catch(SQLException e){
             e.getMessage();
         }
-
     }
 
 
@@ -160,12 +218,18 @@ public class UsersTableController extends MainController implements Initializabl
 
             }
             // se properties
-                 col_name.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-                 col_surname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
-                 col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
-                 col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+                 col_name.setCellValueFactory(new PropertyValueFactory<>("Firstname"));
+                 col_surname.setCellValueFactory(new PropertyValueFactory<>("Lastname"));
+                 col_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+                 col_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
 
-                 table.setItems(list);
+
+                  table.setItems(list);
+                  table.setEditable(true);
+                  col_name.setCellFactory(TextFieldTableCell.forTableColumn());
+                  col_email.setCellFactory(TextFieldTableCell.forTableColumn());
+                  col_surname.setCellFactory(TextFieldTableCell.forTableColumn());
+    
 
         }
 
@@ -176,7 +240,7 @@ public class UsersTableController extends MainController implements Initializabl
             // This method will get action clicked from fxml view and delete the row selected on the view
             // then, get id and delete from data base.
 
-            UserData userData = table.getSelectionModel().getSelectedItem();
+            UserData userData = table.getSelectionModel().getSelectedItem();// used to delete from view only
             int rowsAffected = 0;
             int id = userData.getId();
             String query = "DELETE FROM Users WHERE id ="+id;
@@ -188,7 +252,7 @@ public class UsersTableController extends MainController implements Initializabl
             }
             table.getItems().removeAll(table.getSelectionModel().getSelectedItem());
             if(rowsAffected > 0){
-                viewFactory.showActionConfirmation();
+
             }
 
         }

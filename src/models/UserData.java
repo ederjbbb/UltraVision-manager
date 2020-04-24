@@ -1,51 +1,60 @@
 package models;
 
 
-import javafx.scene.control.CheckBox;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class UserData {
 
-    private final String firstname;
-    private final String lastname;
-    private final String email;
-    private final int id;
-    private CheckBox checkBox;
+    private SimpleStringProperty firstname;
+    private  SimpleStringProperty lastname;
+    private  SimpleStringProperty email;
+    private SimpleIntegerProperty id;
+
 
 
     public UserData(String firstname, String lastname, String email, int id) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.id = id;
-        this.checkBox = new CheckBox();
+        this.firstname = new SimpleStringProperty(firstname);
+        this.lastname = new SimpleStringProperty(lastname);
+        this.email = new SimpleStringProperty(email);
+        this.id = new SimpleIntegerProperty(id);
 
 
+
+    }
+
+
+    public void setFirstname(String firstname) {
+        this.firstname = new SimpleStringProperty(firstname);
+    }
+    public void setLastname(String lastname){
+        this.lastname = new SimpleStringProperty(lastname);
+    }
+    public void setEmail(String email){
+        this.email = new SimpleStringProperty(email);
+    }
+
+    public void setId(int id) {
+        this.id = new SimpleIntegerProperty(id);
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstname.get();
     }
 
-
     public String getLastname() {
-        return lastname;
+        return lastname.get();
     }
 
     public String getEmail() {
-        return email;
+        return email.get();
     }
 
     public int getId() {
-        return id;
+        return id.get();
     }
 
-    public CheckBox getCheckBox() {
-        return checkBox;
-    }
 
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
-    }
 }
 
 
