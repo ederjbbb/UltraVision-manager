@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+
+<AnchorPane prefHeight="258.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <WebView layoutX="1.0" prefHeight="258.0" prefWidth="384.0" />
+      <ImageView fitHeight="267.0" fitWidth="404.0" layoutX="-3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/thumbsup.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="okButton"  layoutX="137.0" layoutY="189.0" mnemonicParsing="false" onAction="#closeConfirmation" prefHeight="38.0" prefWidth="108.0" text="ok">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

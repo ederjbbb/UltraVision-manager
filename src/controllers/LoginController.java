@@ -58,6 +58,8 @@ public class LoginController extends MainController {
 
                 ResultSet data = connection.getConnection(query);
 
+
+
                 while(data.next()){
                         dataList.add(data.getString("email"));
                         dataList.add(data.getString("password"));

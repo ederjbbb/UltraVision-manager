@@ -71,6 +71,45 @@ public class Connection {
       }
       return result;
    }
+
+
+   // this method isfor update and can be used for any other class
+   public int updateOrDelete(String query) throws SQLException {
+      int rows = 0;
+      try {
+         // Get a connection to the database
+         conn = DriverManager.getConnection(jdbcUrl);
+
+         // Get a statement from the connection
+         stmt = conn.createStatement();
+         rows = stmt.executeUpdate(query);
+
+      } catch (SQLException se) {
+         System.out.println("SQL Exception:");
+
+         // Loop through the SQL Exceptions
+         while (se != null) {
+            System.out.println("State  : " + se.getSQLState());
+            System.out.println("Message: " + se.getMessage());
+            System.out.println("Error  : " + se.getErrorCode());
+
+            se = se.getNextException();
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }finally {
+
+         stmt.close();
+         conn.close();
+      }
+
+
+      return rows;
+   }
+
+
+
 }
 
 

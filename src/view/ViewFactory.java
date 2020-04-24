@@ -55,6 +55,10 @@ public class ViewFactory{
         MainController controller = new NotFoundController(itemsManager,this, "notfound.fxml");
         initializeStage(controller);
     }
+    public void showActionConfirmation() {
+        MainController controller = new ActionConfirmationController(itemsManager,this, "actionConfirmation.fxml");
+        initializeStage(controller);
+    }
 
 // this is in charge of creating stage and scenes
     //as every view has to have it.
