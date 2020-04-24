@@ -9,17 +9,18 @@ import java.util.ArrayList;
 public class Connection {
 
 
-   String dbServer = "ultra-vision.cdvsl6kqlerc.eu-west-1.rds.amazonaws.com";
-   String user = "root";
-   String password = "Pass1234!";
-   String port = "3306";
-   String dbName = "UltraVision";
-   java.sql.Connection conn = null;
-   Statement stmt = null;
-   String query = "SELECT * FROM Users ";
-   String jdbcUrl = "jdbc:mysql://" + dbServer + ":" +
+   private String dbServer = "ultra-vision.cdvsl6kqlerc.eu-west-1.rds.amazonaws.com";
+   private String user = "root";
+   private String password = "Pass1234!";
+   private String port = "3306";
+   private String dbName = "UltraVision";
+
+   private java.sql.Connection conn = null;
+   private Statement stmt = null;
+   private String query = "SELECT * FROM Users ";
+   private String jdbcUrl = "jdbc:mysql://" + dbServer + ":" +
            port + "/" + dbName + "?user=" + user + "&password=" + password;
-   ResultSet result;
+   private ResultSet result;
 //  query to select user and email from data base
 //     String userQuery = "SELECT * FROM Users WHERE email = '" + userLogged.getUn() + "' AND second_name = '" + userLogged.getPw() + "';";
 
@@ -68,6 +69,9 @@ public class Connection {
 
       } catch (Exception e) {
          System.out.println(e);
+      }finally {
+
+
       }
       return result;
    }
@@ -98,17 +102,10 @@ public class Connection {
 
       } catch (Exception e) {
          e.printStackTrace();
-      }finally {
-
-         stmt.close();
-         conn.close();
       }
-
-
+      // Connection will be closed in each controller where it is invoked;
       return rows;
    }
-
-
 
 }
 
