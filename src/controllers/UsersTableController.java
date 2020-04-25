@@ -76,32 +76,39 @@ public class UsersTableController extends MainController implements Initializabl
     void editEmailOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
         UserData userData = table.getSelectionModel().getSelectedItem();
         userData.setEmail(userDataStringCellEditEvent.getNewValue());
+        UserData getCellContent = table.getSelectionModel().getSelectedItem();
+        String email = getCellContent.getEmail();
+        int id = getCellContent.getId();
+        String query = "UPDATE Users SET email = '"+email+"'WHERE id = '"+id+"' ";
+
+        executeQueryUpdate(query);
     }
 
     @FXML
-        // This method is to enable editing of the cell individually
+        // This method is to enable editing of the cell lastname on Enter key
     void editLastnameOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
         UserData userData = table.getSelectionModel().getSelectedItem();
         userData.setLastname(userDataStringCellEditEvent.getNewValue());
+        UserData getCellContent = table.getSelectionModel().getSelectedItem();
+        String lastname = getCellContent.getLastname();
+        String email = getCellContent.getEmail();
+        String query = "UPDATE Users SET lastname = '"+lastname+"'WHERE email = '"+email+"' ";
+
+        executeQueryUpdate(query);
 
     }
 //******************************************************************
     @FXML
-        // This method is to enable editing of the cell individually
+        // This method is to enable editing of the cell firstname on Enter key
     void editNameOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
         UserData userData = table.getSelectionModel().getSelectedItem();
         userData.setFirstname(userDataStringCellEditEvent.getNewValue());
-        System.out.println(userDataStringCellEditEvent.getNewValue());
         UserData getCellContent = table.getSelectionModel().getSelectedItem();
+        String firstname = getCellContent.getFirstname();
+        String email = getCellContent.getEmail();
+        String query = "UPDATE Users SET firstname = '"+firstname+"'WHERE email = '"+email+"' ";
 
-        System.out.println(getCellContent.getLastname());
-        System.out.println(getCellContent.getEmail());
-//                ******************************************************
-//                ********************************************************
-
-//        executeQueryUpdate();
-
-
+       executeQueryUpdate(query);
 
     }
 
@@ -129,18 +136,15 @@ public class UsersTableController extends MainController implements Initializabl
         }else{
              row  = connection.updateOrDelete(addQuery);
         }
+        
+            if(row > 0){
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                viewFactory.closeStage(stage);
+                viewFactory.showUsersWindow();
 
-
-
-
-        if(row > 0){
-            Stage stage = (Stage) deleteButton.getScene().getWindow();
-            viewFactory.closeStage(stage);
-            viewFactory.showUsersWindow();
-
-        }else{
-            viewFactory.showActionConfirmation();
-        }
+            }else{
+                viewFactory.showActionConfirmation();
+            }
 
     }
 
