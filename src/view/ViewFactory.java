@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class ViewFactory{
         MainController controller = new LoginController(itemsManager,this, "LoginView.fxml");
         initializeStage(controller);
 
+
+
     }
 
 
@@ -59,6 +62,11 @@ public class ViewFactory{
         MainController controller = new ActionConfirmationController(itemsManager,this, "actionConfirmation.fxml");
         initializeStage(controller);
     }
+    public void showCustomerList() {
+        MainController controller = new CustomerListController(itemsManager,this, "CustomerListView.fxml");
+        initializeStage(controller);
+
+    }
 
 // this is in charge of creating stage and scenes
     //as every view has to have it.
@@ -76,10 +84,12 @@ public class ViewFactory{
         }
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         scene.getStylesheets().add("styles/myStyles.css");
         stage.show();
         activeStages.add(stage);
+
     }
 
 

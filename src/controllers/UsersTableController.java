@@ -136,7 +136,7 @@ public class UsersTableController extends MainController implements Initializabl
         }else{
              row  = connection.updateOrDelete(addQuery);
         }
-        
+
             if(row > 0){
                 Stage stage = (Stage) deleteButton.getScene().getWindow();
                 viewFactory.closeStage(stage);

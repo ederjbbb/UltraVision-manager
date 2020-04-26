@@ -26,7 +26,10 @@ public class LoginController extends MainController {
         public LoginController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
                 super(itemsManager, viewFactory, fxmlName);
                 dataList = new ArrayList<String>();
+
         }
+
+
 
 
 
@@ -56,11 +59,14 @@ public class LoginController extends MainController {
                 String password = passwordField.getText();
                 user = new User(email, password);
 
-                ResultSet data = connection.getConnection(query);
+                ResultSet data = connection.getConnection(query);// This line receives the result from method
+                                                                    // in the model connection
 
 
 
                 while(data.next()){
+                    //This one will loop over the db and get all of the passwords and emails to compare
+                    // with the object email and password
                         dataList.add(data.getString("email"));
                         dataList.add(data.getString("password"));
                 }
@@ -68,6 +74,7 @@ public class LoginController extends MainController {
                         viewFactory.showMainWindow();
                 }else{
                     viewFactory.showNotFound();
+                    //in case there is no match , popupwindow
                 }
 
 
@@ -80,13 +87,10 @@ public class LoginController extends MainController {
                 Stage stage = (Stage)labelborder.getScene().getWindow();
                 viewFactory.closeStage(stage);
         }
-//This methos is called when the user click on forgot password
+            //This methos is called when the user click on forgot password
          @FXML
         void passwordRecover() throws SQLException {
-
-
              EmailChecker emailChecker = new EmailChecker(textField.getText());
-
              if (emailChecker.isEmail(textField.getText())){
                  EmailChecker.EmailSender emailSender = emailChecker.new EmailSender(textField.getText());
                 emailSender.sendMessage();
