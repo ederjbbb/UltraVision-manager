@@ -20,18 +20,19 @@
       </ImageView>
       <TableView layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
         <columns>
-          <TableColumn fx:id="con_name" prefWidth="119.0" text="Name" />
-          <TableColumn fx:id="col_lastname" prefWidth="129.0" text="Last Name" />
-            <TableColumn fx:id="col_email" prefWidth="236.0" text="Email" />
-            <TableColumn fx:id="col_address" prefWidth="326.0" text="Address" />
-            <TableColumn fx:id="col_membership" prefWidth="114.0" text="Membership Nº" />
+          <TableColumn fx:id="con_name" prefWidth="91.0" text="Name" />
+          <TableColumn fx:id="col_lastname" prefWidth="121.0" text="Last Name" />
+            <TableColumn fx:id="col_email" prefWidth="218.0" text="Email" />
+            <TableColumn fx:id="col_address" prefWidth="207.0" text="Address" />
+            <TableColumn fx:id="col_membership" prefWidth="138.0" text="Membership Nº" />
+            <TableColumn fx:id="col_membership1" prefWidth="150.0" text="C./D.Card Number" />
         </columns>
       </TableView>
       <TextField fx:id="firstnameField" layoutX="26.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="First Name" styleClass="textF" />
       <TextField layoutX="249.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Last name" styleClass="textF" />
       <TextField layoutX="486.0" layoutY="54.0" prefHeight="27.0" prefWidth="132.0" promptText="E-mail" styleClass="textF" />
       <TextField layoutX="486.0" layoutY="91.0" prefHeight="27.0" prefWidth="132.0" promptText="Address" styleClass="textF" />
-      <Button layoutX="652.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="187.0" styleClass="free" text="Add Customer">
+      <Button layoutX="652.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="187.0" styleClass="lightgreen" text="Add Customer">
          <font>
             <Font size="9.0" />
          </font></Button>
