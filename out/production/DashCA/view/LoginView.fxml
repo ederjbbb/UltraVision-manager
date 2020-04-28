@@ -12,7 +12,7 @@
 <AnchorPane fx:id="Loginwindow" opacity="0.98" prefHeight="389.0" prefWidth="600.0" styleClass="mainWindow" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="labelWindow" layoutX="-2.0" layoutY="-2.0" prefHeight="400.0" prefWidth="600.0" />
-      <ImageView fx:id="imageWindow" fitHeight="408.0" fitWidth="600.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" styleClass="imageWindow">
+      <ImageView fx:id="imageWindow" fitHeight="408.0" fitWidth="600.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" styleClass="imageWindow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@back2.png" />
          </image>
@@ -33,7 +33,7 @@
          </image>
       </ImageView>
       <Label layoutX="164.0" layoutY="239.0" prefHeight="61.0" prefWidth="65.0" />
-      <ImageView fitHeight="46.0" fitWidth="48.0" layoutX="183.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="46.0" fitWidth="48.0" layoutX="183.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="0.0">
          <image>
             <Image url="@keyicon.png" />
          </image>

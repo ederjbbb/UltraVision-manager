@@ -1,7 +1,6 @@
 package controllers;
 
 import classManagers.ItemsManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,31 +9,33 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Connection;
 import models.EmailChecker;
-import userAndCustomer.User;
+import models.User;
 import view.ViewFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LoginController extends MainController {
+public class LoginController extends MainController  {
 
         User user ;
         private ArrayList dataList ;
         Connection connection;
+        ResultSet data;
+        private String email;
         private String query = "SELECT email,password FROM Users;";
         public LoginController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
                 super(itemsManager, viewFactory, fxmlName);
                 dataList = new ArrayList<String>();
 
         }
+    String name22;
 
+    public String getEmail() {
+        return email;
+    }
 
-
-
-
-
-        @FXML
+    @FXML
         private Label labelborder;
 
         @FXML
@@ -44,22 +45,25 @@ public class LoginController extends MainController {
         private TextField textField;
 
 
-        @FXML
+
+    @FXML
         private Button loginButton;
         @FXML
         private TextField errorLabel;
 
         @FXML
 
-         void loginActionButton(ActionEvent actionEvent) throws SQLException {
+         void loginActionButton() throws SQLException {
                 connection = new Connection();
                  // NEED TO BE VALIDATED
                 //  NEED TO CHECKED
-                String email = textField.getText();
+                email = textField.getText();
                 String password = passwordField.getText();
                 user = new User(email, password);
 
-                ResultSet data = connection.getConnection(query);// This line receives the result from method
+
+
+                data = connection.getConnection(query);// This line receives the result from method
                                                                     // in the model connection
 
 
@@ -72,6 +76,7 @@ public class LoginController extends MainController {
                 }
                 if(dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())){
                         viewFactory.showMainWindow();
+
                 }else{
                     viewFactory.showNotFound();
                     //in case there is no match , popupwindow
@@ -81,7 +86,14 @@ public class LoginController extends MainController {
                 Stage stage = (Stage)labelborder.getScene().getWindow();
                 viewFactory.closeStage(stage);
         }
-        @FXML
+
+    public String returnEmail() {
+
+            return name22;
+
+    }
+
+    @FXML
         void loginWindowExit(){
             // for the exit button , exit on click
                 Stage stage = (Stage)labelborder.getScene().getWindow();
@@ -100,14 +112,8 @@ public class LoginController extends MainController {
              }
 
 
-
-
-
-
-
-
-
         }
+
 
 
 

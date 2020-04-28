@@ -22,4 +22,5 @@ public class ActionConfirmationController extends MainController {
         viewFactory.closeStage(stage);
 
     }
+
 }

@@ -4,7 +4,7 @@ package models;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class UserData {
+public class UserData extends User{
 
     private SimpleStringProperty firstname;
     private  SimpleStringProperty lastname;
@@ -22,6 +22,11 @@ public class UserData {
 
 
     }
+    public UserData(){
+
+    }
+
+
 
 
     public void setFirstname(String firstname) {

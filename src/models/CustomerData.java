@@ -1,38 +1,45 @@
 package models;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class CustomerData {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Random;
 
+public class CustomerData {
 
 
     private SimpleStringProperty firstName;
     private  SimpleStringProperty lastName;
     private  SimpleStringProperty email;
     private  SimpleStringProperty address;
-    private SimpleIntegerProperty membershipNumber;
-    private SimpleIntegerProperty cardNumber;
-
-    public CustomerData(SimpleStringProperty firstName,
-                        SimpleStringProperty lastName, SimpleStringProperty email,
-                        SimpleStringProperty address, SimpleIntegerProperty membershipNumber,
-                        SimpleIntegerProperty cardNumber) {
+    private SimpleStringProperty membershipNumber;
+    private SimpleStringProperty cardNumber;
 
 
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.membershipNumber = membershipNumber;
-        this.cardNumber = cardNumber;
+
+
+    public CustomerData(String firstName, String lastName, String email, String address, String membershipNumber, String cardNumber) {
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.email = new SimpleStringProperty(email);
+        this.address = new SimpleStringProperty(address);
+        this.membershipNumber = new SimpleStringProperty(membershipNumber);
+        this.cardNumber = new SimpleStringProperty(cardNumber);
+
+
+    }
+    public CustomerData(){
+
     }
 
     public String getFirstName() {
         return firstName.get();
     }
 
-  
+    public SimpleStringProperty firstNameProperty() {
+        return firstName;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
@@ -42,8 +49,9 @@ public class CustomerData {
         return lastName.get();
     }
 
-
-
+    public SimpleStringProperty lastNameProperty() {
+        return lastName;
+    }
 
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
@@ -53,7 +61,9 @@ public class CustomerData {
         return email.get();
     }
 
-
+    public SimpleStringProperty emailProperty() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email.set(email);
@@ -63,30 +73,86 @@ public class CustomerData {
         return address.get();
     }
 
-
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
 
     public void setAddress(String address) {
         this.address.set(address);
     }
 
-    public int getMembershipNumber() {
+    public String getMembershipNumber() {
         return membershipNumber.get();
     }
 
+    public SimpleStringProperty membershipNumberProperty() {
+        return membershipNumber;
+    }
 
-
-    public void setMembershipNumber(int membershipNumber) {
+    public void setMembershipNumber(String membershipNumber) {
         this.membershipNumber.set(membershipNumber);
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber.get();
     }
 
+    public SimpleStringProperty cardNumberProperty() {
+        return cardNumber;
+    }
 
-
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber.set(cardNumber);
     }
+
+    //Inner class for LoyaltyCard  , since this clas is only relevante to the customer class
+    class LoyaltyCard{
+        private String  loyaltyMembershipNumber;
+        private int  points;
+
+
+
+    // This method generates random numbers for each costumer registered .
+        // if the number exists in database , then method is called again
+        String carNumbergenertor() throws SQLException {
+
+
+            Random rnd = new Random();
+            String neWnumber =  Integer.toString(10000000 +rnd.nextInt(90000000));
+
+            String query = "SELECT * FROM Customers WHERE '" + neWnumber + "' = membershipNumber;";
+            Connection conn = new Connection();
+
+            try {
+                ResultSet data = conn.getConnection(query);
+                if (neWnumber != (data.getString("membershipNumber"))) {
+                    return neWnumber;
+                } else {
+                    return null;
+                }
+
+            } catch (SQLException e) {
+                e.getMessage();
+
+
+            }finally {
+
+                return neWnumber;
+            }
+
+
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
 

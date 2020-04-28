@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import models.Connection;
+import models.User;
 import models.UserData;
 import view.ViewFactory;
 
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 
 public class UsersTableController extends MainController implements Initializable {
         private String query;
+        User user;
+        MainWindowController mc = new MainWindowController();
 
         private Connection conn = null;
         private Connection connection = new Connection();
@@ -30,7 +33,15 @@ public class UsersTableController extends MainController implements Initializabl
     public UsersTableController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
 
+
     }
+    public UsersTableController (){
+
+    }
+
+
+    @FXML
+    private Label timelabel;
     @FXML
     private TextField firstnameField;
 
@@ -70,6 +81,7 @@ public class UsersTableController extends MainController implements Initializabl
     @FXML
     private TableColumn<UserData, CheckBox> col_select;
 
+
 // ALL THIS THREE METHODS TO BE REVISED IF POSSIBLE **REMINDER**  ******************************
     @FXML
         // This method is to enable editing of the cell individually
@@ -85,6 +97,7 @@ public class UsersTableController extends MainController implements Initializabl
     }
 
     @FXML
+
         // This method is to enable editing of the cell lastname on Enter key
     void editLastnameOnClick(TableColumn.CellEditEvent<UserData, String> userDataStringCellEditEvent) {
         UserData userData = table.getSelectionModel().getSelectedItem();
@@ -97,6 +110,7 @@ public class UsersTableController extends MainController implements Initializabl
         executeQueryUpdate(query);
 
     }
+
 //******************************************************************
     @FXML
         // This method is to enable editing of the cell firstname on Enter key
@@ -114,7 +128,7 @@ public class UsersTableController extends MainController implements Initializabl
 
 
     @FXML
-    void goBackOnClick(){
+    void goBackOnClick() throws SQLException {
         viewFactory.showMainWindow();
         Stage stage = (Stage)deleteButton.getScene().getWindow();
         viewFactory.closeStage(stage);
@@ -176,11 +190,16 @@ public class UsersTableController extends MainController implements Initializabl
             e.getMessage();
         }
     }
+    private void currentTime() {
+       mc.getCurrentTime(timelabel);
+    }
+
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        currentTime();
         try {
 
             populateTable();

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 // This class acts as a kind of controller , but jus to generate, call all views , and then the controllers
@@ -40,7 +41,7 @@ public class ViewFactory{
     }
 
 
-    public void showMainWindow(){
+    public void showMainWindow() throws SQLException {
 
 //        Here the MainController with other controller that extends maincontroller
         // This way the controller can have access to the views as

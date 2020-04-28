@@ -8,9 +8,7 @@ module DashCA {
     requires java.mail;
 
     requires java.sql;
-
-
-
+    requires java.desktop;
 
 
     opens view.images;

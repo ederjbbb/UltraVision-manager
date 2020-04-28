@@ -1,19 +1,26 @@
-package userAndCustomer;
+package models;
 
 public class User {
     private String name;
     private String lastname;
     private String email;
-    private String Id;
+    private int Id;
     private String password;
 
-    public User( String email, String password) {
+
+    public User(String email, String password) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.Id = Id;
         this.password = password;
+
     }
+    public User(){
+
+    }
+
+
 
     public String getName() {
         return name;
@@ -27,7 +34,7 @@ public class User {
         return email;
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
@@ -47,7 +54,7 @@ public class User {
         this.email = email;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 

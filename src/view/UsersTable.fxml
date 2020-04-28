@@ -10,15 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="521.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="507.0" fitWidth="993.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="507.0" fitWidth="993.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/color.jpg" />
          </image>
       </ImageView>
       <Button fx:id="deleteButton" layoutX="620.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="27.0" prefWidth="144.0" styleClass="danger" text="Delete" />
-      <Label layoutX="5.0" layoutY="5.0" prefHeight="27.0" prefWidth="177.0" text="User" />
       <Label layoutX="194.0" layoutY="5.0" prefHeight="27.0" prefWidth="177.0" text="Date" />
       <Button fx:id="goBackButton" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" onAction="#goBackOnClick" text="Go back" />
       <Button fx:id="exit" layoutX="871.0" layoutY="105.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="27.0" prefWidth="69.0" text="Exit" textFill="#f80101" />
@@ -42,6 +41,11 @@
       <Label layoutX="46.0" layoutY="110.0" prefHeight="17.0" prefWidth="262.0" text="User Control" textFill="#011b07">
          <font>
             <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="timelabel" layoutX="762.0" layoutY="8.0" prefHeight="27.0" prefWidth="218.0" styleClass="textF" textFill="#fcfafa">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
    </children>

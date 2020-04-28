@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="507.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="-1.0" prefHeight="492.0" prefWidth="806.0" />
-      <ImageView fitHeight="508.0" fitWidth="1065.0" layoutX="-54.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="492.0" fitWidth="903.0" layoutX="9.0" layoutY="7.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/color.jpg" />
+            <Image url="@images/color2.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="customerDash" layoutX="312.0" layoutY="47.0" mnemonicParsing="false" prefHeight="197.0" prefWidth="302.0">
+      <Button fx:id="customerDash" layoutX="312.0" layoutY="47.0" mnemonicParsing="false" onAction="#customerPanel" prefHeight="197.0" prefWidth="302.0">
          <graphic>
             <ImageView fitHeight="118.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -86,6 +86,17 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <Label fx:id="timeLabel" layoutX="654.0" layoutY="6.0" prefHeight="33.0" prefWidth="263.0" styleClass="textF" textFill="#140101">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userloggedLabel" layoutX="2.0" layoutY="2.0" prefHeight="26.0" prefWidth="263.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="loggedLabel" layoutX="16.0" layoutY="11.0" prefHeight="26.0" prefWidth="414.0" styleClass="textF" text="Logged as : " />
      
 
 

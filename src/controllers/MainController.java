@@ -10,13 +10,16 @@ public abstract class MainController {
     private String fxmlName;
 
 
+
     public MainController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         this.itemsManager = itemsManager;
         this.viewFactory = viewFactory;
         this.fxmlName = fxmlName;
     }
 
+    public MainController() {
 
+    }
 
 
     public  String getFxmlName()
