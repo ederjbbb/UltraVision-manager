@@ -35,6 +35,17 @@ Login stylesheet beginshere
 -fx-effect: dropshadow( one-pass-box , black , 15 , 0.0 , 10 , 0 );
 
 }
+.transparent{
+
+-fx-border-radius: 55%;
+}
+.transparent:hoverover{
+-fx-border-color: #0040ff ;
+-fx-border-color:black;
+    -fx-border-width: 2 ;
+
+
+}
 
 .button{
 

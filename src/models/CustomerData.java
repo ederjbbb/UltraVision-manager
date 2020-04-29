@@ -105,6 +105,14 @@ public class CustomerData {
         this.cardNumber.set(cardNumber);
     }
 
+
+    public String getLoyaltyCardNumber() throws SQLException {
+        String  neWnumber ;
+        LoyaltyCard loyaltyCardExportMode = new LoyaltyCard();
+        neWnumber = loyaltyCardExportMode.cardNumberGenertor();
+        return neWnumber;
+    }
+
     //Inner class for LoyaltyCard  , since this clas is only relevante to the customer class
     class LoyaltyCard{
         private String  loyaltyMembershipNumber;
@@ -114,7 +122,7 @@ public class CustomerData {
 
     // This method generates random numbers for each costumer registered .
         // if the number exists in database , then method is called again
-        String carNumbergenertor() throws SQLException {
+        String cardNumberGenertor() throws SQLException {
 
 
             Random rnd = new Random();

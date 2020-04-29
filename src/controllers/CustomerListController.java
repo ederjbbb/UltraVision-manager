@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
 public class CustomerListController extends MainController implements Initializable {
 
 
@@ -41,6 +42,7 @@ public class CustomerListController extends MainController implements Initializa
     private Label timeLable;
     @FXML
     private TextField firstnameField;
+
 
     @FXML
     private TableView<CustomerData> table;
@@ -70,6 +72,8 @@ public class CustomerListController extends MainController implements Initializa
     @FXML
     private Button deleteButton;
     @FXML
+    private Button generatorButton;
+    @FXML
     private ChoiceBox<?> memberChoices;
 
     @FXML
@@ -79,6 +83,20 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     void deleteOnClick(ActionEvent event) {
+
+    }
+    @FXML
+    private TextField memberNumber;
+    @FXML
+    void generateNumberOnClick(ActionEvent event) throws SQLException {
+        /*This method is to create an object of class CustomerData, that has it's inner class LoyaltyCard
+        Loyalty card has a method that generates car numbers , then after outer class access the method
+        this method access the same method through the outer class and returns the numbers generated randomly
+        and the number has already been checked on DB by the inner class called LoyaltyCard.
+        * */
+       CustomerData customerData = new CustomerData();
+        memberNumber.setText(customerData.getLoyaltyCardNumber());
+
 
     }
     @FXML
