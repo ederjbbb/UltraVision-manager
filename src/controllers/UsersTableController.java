@@ -261,20 +261,20 @@ public class UsersTableController extends MainController implements Initializabl
         @FXML
         void deleteRow(ActionEvent event) {
 
-            // This method will get action clicked from fxml view and delete the row selected on the view
+            // This method will get action clicked from fxml view and delete the row selected
             // then, get id and delete from data base.
 
             UserData userData = table.getSelectionModel().getSelectedItem();// used to delete from view only
-            int rowsAffected = 0;
-            int id = userData.getId();
+            int rowsAffected = 0;// used to track if any row was affected in DB
+            int id = userData.getId(); // get the id fromtable view through object userData above
             String query = "DELETE FROM Users WHERE id ="+id;
             try{
                 rowsAffected = connection.updateOrDelete(query);
-                System.out.println("row" +rowsAffected+ "id deleted = " + id);
+
             }catch (SQLException e){
                 e.getMessage();
             }
-            table.getItems().removeAll(table.getSelectionModel().getSelectedItem());
+            table.getItems().removeAll(table.getSelectionModel().getSelectedItem());// updade table view
             if(rowsAffected > 0){
 
             }

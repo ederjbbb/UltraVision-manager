@@ -1,5 +1,6 @@
 package models;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.util.Random;
 
 public class CustomerData {
 
-
+    private SimpleIntegerProperty id;
     private SimpleStringProperty firstName;
     private  SimpleStringProperty lastName;
     private  SimpleStringProperty email;
@@ -21,8 +22,9 @@ public class CustomerData {
 
 
 
-    public CustomerData(String firstName, String lastName, String email, String address,
+    public CustomerData(int id , String firstName, String lastName, String email, String address,
                         String membershipNumber, String cardNumber,String category) {
+        this.id = new SimpleIntegerProperty(id);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.email = new SimpleStringProperty(email);
@@ -38,7 +40,15 @@ public class CustomerData {
         return category.get();
     }
 
+    public int getId() {
+        return id.get();
+    }
 
+
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
 
     public void setCategory(String category) {
         this.category.set(category);
@@ -123,6 +133,8 @@ public class CustomerData {
 
     public String getLoyaltyCardNumber() throws SQLException {
           // getting number form LoyaltyCard class
+         //  loyalty class has method to generate cardnumber
+        // this methed gets the number and pass to controller that then passes to view
         LoyaltyCard loyaltyCardExportMode = new LoyaltyCard();
         neWnumberForCustomerRegistration  = loyaltyCardExportMode.cardNumberGenertor();
         return neWnumberForCustomerRegistration ;

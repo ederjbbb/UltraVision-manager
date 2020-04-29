@@ -4,6 +4,8 @@ import classManagers.ItemsManager;
 import enums.MemberCategories;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Connection;
 import models.CustomerData;
@@ -24,18 +27,19 @@ import java.util.ResourceBundle;
 
 public class CustomerListController extends MainController implements Initializable {
 
-
+    private ObservableList<CustomerData> dbDataList;// observable list used to populate table
+                                        // andfor the search field
+     private ResultSet data ; // used in method populateTable
     MainWindowController mc = new MainWindowController();
     UsersTableController uc = new UsersTableController();
     CustomerData userDataObject = null;
     MemberCategories categories[] = MemberCategories.values();
 
 
-
-
     // this tlis is to get a list of enums for populating the field of categories
     private ObservableList categories1List = FXCollections.observableArrayList(categories[0].getValue(), categories[1].getValue(), categories[2].getValue(), categories[3].getValue());
-
+    private CustomerData customerDataObject; // used to create the object , get data and insert in table
+                                            // used as well for searching in method searchOnClick
     public CustomerListController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
 
@@ -71,6 +75,8 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private Label timeLable;
+    @FXML
+    private TextField searchField;
 
     @FXML
     private ChoiceBox<?> memberChoices;
@@ -84,6 +90,8 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private TableView<CustomerData> table;
+    @FXML
+    private TableColumn<CustomerData, Integer> col_id;
 
     @FXML
     private TableColumn<CustomerData, String> col_name;
@@ -112,6 +120,45 @@ public class CustomerListController extends MainController implements Initializa
 
     }
 
+    @FXML
+    void searchOnKeyTyped(KeyEvent keyEvent) throws SQLException {
+///888dfd**********************
+        FilteredList<CustomerData> filterData = new FilteredList<>(dbDataList, p -> true);
+        searchField.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(cus -> {
+
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (cus.getLastName().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+                if (cus.getLastName().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+                if (cus.getEmail().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+
+                return false;
+            });
+            SortedList<CustomerData> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedList);
+
+
+        });
+
+    }
+
+
+
+
+
+
     private void setCategories() {
         // This method get enums from enums.MemberCaategories adn create a list
         //using a observableList , it is an arraylist.
@@ -131,17 +178,6 @@ public class CustomerListController extends MainController implements Initializa
         }
     }
 
-    private void clearFields() {
-        // Method to clear all fields after use
-//        firstnameField.clear();
-//        lastnameField.clear();
-//        emailField.clear();
-//        addressField.clear();
-//        creditCardField.clear();
-//        memberNumberField.clear();
-
-    }
-
 
     @FXML
     void addOnClick(ActionEvent event) throws SQLException {
@@ -152,9 +188,9 @@ public class CustomerListController extends MainController implements Initializa
             viewFactory.showActionConfirmation();
         } else {
 
-            String addQuery = "INSERT INTO Users (firstname , lastname , email , address, card_number, membershipNumber, category_plan) "
+            String addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
                     + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
-                    +addressField.getText() +"', '"+ creditCardField.getText()+"','"+memberNumberField.getText()+"' ,'"+category+"');";
+                    + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
             System.out.println(addQuery);
             row = connection.updateOrDelete(addQuery);
 
@@ -167,7 +203,7 @@ public class CustomerListController extends MainController implements Initializa
                 viewFactory.showActionConfirmation();
             }
 
-            clearFields();
+
         }
         //******************************************************************************************************
 
@@ -175,12 +211,35 @@ public class CustomerListController extends MainController implements Initializa
     }
 
 
-
-
     @FXML
     void deleteOnClick(ActionEvent event) {
+        // This method is in charge of deleting row fromdata base and row from view
+
+
+        Connection connection = new Connection();
+
+        CustomerData customerData = table.getSelectionModel().getSelectedItem();// used to delete from view only
+        int rowsAffected = 0; // is used to track if row was deleted in DB
+        int id = customerData.getId(); // gets
+        String query = "DELETE FROM Customers WHERE customer_id =" + id; // this line uses id from view for query.
+        try {
+            rowsAffected = connection.updateOrDelete(query); // this catches the row affected
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        table.getItems().removeAll(table.getSelectionModel().getSelectedItem());// this line updates the table view
+                                                                                // by removing the selected row
+        if (rowsAffected > 0) {
+            // this was used for test
+
+        }
+
 
     }
+
+    //*******************************************************************************
+
 
     @FXML
     void generateNumberOnClick(ActionEvent event) throws SQLException {
@@ -214,10 +273,12 @@ public class CustomerListController extends MainController implements Initializa
         setCategories(); // set categories in the dropdown.
         try {
             populateTable();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         currentTime();
+
     }
         // Get time from MainWindowController(Dashboard) / / avoiding code repeat
     private void currentTime() {
@@ -233,7 +294,7 @@ public class CustomerListController extends MainController implements Initializa
         Connection connection = new Connection();
 
         String query = "select * from Customers";
-        ResultSet data ;
+
 
 
 
@@ -248,6 +309,7 @@ public class CustomerListController extends MainController implements Initializa
 
             // looping over the result from DB to retreive data
             while(data.next()) {
+                int id = data.getInt("customer_id");
                 String firstname = data.getString("firstname");
                 String lastname = data.getString("lastname");
                 String email = data.getString("email");
@@ -262,8 +324,8 @@ public class CustomerListController extends MainController implements Initializa
 
 
 
-                // Creates object
-                CustomerData customerDataObject = new CustomerData(firstname, lastname, email, address, card, membershipNumber,category);
+                // Creates object, object vaiablein up in the class scope
+                customerDataObject = new CustomerData(id,firstname, lastname, email, address, card, membershipNumber,category);
                 dbDataList.add(customerDataObject);
 
 
@@ -277,6 +339,7 @@ public class CustomerListController extends MainController implements Initializa
 
         }
         // set properties to each cell on the tableview
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         col_lastname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
