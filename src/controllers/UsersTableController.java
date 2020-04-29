@@ -143,6 +143,7 @@ public class UsersTableController extends MainController implements Initializabl
     @FXML
     void addOnClick() throws SQLException {
         String addQuery = "INSERT INTO Users (firstname , lastname , email , password) values ('"+firstnameField.getText()+"','"+lasnameField.getText()+"','"+emailField.getText()+"','"+passwordField.getText()+"');";
+        System.out.println(addQuery);
         int row = 0;
         if(firstnameField.getText().isEmpty() || lasnameField.getText().isEmpty() ||
                 emailField.getText().isEmpty() || passwordField.getText().isEmpty()){

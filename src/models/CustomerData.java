@@ -16,20 +16,34 @@ public class CustomerData {
     private SimpleStringProperty membershipNumber;
     private SimpleStringProperty cardNumber;
     private String neWnumberForCustomerRegistration;
+    private SimpleStringProperty category;
 
 
 
 
-    public CustomerData(String firstName, String lastName, String email, String address, String membershipNumber, String cardNumber) {
+    public CustomerData(String firstName, String lastName, String email, String address,
+                        String membershipNumber, String cardNumber,String category) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.email = new SimpleStringProperty(email);
         this.address = new SimpleStringProperty(address);
         this.membershipNumber = new SimpleStringProperty(membershipNumber);
         this.cardNumber = new SimpleStringProperty(cardNumber);
+        this.category = new SimpleStringProperty(category);
 
 
     }
+
+    public String getCategory() {
+        return category.get();
+    }
+
+
+
+    public void setCategory(String category) {
+        this.category.set(category);
+    }
+
     public CustomerData(){
 
     }

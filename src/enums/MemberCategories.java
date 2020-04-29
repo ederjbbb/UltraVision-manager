@@ -2,11 +2,19 @@ package enums;
 
 public enum MemberCategories {
 
-        MUSIC,
-        LIVE_C_VIDEOS,
-        MOVIES,
-        BOX_SET
+        MUSIC("Music"),
+        LIVE_C_VIDEOS("Live Concerts"),
+        MOVIES("Movies"),
+        BOX_SET("Box Set");
 
+        String value;
+        MemberCategories(String value) {
+                this.value = value;
+        }
 
-
+        public String getValue() {
+                return value;
+        }
 }
+
+

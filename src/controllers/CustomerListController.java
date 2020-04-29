@@ -1,6 +1,7 @@
 package controllers;
 
 import classManagers.ItemsManager;
+import enums.MemberCategories;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.DragEvent;
 import javafx.stage.Stage;
 import models.Connection;
 import models.CustomerData;
@@ -23,25 +25,61 @@ import java.util.ResourceBundle;
 public class CustomerListController extends MainController implements Initializable {
 
 
-    MainWindowController mc =new MainWindowController();
+    MainWindowController mc = new MainWindowController();
     UsersTableController uc = new UsersTableController();
     CustomerData userDataObject = null;
+    MemberCategories categories[] = MemberCategories.values();
 
+
+
+
+    // this tlis is to get a list of enums for populating the field of categories
+    private ObservableList categories1List = FXCollections.observableArrayList(categories[0].getValue(), categories[1].getValue(), categories[2].getValue(), categories[3].getValue());
 
     public CustomerListController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
 
-
     }
 
 
+    @FXML
+    private TextField firstnameField;
 
+    @FXML
+    private TextField lastnameField;
 
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField addressField;
+
+    @FXML
+    private Button goBackButton;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private TextField memberNumberField;
+
+    @FXML
+    private TextField creditCardField;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private Label timeLable;
+
     @FXML
-    private TextField firstnameField;
+    private ChoiceBox<?> memberChoices;
+
+    @FXML
+    private Label tlabel;
+
+    @FXML
+    private Button generatorButton;
 
 
     @FXML
@@ -52,6 +90,8 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private TableColumn<CustomerData, String> col_lastname;
+    @FXML
+    private TableColumn<CustomerData, String> col_category;
 
     @FXML
     private TableColumn<CustomerData, String> col_email;
@@ -64,29 +104,84 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private TableColumn<CustomerData, String> col_creditCard;
+    String category;
 
 
     @FXML
-    private Button goBackButton;
-
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button generatorButton;
-    @FXML
-    private ChoiceBox<?> memberChoices;
-
-    @FXML
-    void addOnClick(ActionEvent event) {
+    void chooseMembership(DragEvent event) {
 
     }
+
+    private void setCategories() {
+        // This method get enums from enums.MemberCaategories adn create a list
+        //using a observableList , it is an arraylist.
+        memberChoices.setItems(categories1List);
+    }
+
+    private boolean isEmptyField() {
+        // This method checks fors empty fields
+        if (firstnameField.getText().isEmpty() || lastnameField.getText().isEmpty() ||
+                emailField.getText().isEmpty() || creditCardField.getText().isEmpty() || addressField.getText().isEmpty()
+                || memberNumberField.getText().isEmpty() || category.isEmpty()) {
+
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    private void clearFields() {
+        // Method to clear all fields after use
+//        firstnameField.clear();
+//        lastnameField.clear();
+//        emailField.clear();
+//        addressField.clear();
+//        creditCardField.clear();
+//        memberNumberField.clear();
+
+    }
+
+
+    @FXML
+    void addOnClick(ActionEvent event) throws SQLException {
+        Connection connection = new Connection();
+        int row = 0;
+        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
+        if (isEmptyField()) {
+            viewFactory.showActionConfirmation();
+        } else {
+
+            String addQuery = "INSERT INTO Users (firstname , lastname , email , address, card_number, membershipNumber, category_plan) "
+                    + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
+                    +addressField.getText() +"', '"+ creditCardField.getText()+"','"+memberNumberField.getText()+"' ,'"+category+"');";
+            System.out.println(addQuery);
+            row = connection.updateOrDelete(addQuery);
+
+            if (row > 0) {
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                viewFactory.closeStage(stage);
+                viewFactory.showCustomerList();
+
+            } else {
+                viewFactory.showActionConfirmation();
+            }
+
+            clearFields();
+        }
+        //******************************************************************************************************
+
+
+    }
+
+
+
 
     @FXML
     void deleteOnClick(ActionEvent event) {
 
     }
-    @FXML
-    private TextField memberNumber;
+
     @FXML
     void generateNumberOnClick(ActionEvent event) throws SQLException {
         /*This method is to create an object of class CustomerData, that has it's inner class LoyaltyCard
@@ -95,7 +190,7 @@ public class CustomerListController extends MainController implements Initializa
         and the number has already been checked on DB by the inner class called LoyaltyCard.
         * */
        CustomerData customerData = new CustomerData();
-        memberNumber.setText(customerData.getLoyaltyCardNumber());
+        memberNumberField.setText(customerData.getLoyaltyCardNumber());
 
 
     }
@@ -107,13 +202,6 @@ public class CustomerListController extends MainController implements Initializa
     }
 
     @FXML
-    private Label tlabel;
-
-
-
-
-
-    @FXML
     void goBackOnClick(ActionEvent event) throws SQLException {
 
         viewFactory.showMainWindow();
@@ -123,7 +211,7 @@ public class CustomerListController extends MainController implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setCategories(); // set categories in the dropdown.
         try {
             populateTable();
         } catch (SQLException throwables) {
@@ -166,14 +254,18 @@ public class CustomerListController extends MainController implements Initializa
                 String address = data.getString("address");
                 String card = data.getString("card_number");
                 String membershipNumber = data.getString("membershipNumber");
+                String category = data.getString("category_plan");
+
+
+
 
 
 
 
                 // Creates object
-                CustomerData customerDataObject = new CustomerData(firstname, lastname, email, address, card, membershipNumber);
+                CustomerData customerDataObject = new CustomerData(firstname, lastname, email, address, card, membershipNumber,category);
                 dbDataList.add(customerDataObject);
-                System.out.println(customerDataObject.getFirstName());
+
 
 
 
@@ -191,20 +283,19 @@ public class CustomerListController extends MainController implements Initializa
         col_address.setCellValueFactory(new PropertyValueFactory<>("address"));
         col_membership.setCellValueFactory(new PropertyValueFactory<>("membershipNumber"));
         col_creditCard.setCellValueFactory(new PropertyValueFactory<>("cardNumber"));
+        col_category.setCellValueFactory(new PropertyValueFactory<>("category"));
 
 
 
         table.setItems(dbDataList);
         // this will set cells to be changed individualy
         table.setEditable(true);
-        col_lastname.setCellFactory(TextFieldTableCell.forTableColumn());
+        col_name.setCellFactory(TextFieldTableCell.forTableColumn());
         col_lastname.setCellFactory(TextFieldTableCell.forTableColumn());
         col_email.setCellFactory(TextFieldTableCell.forTableColumn());
         col_address.setCellFactory(TextFieldTableCell.forTableColumn());
-//        col_membership.setCellFactory(TextFieldTableCell.forTableColumn()); // this can only be changed if costumer
-                                                                            // register again.
         col_creditCard.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        col_category.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
 
