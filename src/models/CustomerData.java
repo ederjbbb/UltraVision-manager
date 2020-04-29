@@ -15,6 +15,7 @@ public class CustomerData {
     private  SimpleStringProperty address;
     private SimpleStringProperty membershipNumber;
     private SimpleStringProperty cardNumber;
+    private String neWnumberForCustomerRegistration;
 
 
 
@@ -107,10 +108,10 @@ public class CustomerData {
 
 
     public String getLoyaltyCardNumber() throws SQLException {
-        String  neWnumber ;
+          // getting number form LoyaltyCard class
         LoyaltyCard loyaltyCardExportMode = new LoyaltyCard();
-        neWnumber = loyaltyCardExportMode.cardNumberGenertor();
-        return neWnumber;
+        neWnumberForCustomerRegistration  = loyaltyCardExportMode.cardNumberGenertor();
+        return neWnumberForCustomerRegistration ;
     }
 
     //Inner class for LoyaltyCard  , since this clas is only relevante to the customer class
