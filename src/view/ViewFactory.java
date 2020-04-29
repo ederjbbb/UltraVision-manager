@@ -63,6 +63,11 @@ public class ViewFactory{
         MainController controller = new ActionConfirmationController(itemsManager,this, "actionConfirmation.fxml");
         initializeStage(controller);
     }
+    public void showEmailSentConfirmation() {
+        MainController controller = new EmailSentController(itemsManager,this, "emailSentConfirmation.fxml");
+        initializeStage(controller);
+    }
+
     public void showCustomerList() {
         MainController controller = new CustomerListController(itemsManager,this, "CustomerListView.fxml");
         initializeStage(controller);

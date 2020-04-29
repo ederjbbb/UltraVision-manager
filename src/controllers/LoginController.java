@@ -83,8 +83,8 @@ public class LoginController extends MainController  {
                 }
 
 
-                Stage stage = (Stage)labelborder.getScene().getWindow();
-                viewFactory.closeStage(stage);
+//                Stage stage = (Stage)labelborder.getScene().getWindow();
+//                viewFactory.closeStage(stage);
         }
 
     public String returnEmail() {
@@ -105,7 +105,10 @@ public class LoginController extends MainController  {
              EmailChecker emailChecker = new EmailChecker(textField.getText());
              if (emailChecker.isEmail(textField.getText())){
                  EmailChecker.EmailSender emailSender = emailChecker.new EmailSender(textField.getText());
-                emailSender.sendMessage();
+                  emailSender.sendMessage();
+                  // if emailSender execute it means email is in the DB and email sent confirmation will be called
+                 // otherwise email not found will b called
+              viewFactory.showEmailSentConfirmation();
 
              }else{
                  viewFactory.showNotFound();

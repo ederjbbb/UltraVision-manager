@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+
 public class EmailChecker {
 
     Connection connection;
@@ -16,6 +17,7 @@ public class EmailChecker {
     ArrayList emails;
     String passwordToSend;
     private String emailQuery = "SELECT * FROM Users";
+    
 
 
     public EmailChecker(String userEmail) {
@@ -72,11 +74,12 @@ public class EmailChecker {
     //====================================================Starts Inner class ================================================================
     // after the class above check if email exists in database , this class EmailSender is to send email twith password to user's email
     public class EmailSender {
-
+        
         final String user = "visionultra199@gmail.com"; // here isthe company email
         final String password = "redeREDE4812";//email password
         // This constructor will take no parameters , it just call the method that will take a recipient parameter(TO)
         private String receiver = null;
+
 
         public EmailSender(String receiver) throws SQLException {
 
@@ -121,10 +124,15 @@ public class EmailChecker {
 
 
 
+
                 //send the message
                 Transport.send(message);
 
-                System.out.println("message sent successfully...");
+                System.out.println("sent");
+
+
+
+
 
             } catch (MessagingException e) {
                 e.printStackTrace();

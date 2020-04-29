@@ -7,21 +7,16 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.ViewFactory;
 
-public class ActionConfirmationController extends MainController {
-    public ActionConfirmationController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
+public class EmailSentController extends MainController{
+    public EmailSentController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
     }
+    @FXML
+    private Button emailOkButton;
 
     @FXML
-    private Button okButton;
-
-
-    @FXML
-    void closeConfirmation(ActionEvent event) {
-
-        Stage stage = (Stage) okButton.getScene().getWindow();
+    void emailExitOnClick(ActionEvent event) {
+        Stage stage = (Stage) emailOkButton.getScene().getWindow();
         viewFactory.closeStage(stage);
-
     }
-
 }
