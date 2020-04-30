@@ -121,46 +121,50 @@ public class CustomerListController extends MainController implements Initializa
 
 
     @FXML
-     void searchOnKeyTyped(KeyEvent event ) throws SQLException {
-
-        FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filter.setPredicate(customer -> {
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String typedText = newValue.toLowerCase();
-                if (customer.getFirstName().toLowerCase().indexOf(typedText) != -1) {
-
-                    return true;
-                }
-                if (customer.getLastName().toLowerCase().indexOf(typedText) != -1) {
-
-                    return true;
-                }
-                if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
-                    return true;
-                }
-                if (customer.getAddress().toLowerCase().indexOf(typedText) != -1){
-                    return  true;
-                }
-                if (customer.getMembershipNumber().toLowerCase().indexOf(typedText) != -1){
-                    return  true;
-                }
-                if (customer.getCardNumber().toLowerCase().indexOf(typedText) != -1){
-                    return  true;
-                }
+     private void searchOnKeyTyped(KeyEvent event ) throws SQLException {
 
 
-                return false;
+
+            FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filter.setPredicate(customer -> {
+
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String typedText = newValue.toLowerCase();
+                    if (customer.getFirstName().toLowerCase().indexOf(typedText) != -1) {
+
+                        return true;
+                    }
+                    if (customer.getLastName().toLowerCase().indexOf(typedText) != -1) {
+
+                        return true;
+                    }
+                    if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
+                        return true;
+                    }
+                    if (customer.getAddress().toLowerCase().indexOf(typedText) != -1){
+                        return  true;
+                    }
+                    if (customer.getMembershipNumber().toLowerCase().indexOf(typedText) != -1){
+                        return  true;
+                    }
+                    if (customer.getCardNumber().toLowerCase().indexOf(typedText) != -1){
+                        return  true;
+                    }
+
+
+                    return false;
+                });
+                SortedList<CustomerData> sortedList = new SortedList<>(filter);
+                sortedList.comparatorProperty().bind(table.comparatorProperty());
+                table.setItems(sortedList);
+
+
             });
-            SortedList<CustomerData> sortedList = new SortedList<>(filter);
-            sortedList.comparatorProperty().bind(table.comparatorProperty());
-            table.setItems(sortedList);
 
 
-        });
 
     }
 

@@ -10,7 +10,7 @@ public class ItemsData {
     private  SimpleStringProperty genre;
     private  SimpleStringProperty director;
     private SimpleDoubleProperty price;
-    private SimpleIntegerProperty year;
+    private SimpleStringProperty year;
     private SimpleIntegerProperty totalQuantity;
     private SimpleIntegerProperty qty_available;
     private SimpleStringProperty mediaType;
@@ -25,7 +25,7 @@ public class ItemsData {
         this.qty_available.set(qty_available);
     }
 
-    public ItemsData(int id, String titleName, String genre, String director, double price, int year, int total_qty,
+    public ItemsData(int id, String titleName, String genre, String director, double price, String year, int total_qty,
                      String mediaType, int qty_available) {
 
         this.id = new SimpleIntegerProperty(id);
@@ -34,7 +34,7 @@ public class ItemsData {
         this.genre = new SimpleStringProperty(genre);
         this.director = new SimpleStringProperty(director);
         this.price = new SimpleDoubleProperty(price);
-        this.year = new SimpleIntegerProperty(year);
+        this.year = new SimpleStringProperty(year);
         this.totalQuantity = new SimpleIntegerProperty(total_qty);
         this.mediaType = new SimpleStringProperty(mediaType);
     }
@@ -84,12 +84,12 @@ public class ItemsData {
         this.price.set(price);
     }
 
-    public int getYear() {
+    public String getYear() {
         return year.get();
     }
 
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year.set(year);
     }
 

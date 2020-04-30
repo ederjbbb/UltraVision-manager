@@ -4,6 +4,8 @@ import classManagers.ItemsManager;
 import enums.MediaCategories;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,7 +59,7 @@ public class StockController extends MainController implements Initializable {
     private TableColumn<ItemsData, String> col_director;
 
     @FXML
-    private TableColumn<ItemsData, Number> col_year;
+    private TableColumn<ItemsData, String> col_year;
 
     @FXML
     private TableColumn<ItemsData, Number> col_price;
@@ -184,7 +186,7 @@ public class StockController extends MainController implements Initializable {
                 String title_name = data.getString("title_name");
                 String genre = data.getString("genre");
                 String director = data.getString("director");
-                int year_of_release = data.getInt("year_of_release");
+                String year_of_release = data.getString("year_of_release");
                 double price = data.getDouble("price");
                 int total_qty = data.getInt("total_quantity");
                 int qty_available = data.getInt("qty_available");
@@ -209,7 +211,7 @@ public class StockController extends MainController implements Initializable {
         col_tytleName.setCellValueFactory(new PropertyValueFactory<>("titleName"));
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_director.setCellValueFactory(new PropertyValueFactory<>("director"));
-        col_year.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("year"));
+        col_year.setCellValueFactory(new PropertyValueFactory<ItemsData, String>("year"));
         col_price.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("price"));
         col_totalQty.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("totalQuantity"));
         col_availableQty.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("qty_available"));
@@ -225,7 +227,7 @@ public class StockController extends MainController implements Initializable {
         col_genre.setCellFactory(TextFieldTableCell.forTableColumn());
         col_director.setCellFactory(TextFieldTableCell.forTableColumn());
         col_price.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
-        col_year.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
+        col_year.setCellFactory(TextFieldTableCell.forTableColumn());
         col_availableQty.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
         col_totalQty.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
 
@@ -241,6 +243,29 @@ public class StockController extends MainController implements Initializable {
 
     @FXML
     void deleteOnClick(ActionEvent event) {
+        
+        // This method is in charge of deleting row fromdata base and row from view
+
+
+        Connection connection = new Connection();
+
+        ItemsData itemsData = table.getSelectionModel().getSelectedItem();// used to delete from view only
+        int rowsAffected = 0; // is used to track if row was deleted in DB
+        int id = itemsData.getId(); // gets
+        String query = "DELETE FROM Titles WHERE titles_id =" + id; // this line uses id from view for query.
+        try {
+            rowsAffected = connection.updateOrDelete(query); // this catches the row affected
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        table.getItems().removeAll(table.getSelectionModel().getSelectedItem());// this line updates the table view
+        // by removing the selected row
+        if (rowsAffected > 0) {
+            // this was used for test
+
+        }
+
 
     }
 
@@ -256,10 +281,47 @@ public class StockController extends MainController implements Initializable {
         closeWindow();
     }
 
-    @FXML
-    void searchOnKeyTyped(KeyEvent event) {
 
+    @FXML
+    void searchOnKeyTyped(KeyEvent event) throws SQLException {
+        FilteredList<ItemsData> filter = new FilteredList<>(dbDataListTable, p -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(customer -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newValue.toLowerCase();
+                if (customer.getTitleName().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+                if (customer.getGenre().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+                if (customer.getYear().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getDirector().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
+
+
+
+                return false;
+            });
+            SortedList<ItemsData> sortedList = new SortedList<>(filter);
+            sortedList.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedList);
+
+
+        });
     }
+
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
