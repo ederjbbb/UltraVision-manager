@@ -22,14 +22,14 @@
       <TableView fx:id="table" layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
         <columns>
             <TableColumn fx:id="col_id" prefWidth="41.0" text="Id" />
-          <TableColumn fx:id="col_name" prefWidth="97.0" text="Media Type" />
-          <TableColumn fx:id="col_lastname" prefWidth="193.0" text="Title Name" />
-            <TableColumn fx:id="col_email" prefWidth="129.0" text="Genre" />
-            <TableColumn fx:id="col_address" prefWidth="181.0" text="Director" />
-            <TableColumn fx:id="col_membership" text="Year" />
-            <TableColumn fx:id="col_creditCard" prefWidth="58.0" text="Price" />
-            <TableColumn fx:id="col_category" prefWidth="72.0" text="Total Qty" />
-            <TableColumn fx:id="col_category1" prefWidth="73.0" text="Available Qty" />
+          <TableColumn fx:id="col_mediaType" prefWidth="97.0" text="Media Type" />
+          <TableColumn fx:id="col_tytleName" prefWidth="193.0" text="Title Name" />
+            <TableColumn fx:id="col_genre" prefWidth="129.0" text="Genre" />
+            <TableColumn fx:id="col_director" prefWidth="181.0" text="Director" />
+            <TableColumn fx:id="col_year" text="Year" />
+            <TableColumn fx:id="col_price" prefWidth="58.0" text="Price" />
+            <TableColumn fx:id="col_totalQty" prefWidth="72.0" text="Total Qty" />
+            <TableColumn fx:id="col_availableQty" prefWidth="73.0" text="Available Qty" />
         </columns>
       </TableView>
       <TextField fx:id="titleField" layoutX="197.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Title Name" styleClass="textF" />
@@ -47,7 +47,7 @@
       <Button fx:id="goBackButton" layoutX="294.0" layoutY="136.0" mnemonicParsing="false" onAction="#goBackOnClick" styleClass="customerButton" text="Go Back" />
       <Button fx:id="deleteButton" layoutX="430.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteOnClick" styleClass="danger" text="Delete" />
       <TextField fx:id="totalQuantityField" layoutX="368.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Total Quantity" styleClass="textF" />
-      <TextField fx:id="creditCardField" layoutX="27.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Year Of Release" styleClass="textF" />
+      <TextField fx:id="year_field" layoutX="27.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Year Of Release" styleClass="textF" />
       <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="118.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
       <Button fx:id="exitButton" layoutX="900.0" layoutY="53.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="buttonLogout" textFill="TRANSPARENT">
          <font>

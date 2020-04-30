@@ -193,13 +193,17 @@ public class CustomerListController extends MainController implements Initializa
         viewFactory.closeStage(stage);
 
     }
-    //************************** adding methods start here***************************************************
-    /**
-     * *********************************
-     * To continue from here
-     * **********************************
-     */
-    private void addingOnClick(String addQuery, ChoiceBox choiceBox) throws SQLException {
+
+
+
+    @FXML
+    void addOnClick() throws SQLException {
+        // This query variable is declared up  in the class scope, in order to make this method reusable in
+        // other Controllers
+        addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
+                + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
+                + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
+
         Connection connection = new Connection();
         int row = 0;
         category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
@@ -212,7 +216,8 @@ public class CustomerListController extends MainController implements Initializa
 
             if (row > 0) {
                 closeWindow();
-
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                viewFactory.closeStage(stage);
                 viewFactory.showCustomerList();
 
             } else {
@@ -221,26 +226,9 @@ public class CustomerListController extends MainController implements Initializa
 
 
         }
-    }
 
 
-    @FXML // This method is called in the addOnClick method
-    void addOnClick() throws SQLException {
-        // This query variable is declared up  in the class scope, in order to make this method reusable in
-        // other Controllers
-        addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
-                + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
-                + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
-                addingOnClick(addQuery,memberChoices);
-
-        /**
-         * *********************************
-         * To continue from here
-         * **********************************
-         */
-
-
-        //***************************Adding methods finish here ******************************************************
+        //******************************************************************************************************
 
 
     }
@@ -326,12 +314,6 @@ public class CustomerListController extends MainController implements Initializa
         Connection connection = new Connection();
 
         String query = "select * from Customers";
-
-
-
-
-
-// ************************************************************************************************
 
         // initializing connection
         try {
