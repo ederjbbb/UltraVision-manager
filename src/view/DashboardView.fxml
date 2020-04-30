@@ -81,10 +81,14 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="returnButton1" layoutX="417.0" layoutY="409.0" mnemonicParsing="false" onAction="#closeBTN" prefHeight="60.0" prefWidth="94.0" text="Exit" textFill="#eb0404">
-         <font>
-            <Font size="24.0" />
-         </font>
+      <Button fx:id="returnButton1" layoutX="417.0" layoutY="409.0" mnemonicParsing="false" onAction="#closeBTN" prefHeight="60.0" prefWidth="94.0" styleClass="buttonLogout" textFill="#eb0404">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logoutButton.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
       <Label fx:id="timeLabel" layoutX="654.0" layoutY="6.0" prefHeight="33.0" prefWidth="263.0" styleClass="textF" textFill="#140101">
          <font>
