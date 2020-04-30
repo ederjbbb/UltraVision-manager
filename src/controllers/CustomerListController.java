@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Connection;
@@ -27,9 +26,9 @@ import java.util.ResourceBundle;
 
 public class CustomerListController extends MainController implements Initializable {
 
-    private ObservableList<CustomerData> dbDataList;// observable list used to populate table
-                                        // andfor the search field
-     private ResultSet data ; // used in method populateTable
+    ObservableList dbDataListTable = FXCollections.observableArrayList();
+
+    private ResultSet data ; // used in method populateTable
     MainWindowController mc = new MainWindowController();
     UsersTableController uc = new UsersTableController();
     CustomerData userDataObject = null;
@@ -115,37 +114,34 @@ public class CustomerListController extends MainController implements Initializa
     String category;
 
 
-    @FXML
-    void chooseMembership(DragEvent event) {
+   //******************************Seach method starts*****************************************************************
 
-    }
 
     @FXML
-    void searchOnKeyTyped(KeyEvent keyEvent) throws SQLException {
-///888dfd**********************
-        FilteredList<CustomerData> filterData = new FilteredList<>(dbDataList, p -> true);
-        searchField.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
-            filterData.setPredicate(cus -> {
+    private void searchOnKeyTyped(KeyEvent event) throws SQLException {
+        FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(customer -> {
 
-                if (newvalue == null || newvalue.isEmpty()) {
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                String typedText = newvalue.toLowerCase();
-                if (cus.getLastName().toLowerCase().indexOf(typedText) != -1) {
-
-                    return true;
-                }
-                if (cus.getLastName().toLowerCase().indexOf(typedText) != -1) {
+                String typedText = newValue.toLowerCase();
+                if (customer.getFirstName().toLowerCase().indexOf(typedText) != -1) {
 
                     return true;
                 }
-                if (cus.getEmail().toLowerCase().indexOf(typedText) != -1) {
+                if (customer.getLastName().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+                if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
                     return true;
                 }
 
                 return false;
             });
-            SortedList<CustomerData> sortedList = new SortedList<>(filterData);
+            SortedList<CustomerData> sortedList = new SortedList<>(filter);
             sortedList.comparatorProperty().bind(table.comparatorProperty());
             table.setItems(sortedList);
 
@@ -155,7 +151,7 @@ public class CustomerListController extends MainController implements Initializa
     }
 
 
-
+//***********************************Search method finishes************************************************************
 
 
 
@@ -288,9 +284,7 @@ public class CustomerListController extends MainController implements Initializa
 
 
     private void populateTable() throws SQLException {
-        ObservableList dbDataList = FXCollections.observableArrayList(); // Collection of data to display in the tableview
-                                                                        // this list receives the object
-                                                                        // then, this list will be addedto tableview
+
         Connection connection = new Connection();
 
         String query = "select * from Customers";
@@ -326,7 +320,7 @@ public class CustomerListController extends MainController implements Initializa
 
                 // Creates object, object vaiablein up in the class scope
                 customerDataObject = new CustomerData(id,firstname, lastname, email, address, card, membershipNumber,category);
-                dbDataList.add(customerDataObject);
+                dbDataListTable.add(customerDataObject);
 
 
 
@@ -350,7 +344,7 @@ public class CustomerListController extends MainController implements Initializa
 
 
 
-        table.setItems(dbDataList);
+        table.setItems(dbDataListTable);
         // this will set cells to be changed individualy
         table.setEditable(true);
         col_name.setCellFactory(TextFieldTableCell.forTableColumn());
