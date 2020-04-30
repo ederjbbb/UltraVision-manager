@@ -73,6 +73,11 @@ public class ViewFactory{
         initializeStage(controller);
 
     }
+    public void showStock() {
+        MainController controller = new StockController(itemsManager,this, "StockView.fxml");
+        initializeStage(controller);
+
+    }
 
 // this is in charge of creating stage and scenes
     //as every view has to have it.

@@ -33,6 +33,7 @@ public class CustomerListController extends MainController implements Initializa
     UsersTableController uc = new UsersTableController();
     CustomerData userDataObject = null;
     MemberCategories categories[] = MemberCategories.values();
+    private String addQuery; // This query variable is for use fo the method addOnClick
 
 
     // this tlis is to get a list of enums for populating the field of categories
@@ -114,11 +115,14 @@ public class CustomerListController extends MainController implements Initializa
     String category;
 
 
+
    //******************************Seach method starts*****************************************************************
 
 
+
     @FXML
-    private void searchOnKeyTyped(KeyEvent event) throws SQLException {
+     void searchOnKeyTyped(KeyEvent event ) throws SQLException {
+
         FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filter.setPredicate(customer -> {
@@ -183,10 +187,19 @@ public class CustomerListController extends MainController implements Initializa
             return false;
         }
     }
+    private void closeWindow(){
+        // this method is to close windows, wnhen they are closed or changed
+        Stage stage = (Stage) deleteButton.getScene().getWindow();
+        viewFactory.closeStage(stage);
 
-
-    @FXML
-    void addOnClick(ActionEvent event) throws SQLException {
+    }
+    //************************** adding methods start here***************************************************
+    /**
+     * *********************************
+     * To continue from here
+     * **********************************
+     */
+    private void addingOnClick(String addQuery, ChoiceBox choiceBox) throws SQLException {
         Connection connection = new Connection();
         int row = 0;
         category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
@@ -194,15 +207,12 @@ public class CustomerListController extends MainController implements Initializa
             viewFactory.showActionConfirmation();
         } else {
 
-            String addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
-                    + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
-                    + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
-            System.out.println(addQuery);
+
             row = connection.updateOrDelete(addQuery);
 
             if (row > 0) {
-                Stage stage = (Stage) deleteButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
+                closeWindow();
+
                 viewFactory.showCustomerList();
 
             } else {
@@ -211,7 +221,26 @@ public class CustomerListController extends MainController implements Initializa
 
 
         }
-        //******************************************************************************************************
+    }
+
+
+    @FXML // This method is called in the addOnClick method
+    void addOnClick() throws SQLException {
+        // This query variable is declared up  in the class scope, in order to make this method reusable in
+        // other Controllers
+        addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
+                + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
+                + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
+                addingOnClick(addQuery,memberChoices);
+
+        /**
+         * *********************************
+         * To continue from here
+         * **********************************
+         */
+
+
+        //***************************Adding methods finish here ******************************************************
 
 
     }
@@ -244,7 +273,6 @@ public class CustomerListController extends MainController implements Initializa
 
     }
 
-    //*******************************************************************************
 
 
     @FXML
@@ -370,14 +398,4 @@ public class CustomerListController extends MainController implements Initializa
     }
 
 
-
-
-
-
-
-
-
-
 }
-
-

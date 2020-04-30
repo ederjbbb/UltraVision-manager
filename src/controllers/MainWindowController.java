@@ -4,6 +4,7 @@ import classManagers.ItemsManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 public class MainWindowController extends MainController implements Initializable {
 
             LoginController user;
+            MainController mc;
 
 
         public MainWindowController  (ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) throws SQLException {
@@ -88,37 +90,44 @@ public class MainWindowController extends MainController implements Initializabl
 
 
 
+    @FXML
+    void openStockOnClick(ActionEvent event) {
+        viewFactory.showStock();
+        closeWindow();
+
+    }
+    private void closeWindow(){
+        //This method is to close current window , resused  in other closings
+        Stage stage = (Stage) returnButton.getScene().getWindow();
+        viewFactory.closeStage(stage);
+    }
 
 
     @FXML
         void exitOnClick() {
-                Stage stage2 = (Stage) userButton.getScene().getWindow();
-                viewFactory.closeStage(stage2);
+        closeWindow();
 
 
         }
         @FXML
         void closeBTN() {
-                Stage stage = (Stage) returnButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
+        closeWindow();
+
 
 
 
         }
         @FXML
         void openUsers() {
-
-                viewFactory.showUsersWindow();
-                Stage stage = (Stage) returnButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
+        viewFactory.showUsersWindow();
+        closeWindow();
 
 
         }
         @FXML
         void customerPanel(){
-                viewFactory.showCustomerList();
-                Stage stage = (Stage) returnButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
+        viewFactory.showCustomerList();
+        closeWindow();
 
         }
 
@@ -138,14 +147,7 @@ public class MainWindowController extends MainController implements Initializabl
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-//            LocalTime currentTime = LocalTime.now();
-//            time.setText(currentTime.getHour() + ":" + currentTime.getMinute() + ":" + currentTime.getSecond());
-//        }),
-//                new KeyFrame(Duration.seconds(1))
-//        );
-//        clock.setCycleCount(Animation.INDEFINITE);
-//        clock.play();
+//
     }
 
 

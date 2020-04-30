@@ -126,18 +126,19 @@ public class UsersTableController extends MainController implements Initializabl
 
     }
 
-
+    private void  closeWindow(){
+        Stage stage = (Stage)deleteButton.getScene().getWindow();
+        viewFactory.closeStage(stage);
+    }
     @FXML
     void goBackOnClick() throws SQLException {
         viewFactory.showMainWindow();
-        Stage stage = (Stage)deleteButton.getScene().getWindow();
-        viewFactory.closeStage(stage);
+        closeWindow();
    }
 
     @FXML
     void exitOnClick(){
-        Stage stage = (Stage)deleteButton.getScene().getWindow();
-        viewFactory.closeStage(stage);
+        closeWindow();
     }
 
     @FXML
