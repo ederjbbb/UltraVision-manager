@@ -138,6 +138,16 @@ public class CustomerListController extends MainController implements Initializa
                 if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
                     return true;
                 }
+                if (customer.getAddress().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
+                if (customer.getMembershipNumber().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
+                if (customer.getCardNumber().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
+
 
                 return false;
             });

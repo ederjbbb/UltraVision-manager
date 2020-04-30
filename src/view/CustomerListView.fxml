@@ -35,7 +35,7 @@
       <TextField fx:id="lastnameField" layoutX="197.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Last name" styleClass="textF" />
       <TextField fx:id="emailField" layoutX="368.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="E-mail" styleClass="textF" />
       <TextField fx:id="addressField" layoutX="195.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Address" styleClass="textF" />
-      <Button layoutX="674.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="187.0" styleClass="lightgreen" text="Add Customer">
+      <Button layoutX="673.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="187.0" styleClass="lightgreen" text="Add Customer">
          <font>
             <Font size="9.0" />
          </font></Button>
@@ -49,8 +49,21 @@
       <TextField fx:id="memberNumberField" layoutX="369.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Member Number" styleClass="textF" />
       <TextField fx:id="creditCardField" layoutX="26.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Debid/Credit Card Nº" styleClass="textF" />
       <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="118.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
-      <Button fx:id="exitButton" layoutX="883.0" layoutY="65.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="32.0" prefWidth="74.0" styleClass="danger" text="Exit" />
-      <TextField fx:id="searchField" layoutX="641.0" layoutY="146.0" onKeyTyped="#searchOnKeyTyped" prefHeight="26.0" prefWidth="179.0" promptText="Membership Nº" styleClass="textF" />
+      <Button fx:id="exitButton" layoutX="900.0" layoutY="53.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="buttonLogout" textFill="TRANSPARENT">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logoutButton.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <TextField fx:id="searchField" layoutX="689.0" layoutY="146.0" onKeyTyped="#searchOnKeyTyped" prefHeight="26.0" prefWidth="262.0" promptText=" Type any information for searching" styleClass="textF">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></TextField>
       <Label fx:id="timeLable" layoutX="753.0" layoutY="9.0" prefHeight="29.0" prefWidth="229.0" styleClass="textF" textFill="#ebe7e7">
          <font>
             <Font name="System Bold" size="18.0" />
