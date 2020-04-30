@@ -243,7 +243,7 @@ public class StockController extends MainController implements Initializable {
 
     @FXML
     void deleteOnClick(ActionEvent event) {
-        
+
         // This method is in charge of deleting row fromdata base and row from view
 
 
