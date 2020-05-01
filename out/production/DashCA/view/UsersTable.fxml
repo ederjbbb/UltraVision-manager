@@ -18,13 +18,12 @@
          </image>
       </ImageView>
       <Button fx:id="deleteButton" layoutX="620.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="27.0" prefWidth="144.0" styleClass="danger" text="Delete" />
-      <Label layoutX="194.0" layoutY="5.0" prefHeight="27.0" prefWidth="177.0" text="Date" />
       <Button fx:id="goBackButton" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" onAction="#goBackOnClick" text="Go back" />
       <Button fx:id="exit" layoutX="882.0" layoutY="94.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="43.0" prefWidth="52.0" styleClass="buttonLogout" textFill="#f80101">
          <graphic>
-            <ImageView fitHeight="36.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logoutButton.png" />
+                  <Image url="@images/logoutbtn2.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -55,5 +54,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Label fx:id="userloggedLabel" layoutX="15.0" layoutY="9.0" prefHeight="27.0" prefWidth="270.0" styleClass="textF" />
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class ItemsData {
     private SimpleIntegerProperty id;
     private SimpleStringProperty titleName;
+    private SimpleStringProperty titleType;
     private  SimpleStringProperty genre;
     private  SimpleStringProperty director;
     private SimpleDoubleProperty price;
@@ -25,12 +26,21 @@ public class ItemsData {
         this.qty_available.set(qty_available);
     }
 
+    public String getTitleType() {
+        return titleType.get();
+    }
+
+    public void setTitleType(String titleType) {
+        this.titleType.set(titleType);
+    }
+
     public ItemsData(int id, String titleName, String genre, String director, double price, String year, int total_qty,
-                     String mediaType, int qty_available) {
+                     String mediaType, int qty_available, String titleType) {
 
         this.id = new SimpleIntegerProperty(id);
         this.qty_available = new SimpleIntegerProperty(qty_available);
         this.titleName = new SimpleStringProperty(titleName);
+        this.titleType = new SimpleStringProperty(titleType);
         this.genre = new SimpleStringProperty(genre);
         this.director = new SimpleStringProperty(director);
         this.price = new SimpleDoubleProperty(price);

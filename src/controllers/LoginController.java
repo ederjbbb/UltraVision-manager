@@ -29,11 +29,9 @@ public class LoginController extends MainController  {
                 dataList = new ArrayList<String>();
 
         }
-    String name22;
 
-    public String getEmail() {
-        return email;
-    }
+
+
 
     @FXML
         private Label labelborder;
@@ -51,8 +49,8 @@ public class LoginController extends MainController  {
         @FXML
         private TextField errorLabel;
 
-        @FXML
 
+        @FXML
          void loginActionButton() throws SQLException {
                 connection = new Connection();
                  // NEED TO BE VALIDATED
@@ -60,6 +58,7 @@ public class LoginController extends MainController  {
                 email = textField.getText();
                 String password = passwordField.getText();
                 user = new User(email, password);
+
 
 
 
@@ -76,22 +75,19 @@ public class LoginController extends MainController  {
                 }
                 if(dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())){
                         viewFactory.showMainWindow();
+                    Stage stage = (Stage)loginButton.getScene().getWindow();
+                    viewFactory.closeStage(stage);
+
 
                 }else{
                     viewFactory.showNotFound();
                     //in case there is no match , popupwindow
                 }
 
-
-//                Stage stage = (Stage)labelborder.getScene().getWindow();
-//                viewFactory.closeStage(stage);
         }
 
-    public String returnEmail() {
 
-            return name22;
 
-    }
 
     @FXML
         void loginWindowExit(){

@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.User;
 import view.ViewFactory;
 
 import java.net.URL;
@@ -24,8 +25,9 @@ import java.util.ResourceBundle;
 
 public class MainWindowController extends MainController implements Initializable {
 
-            LoginController user;
+
             MainController mc;
+            User userData  ;
 
 
         public MainWindowController  (ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) throws SQLException {
@@ -42,8 +44,9 @@ public class MainWindowController extends MainController implements Initializabl
        @FXML
         private Label timeLabel;
 
-        @FXML
-        private Label userloggedLabel;
+    @FXML
+    private Label userloggedLabel;
+
 
 
         @FXML
@@ -92,7 +95,7 @@ public class MainWindowController extends MainController implements Initializabl
 
     @FXML
     void openStockOnClick(ActionEvent event) {
-        viewFactory.showStock();
+        viewFactory.showStock(); // This tab has alls categories seperately by type
         closeWindow();
 
     }
@@ -103,6 +106,8 @@ public class MainWindowController extends MainController implements Initializabl
     }
 
 
+    @FXML
+    private Button openRentalButton;
     @FXML
         void exitOnClick() {
         closeWindow();
@@ -124,6 +129,11 @@ public class MainWindowController extends MainController implements Initializabl
 
 
         }
+    @FXML
+    void openRentalOnClick(ActionEvent event) {
+        viewFactory.showRentalView();
+        closeWindow();
+    }
         @FXML
         void customerPanel(){
         viewFactory.showCustomerList();
@@ -140,6 +150,9 @@ public class MainWindowController extends MainController implements Initializabl
             getCurrentTime(timeLabel);
 
         }
+
+
+
     public void getCurrentTime(Label dateTime) {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

@@ -2,10 +2,10 @@ package enums;
 
 public enum MemberCategories {
 
-        MUSIC("Music"),
-        LIVE_C_VIDEOS("Live Concerts"),
-        MOVIES("Movies"),
-        BOX_SET("Box Set");
+        MUSIC("Music Lovers"),// can rent CDs Live video Concerts
+        LIVE_C_VIDEOS("Video Lovers"),// can rent van only rent movies
+        MOVIES("TV Lovers"),// can only
+        BOX_SET("Premium");// can rent anything
 
         String value;
         MemberCategories(String value) {

@@ -32,10 +32,10 @@
         </columns>
       </TableView>
       <TextField fx:id="firstnameField" layoutX="26.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="First Name" styleClass="textF" />
-      <TextField fx:id="lastnameField" layoutX="197.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Last name" styleClass="textF" />
-      <TextField fx:id="emailField" layoutX="368.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="E-mail" styleClass="textF" />
-      <TextField fx:id="addressField" layoutX="195.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Address" styleClass="textF" />
-      <Button layoutX="673.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="187.0" styleClass="lightgreen" text="Add Customer">
+      <TextField fx:id="lastnameField" layoutX="193.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Last name" styleClass="textF" />
+      <TextField fx:id="emailField" layoutX="362.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="E-mail" styleClass="textF" />
+      <TextField fx:id="addressField" layoutX="192.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Address" styleClass="textF" />
+      <Button layoutX="681.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="179.0" styleClass="lightgreen" text="Add Customer">
          <font>
             <Font size="9.0" />
          </font></Button>
@@ -46,7 +46,7 @@
       </Label>
       <Button fx:id="goBackButton" layoutX="294.0" layoutY="136.0" mnemonicParsing="false" onAction="#goBackOnClick" styleClass="customerButton" text="Go Back" />
       <Button fx:id="deleteButton" layoutX="430.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteOnClick" styleClass="danger" text="Delete" />
-      <TextField fx:id="memberNumberField" layoutX="369.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Member Number" styleClass="textF" />
+      <TextField fx:id="memberNumberField" layoutX="362.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Member Number" styleClass="textF" />
       <TextField fx:id="creditCardField" layoutX="26.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Debid/Credit Card Nº" styleClass="textF" />
       <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="118.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
       <Button fx:id="exitButton" layoutX="900.0" layoutY="53.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="buttonLogout" textFill="TRANSPARENT">
@@ -56,7 +56,7 @@
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logoutButton.png" />
+                  <Image url="@images/logoutbtn2.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -80,6 +80,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="527.0" layoutY="30.0" prefHeight="18.0" prefWidth="127.0" text="Choose Category" textFill="#f2eded" />
+      <Label layoutX="523.0" layoutY="30.0" prefHeight="18.0" prefWidth="127.0" text="Choose Category" textFill="#f2eded" />
    </children>
 </AnchorPane>

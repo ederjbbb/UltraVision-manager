@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Connection;
 import models.CustomerData;
+import models.User;
 import view.ViewFactory;
 
 import java.net.URL;
@@ -25,15 +26,17 @@ import java.util.ResourceBundle;
 
 
 public class CustomerListController extends MainController implements Initializable {
-
+    User user;
     ObservableList dbDataListTable = FXCollections.observableArrayList();
 
     private ResultSet data ; // used in method populateTable
     MainWindowController mc = new MainWindowController();
     UsersTableController uc = new UsersTableController();
+    InformationTagController tagController = new InformationTagController() ;// Used in hideInformation method down below
     CustomerData userDataObject = null;
     MemberCategories categories[] = MemberCategories.values();
     private String addQuery; // This query variable is for use fo the method addOnClick
+
 
 
     // this tlis is to get a list of enums for populating the field of categories
@@ -83,9 +86,13 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private Label tlabel;
+    @FXML
+    private Label userloggedLabel;
 
     @FXML
     private Button generatorButton;
+    @FXML
+    private Label informationLable;
 
 
     @FXML
@@ -293,9 +300,14 @@ public class CustomerListController extends MainController implements Initializa
         Stage stage = (Stage)deleteButton.getScene().getWindow();
         viewFactory.closeStage(stage);
     }
+    @FXML
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         setCategories(); // set categories in the dropdown.
         try {
             populateTable();
@@ -306,7 +318,10 @@ public class CustomerListController extends MainController implements Initializa
         currentTime();
 
     }
-        // Get time from MainWindowController(Dashboard) / / avoiding code repeat
+
+
+
+    // Get time from MainWindowController(Dashboard) / / avoiding code repeat
     private void currentTime() {
        mc.getCurrentTime(timeLable);
     }

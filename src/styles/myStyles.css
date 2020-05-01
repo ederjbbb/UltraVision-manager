@@ -52,6 +52,9 @@ Login stylesheet beginshere
 -fx-background-color: transparent;
 -fx-border-radius: 50px;
 }
+.transparent{
+-fx-background-color: transparent;
+}
 
 
 .button{

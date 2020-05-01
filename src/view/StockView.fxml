@@ -22,33 +22,34 @@
       <TableView fx:id="table" layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
         <columns>
             <TableColumn fx:id="col_id" prefWidth="41.0" text="Id" />
-          <TableColumn fx:id="col_mediaType" prefWidth="97.0" text="Media Type" />
-          <TableColumn fx:id="col_tytleName" prefWidth="193.0" text="Title Name" />
-            <TableColumn fx:id="col_genre" prefWidth="129.0" text="Genre" />
-            <TableColumn fx:id="col_director" prefWidth="181.0" text="Director" />
-            <TableColumn fx:id="col_year" text="Year" />
-            <TableColumn fx:id="col_price" prefWidth="58.0" text="Price" />
-            <TableColumn fx:id="col_totalQty" prefWidth="72.0" text="Total Qty" />
-            <TableColumn fx:id="col_availableQty" prefWidth="73.0" text="Available Qty" />
+          <TableColumn fx:id="col_mediaType" prefWidth="82.0" text="Media Type" />
+          <TableColumn fx:id="col_tytleName" prefWidth="184.0" text="Title Name" />
+            <TableColumn fx:id="col_titleType" prefWidth="87.0" text="Title Type" />
+            <TableColumn fx:id="col_genre" text="Genre" />
+            <TableColumn fx:id="col_director_producer" prefWidth="134.0" text="Director/Producer" />
+            <TableColumn fx:id="col_year" minWidth="0.0" prefWidth="69.0" text="Year" />
+            <TableColumn fx:id="col_price" minWidth="5.0" prefWidth="52.0" text="Price" />
+            <TableColumn fx:id="col_totalQty" prefWidth="82.0" text="Total Qty" />
+            <TableColumn fx:id="col_availableQty" prefWidth="114.0" text="Available Qty" />
         </columns>
       </TableView>
-      <TextField fx:id="titleField" layoutX="197.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Title Name" styleClass="textF" />
-      <TextField fx:id="genreField" layoutX="368.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Genre" styleClass="textF" />
-      <TextField fx:id="priceField" layoutX="197.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Price" styleClass="textF" />
+      <TextField fx:id="titleField" layoutX="188.0" layoutY="21.0" prefHeight="27.0" prefWidth="142.0" promptText="Title Name" styleClass="textF" />
+      <TextField fx:id="genreField" layoutX="348.0" layoutY="22.0" prefHeight="27.0" prefWidth="142.0" promptText="Genre" styleClass="textF" />
+      <TextField fx:id="priceField" layoutX="188.0" layoutY="62.0" prefHeight="27.0" prefWidth="142.0" promptText="Price" styleClass="textF" />
       <Button fx:id="additemButton" layoutX="746.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="117.0" styleClass="lightgreen" text="Add Item">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Label layoutX="26.0" layoutY="144.0" prefHeight="29.0" prefWidth="213.0" text="Stock Control" textFill="#110000">
+      <Label layoutX="26.0" layoutY="102.0" prefHeight="29.0" prefWidth="253.0" text="Movies Stock Control" textFill="#110000">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="goBackButton" layoutX="294.0" layoutY="136.0" mnemonicParsing="false" onAction="#goBackOnClick" styleClass="customerButton" text="Go Back" />
-      <Button fx:id="deleteButton" layoutX="430.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteOnClick" styleClass="danger" text="Delete" />
-      <TextField fx:id="totalQuantityField" layoutX="368.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Total Quantity" styleClass="textF" />
-      <TextField fx:id="year_field" layoutX="27.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Year Of Release" styleClass="textF" />
-      <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="118.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
+      <Button fx:id="goBackButton" layoutX="294.0" layoutY="142.0" mnemonicParsing="false" onAction="#goBackOnClick" styleClass="customerButton" text="Go Back" />
+      <Button fx:id="deleteButton" layoutX="430.0" layoutY="142.0" mnemonicParsing="false" onAction="#deleteOnClick" styleClass="danger" text="Delete" />
+      <TextField fx:id="totalQuantityField" layoutX="348.0" layoutY="61.0" prefHeight="27.0" prefWidth="142.0" promptText="Total Quantity" styleClass="textF" />
+      <TextField fx:id="year_field" layoutX="27.0" layoutY="60.0" prefHeight="27.0" prefWidth="142.0" promptText="Year Of Release" styleClass="textF" />
+      <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="125.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
       <Button fx:id="exitButton" layoutX="900.0" layoutY="53.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="buttonLogout" textFill="TRANSPARENT">
          <font>
             <Font size="10.0" />
@@ -56,7 +57,7 @@
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logoutButton.png" />
+                  <Image url="@images/logoutbtn2.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -70,8 +71,9 @@
          </font>
       </Label>
       <Label fx:id="tlabel" layoutX="50.0" layoutY="14.0" prefHeight="18.0" prefWidth="229.0" />
-      <TextField fx:id="directorField" layoutX="531.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Director" styleClass="textF" />
-      <TextField fx:id="quantityField" layoutX="27.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Quantity Available" styleClass="textF" />
-      <ChoiceBox fx:id="mediaChoice" layoutX="531.0" layoutY="91.0" prefHeight="29.0" prefWidth="142.0" />
+      <TextField fx:id="directorField" layoutX="504.0" layoutY="22.0" prefHeight="27.0" prefWidth="142.0" promptText="Director/Producer" styleClass="textF" />
+      <TextField fx:id="quantityField" layoutX="27.0" layoutY="19.0" prefHeight="27.0" prefWidth="142.0" promptText="Quantity Available" styleClass="textF" />
+      <ChoiceBox fx:id="mediaChoice" layoutX="504.0" layoutY="60.0" prefHeight="29.0" prefWidth="142.0" />
+      <ChoiceBox fx:id="mediaChoice2" layoutX="504.0" layoutY="99.0" prefHeight="29.0" prefWidth="142.0" />
    </children>
 </AnchorPane>

@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 public class UsersTableController extends MainController implements Initializable {
         private String query;
         User user;
+        LoginController loginController;
         MainWindowController mc = new MainWindowController();
 
         private Connection conn = null;
@@ -39,9 +40,10 @@ public class UsersTableController extends MainController implements Initializabl
 
     }
 
-
     @FXML
     private Label timelabel;
+    @FXML
+    private Label userloggedLabel;
     @FXML
     private TextField firstnameField;
 
@@ -170,6 +172,7 @@ public class UsersTableController extends MainController implements Initializabl
     }
 
     private void updateTable() {
+
         String firstname = firstnameField.getText();
         String lastname = lasnameField.getText();
         String email = emailField.getText();
@@ -201,6 +204,7 @@ public class UsersTableController extends MainController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         currentTime();
         try {
 
@@ -209,6 +213,7 @@ public class UsersTableController extends MainController implements Initializabl
             throwables.printStackTrace();
         }
     }
+
 
     private void populateTable() throws SQLException {
 

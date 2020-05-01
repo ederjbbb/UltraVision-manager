@@ -79,6 +79,12 @@ public class ViewFactory{
 
     }
 
+    public void showRentalView() {
+        MainController controller = new RentalViewController(itemsManager,this, "RentalView.fxml");
+        initializeStage(controller);
+
+    }
+
 // this is in charge of creating stage and scenes
     //as every view has to have it.
     // I just have to call this method inside of every method in the ViewFactory
