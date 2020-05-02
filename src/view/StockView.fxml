@@ -22,15 +22,15 @@
       <TableView fx:id="table" layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
         <columns>
             <TableColumn fx:id="col_id" prefWidth="41.0" text="Id" />
-          <TableColumn fx:id="col_mediaType" prefWidth="82.0" text="Media Type" />
-          <TableColumn fx:id="col_tytleName" prefWidth="184.0" text="Title Name" />
-            <TableColumn fx:id="col_titleType" prefWidth="87.0" text="Title Type" />
-            <TableColumn fx:id="col_genre" text="Genre" />
-            <TableColumn fx:id="col_director_producer" prefWidth="134.0" text="Director/Producer" />
-            <TableColumn fx:id="col_year" minWidth="0.0" prefWidth="69.0" text="Year" />
-            <TableColumn fx:id="col_price" minWidth="5.0" prefWidth="52.0" text="Price" />
-            <TableColumn fx:id="col_totalQty" prefWidth="82.0" text="Total Qty" />
-            <TableColumn fx:id="col_availableQty" prefWidth="114.0" text="Available Qty" />
+          <TableColumn fx:id="col_mediaType" onEditCommit="#editMediatypeOnClick" prefWidth="82.0" text="Media Type" />
+          <TableColumn fx:id="col_tytleName" onEditCommit="#editTitlenameOnClick" prefWidth="184.0" text="Title Name" />
+            <TableColumn fx:id="col_titleType" onEditCommit="#editTitletypeOnClick" prefWidth="87.0" text="Title Type" />
+            <TableColumn fx:id="col_genre" onEditCommit="#editGenreOnClick" text="Genre" />
+            <TableColumn fx:id="col_director_producer" onEditCommit="#editDirectorproducerOnClick" prefWidth="134.0" text="Director/Producer" />
+            <TableColumn fx:id="col_year" minWidth="0.0" onEditCommit="#editGenreOnClick" prefWidth="69.0" text="Year" />
+            <TableColumn fx:id="col_price" minWidth="5.0" onEditCommit="#editpriceOnClick" prefWidth="52.0" text="Price" />
+            <TableColumn fx:id="col_totalQty" onEditCommit="#editTotalqtyOnClick" prefWidth="82.0" text="Total Qty" />
+            <TableColumn fx:id="col_availableQty" onEditCommit="#editAvailableqtyOnClick" prefWidth="114.0" text="Available Qty" />
         </columns>
       </TableView>
       <TextField fx:id="titleField" layoutX="188.0" layoutY="21.0" prefHeight="27.0" prefWidth="142.0" promptText="Title Name" styleClass="textF" />

@@ -108,7 +108,7 @@ public class ItemsData {
     }
 
 
-    public void setTotalQuantity(int totalQuantity) {
+    public void setTotalQuantity(Integer totalQuantity) {
         this.totalQuantity.set(totalQuantity);
     }
 

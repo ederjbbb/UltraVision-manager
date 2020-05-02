@@ -213,8 +213,7 @@ public class UsersTableController extends MainController implements Initializabl
             throwables.printStackTrace();
         }
     }
-
-
+    // this method is called inside of initializing methos in order fill up the table in the UsersView
     private void populateTable() throws SQLException {
 
         UserData userDataObject = null;

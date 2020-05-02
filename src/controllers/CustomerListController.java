@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Connection;
 import models.CustomerData;
+import models.ItemsData;
 import models.User;
 import view.ViewFactory;
 
@@ -39,7 +40,7 @@ public class CustomerListController extends MainController implements Initializa
 
 
 
-    // this tlis is to get a list of enums for populating the field of categories
+    // this list is to get a list of enums for populating the field of categories
     private ObservableList categories1List = FXCollections.observableArrayList(categories[0].getValue(), categories[1].getValue(), categories[2].getValue(), categories[3].getValue());
     private CustomerData customerDataObject; // used to create the object , get data and insert in table
                                             // used as well for searching in method searchOnClick
@@ -211,13 +212,14 @@ public class CustomerListController extends MainController implements Initializa
     void addOnClick() throws SQLException {
         // This query variable is declared up  in the class scope, in order to make this method reusable in
         // other Controllers
+        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
         addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
                 + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
                 + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
 
         Connection connection = new Connection();
         int row = 0;
-        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
+//        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
         if (isEmptyField()) {
             viewFactory.showActionConfirmation();
         } else {
@@ -397,6 +399,83 @@ public class CustomerListController extends MainController implements Initializa
 
 
     }
+    //    // ALL THIS THREE METHODS TO BE REVISED IF POSSIBLE **REMINDER**  ******************************
+
+    @FXML
+    void editAddressOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setAddress(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String address = getCellContent.getCardNumber();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET address = '"+address+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+
+    @FXML
+    void editCreditCardOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setCardNumber(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String cardNumber = getCellContent.getCardNumber();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET card_number = '"+cardNumber+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+
+    @FXML
+    void editEmailOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setEmail(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String email = getCellContent.getLastName();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET email = '"+email+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+
+    @FXML
+    void editLastnameOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setLastName(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String lastName = getCellContent.getLastName();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET lastname = '"+lastName+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+
+
+
+
+    @FXML
+    void editNameOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setFirstName(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String name = getCellContent.getFirstName();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET firstname = '"+name+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+
+
+
+    private void executeQueryUpdate(String query) {
+        Connection connection = new Connection();
+        try{
+            connection.updateOrDelete(query);
+        }catch(SQLException e){
+            e.getMessage();
+        }
+    }
+
+//***************************populate table finishes here********************************
 
 
 }

@@ -225,9 +225,9 @@ public class StockController extends MainController implements Initializable {
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_director_producer.setCellValueFactory(new PropertyValueFactory<>("director"));
         col_year.setCellValueFactory(new PropertyValueFactory<ItemsData, String>("year"));
-        col_price.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("price"));
-        col_totalQty.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("totalQuantity"));
-        col_availableQty.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("qty_available"));
+        col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        col_totalQty.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
+        col_availableQty.setCellValueFactory(new PropertyValueFactory<>("qty_available"));
 
 
 
@@ -245,15 +245,82 @@ public class StockController extends MainController implements Initializable {
         col_availableQty.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
         col_totalQty.setCellFactory(TextFieldTableCell.<ItemsData, Number>forTableColumn(new NumberStringConverter()));
 
+    }
+//    // ALL THIS THREE METHODS TO BE REVISED IF POSSIBLE **REMINDER**  ******************************
 
 
 
+    @FXML
+    void editDirectorproducerOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        ItemsData itemsData= table.getSelectionModel().getSelectedItem();
+        itemsData.setDirector(itemsDataStringCellEditEvent.getNewValue());
+        ItemsData getCellContent = table.getSelectionModel().getSelectedItem();
+        String director = getCellContent.getDirector();
+        int id = getCellContent.getId();
+        String query = "UPDATE Titles SET director_or_producer = '"+director+"'WHERE titles_id = '"+id+"' ";
 
+        executeQueryUpdate(query);
+    }
 
+    @FXML
+    void editGenreOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        ItemsData itemsData= table.getSelectionModel().getSelectedItem();
+        itemsData.setGenre(itemsDataStringCellEditEvent.getNewValue());
+        ItemsData getCellContent = table.getSelectionModel().getSelectedItem();
+        String genre = getCellContent.getGenre();
+        int id = getCellContent.getId();
+        String query = "UPDATE Titles SET genre = '"+genre+"'WHERE titles_id = '"+id+"' ";
+        executeQueryUpdate(query);
+    }
 
+    @FXML
+    void editMediatypeOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        ItemsData itemsData= table.getSelectionModel().getSelectedItem();
+        itemsData.setMediaType(itemsDataStringCellEditEvent.getNewValue());
+        ItemsData getCellContent = table.getSelectionModel().getSelectedItem();
+        String mediaType = getCellContent.getMediaType();
+        int id = getCellContent.getId();
+        String query = "UPDATE Titles SET media_type = '"+mediaType+"'WHERE titles_id = '"+id+"' ";
+        executeQueryUpdate(query);
+    }
+
+    @FXML
+    void editTitlenameOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+
+            ItemsData itemsData= table.getSelectionModel().getSelectedItem();
+            itemsData.setTitleName(itemsDataStringCellEditEvent.getNewValue());
+            ItemsData getCellContent = table.getSelectionModel().getSelectedItem();
+            String titleName = getCellContent.getTitleName();
+            int id = getCellContent.getId();
+            String query = "UPDATE Titles SET title_name = '"+titleName+"'WHERE titles_id = '"+id+"' ";
+        executeQueryUpdate(query);
+    }
+
+    @FXML
+    void editTitletypeOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        ItemsData itemsData= table.getSelectionModel().getSelectedItem();
+        itemsData.setTitleType(itemsDataStringCellEditEvent.getNewValue());
+        ItemsData getCellContent = table.getSelectionModel().getSelectedItem();
+        String titleType = getCellContent.getTitleType();
+        int id = getCellContent.getId();
+        String query = "UPDATE Titles SET media_type = '"+titleType+"'WHERE titles_id = '"+id+"' ";
+        executeQueryUpdate(query);
     }
 
 
+
+
+
+    private void executeQueryUpdate(String query) {
+        Connection connection = new Connection();
+        try{
+            connection.updateOrDelete(query);
+        }catch(SQLException e){
+            e.getMessage();
+        }
+    }
+
+//***************************populate table finishes here********************************
 
     @FXML
     void deleteOnClick(ActionEvent event) {
@@ -297,6 +364,7 @@ public class StockController extends MainController implements Initializable {
 
 
     @FXML
+    // this method is to enable search by typing any information of item
     void searchOnKeyTyped(KeyEvent event) throws SQLException {
         FilteredList<ItemsData> filter = new FilteredList<>(dbDataListTable, p -> true);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {

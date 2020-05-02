@@ -22,12 +22,12 @@
       <TableView fx:id="table" layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
         <columns>
             <TableColumn fx:id="col_id" prefWidth="41.0" text="Id" />
-          <TableColumn fx:id="col_name" prefWidth="97.0" text="Name" />
-          <TableColumn fx:id="col_lastname" prefWidth="114.0" text="Last Name" />
-            <TableColumn fx:id="col_email" prefWidth="139.0" text="Email" />
-            <TableColumn fx:id="col_address" prefWidth="189.0" text="Address" />
+          <TableColumn fx:id="col_name" onEditCommit="#editNameOnClick" prefWidth="97.0" text="Name" />
+          <TableColumn fx:id="col_lastname" onEditCommit="#editLastnameOnClick" prefWidth="114.0" text="Last Name" />
+            <TableColumn fx:id="col_email" onEditCommit="#editEmailOnClick" prefWidth="139.0" text="Email" />
+            <TableColumn fx:id="col_address" onEditCommit="#editAddressOnClick" prefWidth="189.0" text="Address" />
             <TableColumn fx:id="col_membership" prefWidth="102.0" text="Membership Nº" />
-            <TableColumn fx:id="col_creditCard" prefWidth="134.0" text="Credit Card" />
+            <TableColumn fx:id="col_creditCard" onEditCommit="#editCreditCardOnClick" prefWidth="134.0" text="Credit Card" />
             <TableColumn fx:id="col_category" prefWidth="90.0" text="Category" />
         </columns>
       </TableView>
