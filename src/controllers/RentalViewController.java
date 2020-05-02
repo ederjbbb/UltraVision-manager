@@ -161,30 +161,22 @@ public class RentalViewController<EventKey> extends MainController implements In
         Connection connection = new Connection();
 
 
-        switch(category){ // This is to change the title_type that is gonna display to match the types the customer can
+        // This is to change the title_type that is gonna display to match the types the customer can
                             // rent , as per restriction
-            case "Movies": type = "Movie";
-            break;
-            case "Box Set" : type = "Box Set";
-            break;
-            case "Live Concerts": type = "Live Concerts";
-            break;
-            case "Music" : type = "Music";
-            break;
+        if(category.equalsIgnoreCase("Movie")) {
+            type = "Movie";
+        }else if (category.equalsIgnoreCase("Box Set")) {
+            type = "Box Set";
+        }else if(category.equalsIgnoreCase("Music") || category.equalsIgnoreCase("Live Concerts")) {
+            type = " Music or live Concert";
+        }else {
+            type = "Premium";
 
         }
         tableQuery = "select * from Titles  where title_type = '"+type+"';";
-        System.out.println(tableQuery);
-
-        if(category.equalsIgnoreCase("Premium") ){ // in case Premium , select everything and string
-                                                                // has to be different.
-            tableQuery = "select * from Titles ";
 
 
-        }
-
-
-
+        
         // initializing connection
         try {
 
