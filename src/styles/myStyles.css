@@ -39,10 +39,13 @@ Login stylesheet beginshere
 
 -fx-border-radius: 55%;
 }
+
 .transparent:hover{
 -fx-border-color: #0040ff ;
--fx-border-color:black;
+-fx-border-color:white;
+-fx-border-radius: 55%;
     -fx-border-width: 1 ;
+
 
 }
 .buttonLogout: hover{
@@ -54,6 +57,11 @@ Login stylesheet beginshere
 }
 .transparent{
 -fx-background-color: transparent;
+}
+.regularButton{
+-fx-background-radius: 5px;
+        -fx-border-radius: 5px;
+
 }
 
 

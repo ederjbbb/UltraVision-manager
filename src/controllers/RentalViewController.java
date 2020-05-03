@@ -27,7 +27,7 @@ public class RentalViewController<EventKey> extends MainController implements In
 
     private ObservableList dbDataListTable;// Used in the populateTable methos to get data into tableview/
     ResultSet data= null; // variable used to get data from db , used in populateTable method and in
-                            // populateCustomerData
+    // populateCustomerData
     private RentalDataCustomer rentalDataCustomer;
     String tableQuery;
 
@@ -89,11 +89,12 @@ public class RentalViewController<EventKey> extends MainController implements In
 
     private RentalDataCustomer rentalData; // Object to hold data from database to fill rentalview fileds
     String category; // used in method getLoyatyNumber , thats where populateCustomerData is calle
-                    // and the object is create, then it will have access to the object, after that i use
-                    // category variable on switch case to change the field titletype to the customer restriction
+    // and the object is create, then it will have access to the object, after that i use
+    // category variable on switch case to change the field titletype to the customer restriction
 
     @FXML
     void getLoyaltyNumber() throws SQLException {
+
         String query = "SELECT * FROM Customers WHERE membershipNumber = '"+loyaltyNumberField.getText()+"';";
         System.out.println(query);//testing
         populateCustomerData(loyaltyNumberField.getText(),query);// receiver loyalty number an query
@@ -134,7 +135,7 @@ public class RentalViewController<EventKey> extends MainController implements In
         pendingsField.setText(Integer.toString(pendings));
 //        triggerTable = true;// used to load table after customer number is entered
 
-            populateTable();
+        populateTable();
 
     }
 
@@ -155,28 +156,33 @@ public class RentalViewController<EventKey> extends MainController implements In
     private void populateTable() throws SQLException {
 
 
-                                                                // used in switch case
+        // used in switch case
         String type = null; // result of switch case and to set table view in the Rental table view
         dbDataListTable  = FXCollections.observableArrayList();
         Connection connection = new Connection();
 
 
         // This is to change the title_type that is gonna display to match the types the customer can
-                            // rent , as per restriction
-        if(category.equalsIgnoreCase("Movie")) {
-            type = "Movie";
+        // rent , as per restriction
+        if(category.equalsIgnoreCase("Movies")) {
+            type = "'Movie'";
         }else if (category.equalsIgnoreCase("Box Set")) {
-            type = "Box Set";
+            type = "'Box Set'";
         }else if(category.equalsIgnoreCase("Music") || category.equalsIgnoreCase("Live Concerts")) {
-            type = " Music or live Concert";
-        }else {
+            type = "'Music ' Or title_type = 'Live Concerts'";
+        }else if (category.equalsIgnoreCase("Premium")){
             type = "Premium";
-
+            tableQuery = "SELECT * FROM Titles"; // if Premium everything need to be displayed on the tableview
         }
-        tableQuery = "select * from Titles  where title_type = '"+type+"';";
+        if(type != "Premium" ){
+            tableQuery = "select * from Titles  where title_type = "+type;
+            System.out.println(tableQuery);
+            // get one of the first choices if no Premium
+        }
 
 
-        
+
+
         // initializing connection
         try {
 
@@ -198,7 +204,7 @@ public class RentalViewController<EventKey> extends MainController implements In
 
                 // Creates object, object vaiablein up in the class scope
                 RentalDataTable rentalDataTable= new RentalDataTable(id, media_type, title_name,
-                      genre,title_type,price);
+                        genre,title_type,price);
                 dbDataListTable.add(rentalDataTable);
 
 
