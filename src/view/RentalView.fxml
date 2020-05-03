@@ -27,7 +27,7 @@
             <TableColumn fx:id="col_price" prefWidth="64.0" text="Price" />
         </columns>
       </TableView>
-      <TextField fx:id="searchField" layoutX="20.0" layoutY="27.0" prefHeight="27.0" prefWidth="339.0" promptText="Search by any of the columns" styleClass="textF" />
+      <TextField fx:id="searchField" layoutX="20.0" layoutY="27.0" onKeyPressed="#searchItemsOnKeyPressed" prefHeight="27.0" prefWidth="339.0" promptText="Search by any of the columns" styleClass="textF" />
       <Button layoutX="89.0" layoutY="308.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="76.0" styleClass="transparent">
          <graphic>
             <ImageView fx:id="removeFromBasketBTN" fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
@@ -88,18 +88,9 @@
       <Label layoutX="747.0" layoutY="106.0" prefHeight="17.0" prefWidth="133.0" text="Name" textFill="#f8f6f6" />
       <Label layoutX="747.0" layoutY="160.0" prefHeight="17.0" prefWidth="133.0" text="Last Name" textFill="#f8f6f6" />
       <Label layoutX="747.0" layoutY="215.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Membership" textFill="#f8f6f6" />
-      <Label layoutX="929.0" layoutY="72.0" prefHeight="24.0" prefWidth="47.0" styleClass="transparent">
+      <Label fx:id="searchLabelForLoyalty" layoutX="929.0" layoutY="72.0" onMouseClicked="#getLoyaltyNumber2" prefHeight="24.0" prefWidth="47.0" styleClass="transparent">
          <graphic>
-            <ImageView fitHeight="29.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="textF">
-               <image>
-                  <Image url="@images/SearchEmoji.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Label>
-      <Label layoutX="370.0" layoutY="13.0" prefHeight="50.0" prefWidth="50.0" styleClass="transparent">
-         <graphic>
-            <ImageView fitHeight="29.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="textF">
+            <ImageView fitHeight="29.0" fitWidth="40.0" onMouseClicked="#getLoyaltyNumber2" pickOnBounds="true" preserveRatio="true" styleClass="textF">
                <image>
                   <Image url="@images/SearchEmoji.png" />
                </image>

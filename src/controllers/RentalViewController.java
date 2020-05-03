@@ -3,11 +3,15 @@ package controllers;
 import classManagers.ItemsManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Connection;
 import models.ItemsData;
@@ -97,12 +101,16 @@ public class RentalViewController<EventKey> extends MainController implements In
     String category; // used in method getLoyatyNumber , thats where populateCustomerData is calle
     // and the object is create, then it will have access to the object, after that i use
     // category variable on switch case to change the field titletype to the customer restriction
-
+    @FXML
+    void getLoyaltyNumber2(MouseEvent event) throws SQLException {
+        getLoyaltyNumber(); // another way to search loyaltyNumber
+                            // by calling getloyaltyNumber that searches for Number as well
+    }
     @FXML
     void getLoyaltyNumber() throws SQLException {
 
         String query = "SELECT * FROM Customers WHERE membershipNumber = '"+loyaltyNumberField.getText()+"';";
-        System.out.println(query);//testing
+
         populateCustomerData(loyaltyNumberField.getText(),query);// receiver loyalty number an query
 
 
@@ -182,7 +190,7 @@ public class RentalViewController<EventKey> extends MainController implements In
         }
         if(type != "Premium" ){
             tableQuery = "select * from Titles  where title_type = "+type;
-            System.out.println(tableQuery);
+
             // get one of the first choices if no Premium
         }
 
@@ -228,19 +236,45 @@ public class RentalViewController<EventKey> extends MainController implements In
         col_genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         col_price.setCellValueFactory(new PropertyValueFactory<ItemsData, Number>("price"));
 
-
-
-
         table.setItems(dbDataListTable);
 
 
+    }
+    @FXML
+    void searchItemsOnKeyPressed(KeyEvent event) {
+        FilteredList<RentalDataTable> filter = new FilteredList<>(dbDataListTable, p -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(customer -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newValue.toLowerCase();
+                if (customer.getTitleName().toLowerCase().indexOf(typedText) != -1) {
+
+                    return true;
+                }
+
+                if (customer.getTitleType().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getMediaType().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
+                if(customer.getGenre().toLowerCase().indexOf(typedText) != -1){
+                    return  true;
+                }
 
 
 
+                return false;
+            });
+            SortedList<RentalDataTable> sortedList = new SortedList<>(filter);
+            sortedList.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedList);
 
 
-
-
+        });
     }
 
 }
