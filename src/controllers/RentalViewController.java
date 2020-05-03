@@ -84,6 +84,12 @@ public class RentalViewController<EventKey> extends MainController implements In
     @FXML
     private TableColumn<ItemsData, Number> col_price;
     private boolean triggerTable = false; // used in getLoyaltyNumber
+    @FXML
+    void goBackOnClick(ActionEvent event) throws SQLException {
+            viewFactory.showMainWindow();
+            Stage stage = (Stage)logoutButton.getScene().getWindow();
+            viewFactory.closeStage(stage);
+    }
 
 
 

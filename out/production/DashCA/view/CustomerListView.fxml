@@ -25,10 +25,10 @@
           <TableColumn fx:id="col_name" onEditCommit="#editNameOnClick" prefWidth="97.0" text="Name" />
           <TableColumn fx:id="col_lastname" onEditCommit="#editLastnameOnClick" prefWidth="114.0" text="Last Name" />
             <TableColumn fx:id="col_email" onEditCommit="#editEmailOnClick" prefWidth="139.0" text="Email" />
-            <TableColumn fx:id="col_address" onEditCommit="#editAddressOnClick" prefWidth="189.0" text="Address" />
-            <TableColumn fx:id="col_membership" prefWidth="102.0" text="Membership Nº" />
-            <TableColumn fx:id="col_creditCard" onEditCommit="#editCreditCardOnClick" prefWidth="134.0" text="Credit Card" />
-            <TableColumn fx:id="col_category" prefWidth="90.0" text="Category" />
+            <TableColumn fx:id="col_address" onEditCommit="#editAddressOnClick" prefWidth="167.0" text="Address" />
+            <TableColumn fx:id="col_category" maxWidth="159.0" onEditCommit="#editCategoryOnClick" prefWidth="119.0" text="Category" />
+            <TableColumn fx:id="col_membership" prefWidth="81.0" text="Membership Nº" />
+            <TableColumn fx:id="col_creditCard" minWidth="0.0" prefWidth="167.0" text="Credit Card" />
         </columns>
       </TableView>
       <TextField fx:id="firstnameField" layoutX="26.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="First Name" styleClass="textF" />

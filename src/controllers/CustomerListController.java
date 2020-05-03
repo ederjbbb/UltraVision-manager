@@ -360,7 +360,7 @@ public class CustomerListController extends MainController implements Initializa
 
 
                 // Creates object, object vaiablein up in the class scope
-                customerDataObject = new CustomerData(id,firstname, lastname, email, address, card, membershipNumber,category);
+                customerDataObject = new CustomerData(id,firstname, lastname, email, address,  membershipNumber, card, category);
                 dbDataListTable.add(customerDataObject);
 
 
@@ -413,17 +413,18 @@ public class CustomerListController extends MainController implements Initializa
         executeQueryUpdate(query);
     }
 
-    @FXML
-    void editCreditCardOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
-        CustomerData customerData= table.getSelectionModel().getSelectedItem();
-        customerData.setCardNumber(itemsDataStringCellEditEvent.getNewValue());
-        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
-        String cardNumber = getCellContent.getCardNumber();
-        int id = getCellContent.getId();
-        String query = "UPDATE Customers SET card_number = '"+cardNumber+"'WHERE customer_id = '"+id+"' ";
 
-        executeQueryUpdate(query);
-    }
+@FXML
+void editCreditCardOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+    CustomerData customerData= table.getSelectionModel().getSelectedItem();
+    customerData.setCardNumber(itemsDataStringCellEditEvent.getNewValue());
+    CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+    String cardNumber = getCellContent.getCardNumber();
+    int id = getCellContent.getId();
+    String query = "UPDATE Customers SET car_number = '"+cardNumber+"'WHERE customer_id = '"+id+"' ";
+
+    executeQueryUpdate(query);
+}
 
     @FXML
     void editEmailOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
@@ -460,6 +461,17 @@ public class CustomerListController extends MainController implements Initializa
         String name = getCellContent.getFirstName();
         int id = getCellContent.getId();
         String query = "UPDATE Customers SET firstname = '"+name+"'WHERE customer_id = '"+id+"' ";
+
+        executeQueryUpdate(query);
+    }
+    @FXML
+    void editCategoryOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
+        CustomerData customerData= table.getSelectionModel().getSelectedItem();
+        customerData.setCategory(itemsDataStringCellEditEvent.getNewValue());
+        CustomerData getCellContent = table.getSelectionModel().getSelectedItem();
+        String category = getCellContent.getFirstName();
+        int id = getCellContent.getId();
+        String query = "UPDATE Customers SET category = '"+category+"'WHERE customer_id = '"+id+"' ";
 
         executeQueryUpdate(query);
     }

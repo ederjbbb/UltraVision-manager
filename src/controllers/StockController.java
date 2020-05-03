@@ -297,6 +297,10 @@ public class StockController extends MainController implements Initializable {
     }
 
     @FXML
+    void editAvailableqtyOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent){
+
+    }
+    @FXML
     void editTitletypeOnClick(TableColumn.CellEditEvent<ItemsData, String> itemsDataStringCellEditEvent) {
         ItemsData itemsData= table.getSelectionModel().getSelectedItem();
         itemsData.setTitleType(itemsDataStringCellEditEvent.getNewValue());
@@ -306,6 +310,7 @@ public class StockController extends MainController implements Initializable {
         String query = "UPDATE Titles SET media_type = '"+titleType+"'WHERE titles_id = '"+id+"' ";
         executeQueryUpdate(query);
     }
+
 
 
 

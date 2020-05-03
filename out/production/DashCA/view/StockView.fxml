@@ -28,9 +28,9 @@
             <TableColumn fx:id="col_genre" onEditCommit="#editGenreOnClick" text="Genre" />
             <TableColumn fx:id="col_director_producer" onEditCommit="#editDirectorproducerOnClick" prefWidth="134.0" text="Director/Producer" />
             <TableColumn fx:id="col_year" minWidth="0.0" onEditCommit="#editGenreOnClick" prefWidth="69.0" text="Year" />
-            <TableColumn fx:id="col_price" minWidth="5.0"  prefWidth="52.0" text="Price" />
-            <TableColumn fx:id="col_totalQty"  prefWidth="82.0" text="Total Qty" />
-            <TableColumn fx:id="col_availableQty" onEditCommit="#editAvailableqtyOnClick" prefWidth="114.0" text="Available Qty" />
+            <TableColumn fx:id="col_price" minWidth="5.0" prefWidth="52.0" text="Price" />
+            <TableColumn fx:id="col_totalQty" prefWidth="82.0" text="Total Qty" />
+            <TableColumn fx:id="col_availableQty" prefWidth="114.0" text="Available Qty" />
         </columns>
       </TableView>
       <TextField fx:id="titleField" layoutX="188.0" layoutY="21.0" prefHeight="27.0" prefWidth="142.0" promptText="Title Name" styleClass="textF" />
