@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Connection;
@@ -29,6 +26,7 @@ public class RentalViewController<EventKey> extends MainController implements In
     ResultSet data= null; // variable used to get data from db , used in populateTable method and in
     // populateCustomerData
     private RentalDataCustomer rentalDataCustomer;
+    private MainWindowController mwc = new MainWindowController(); // to be able to get the method currentTime
     String tableQuery;
 
 
@@ -48,6 +46,8 @@ public class RentalViewController<EventKey> extends MainController implements In
 
     @FXML
     private TextField loyaltyNumberField;
+    @FXML
+    private Label timeLable;
 
     @FXML
     private TextField pointsField;
@@ -155,7 +155,7 @@ public class RentalViewController<EventKey> extends MainController implements In
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        mwc.getCurrentTime(timeLable);
 
     }
     //**************************** table to be populated startd here*********************************

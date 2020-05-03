@@ -106,5 +106,10 @@
             </ImageView>
          </graphic>
       </Label>
+      <Label fx:id="timeLable" layoutX="771.0" layoutY="8.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" textFill="#f8f5f5">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
