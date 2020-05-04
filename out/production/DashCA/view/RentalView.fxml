@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -28,7 +29,7 @@
         </columns>
       </TableView>
       <TextField fx:id="searchField" layoutX="20.0" layoutY="27.0" onKeyPressed="#searchItemsOnKeyPressed" prefHeight="27.0" prefWidth="339.0" promptText="Search by any of the columns" styleClass="textF" />
-      <Button layoutX="89.0" layoutY="308.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="76.0" styleClass="transparent">
+      <Button fx:id="removeFromBasketBTN" layoutX="89.0" layoutY="308.0" mnemonicParsing="false" onAction="#removeOnClick" prefHeight="69.0" prefWidth="76.0" styleClass="transparent">
          <graphic>
             <ImageView fx:id="removeFromBasketBTN" fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -37,7 +38,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="224.0" layoutY="309.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="76.0" styleClass="transparent">
+      <Button fx:id="addToBasketBTN" layoutX="224.0" layoutY="309.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="69.0" prefWidth="76.0" styleClass="transparent">
          <graphic>
             <ImageView fx:id="addToBasketBTN" fitHeight="54.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,17 +46,6 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <TableView fx:id="basketTable" layoutX="20.0" layoutY="388.0" prefHeight="118.0" prefWidth="442.0" styleClass="textF">
-        <columns>
-          <TableColumn fx:id="col_basketTitle" prefWidth="361.0" text="Title" />
-          <TableColumn fx:id="col_basketQuantity" text="Quantity" />
-        </columns>
-      </TableView>
-      <ImageView fitHeight="118.0" fitWidth="130.0" layoutX="471.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" styleClass="textF">
-         <image>
-            <Image url="@images/cart.png" />
-         </image>
-      </ImageView>
       <Button fx:id="goBackButton" layoutX="449.0" layoutY="21.0" mnemonicParsing="false" onAction="#goBackOnClick" text="Go Back" />
       <Button fx:id="logoutButton" layoutX="633.0" layoutY="15.0" mnemonicParsing="false" onAction="#openRentalOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="transparent">
          <graphic>
@@ -66,29 +56,29 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="loyaltyNumberField" layoutX="752.0" layoutY="73.0" onAction="#getLoyaltyNumber" prefHeight="27.0" prefWidth="165.0" promptText="Enter Loyalty Number" styleClass="textF" />
-      <Label layoutX="747.0" layoutY="288.0" prefHeight="27.0" prefWidth="92.0" styleClass="textF" text="Points     :" textFill="#f5f2f2">
+      <TextField fx:id="loyaltyNumberField" layoutX="752.0" layoutY="136.0" onAction="#getLoyaltyNumber" prefHeight="27.0" prefWidth="165.0" promptText="Enter Loyalty Number" styleClass="textF" />
+      <Label layoutX="747.0" layoutY="344.0" prefHeight="27.0" prefWidth="92.0" styleClass="textF" text="Points     :" textFill="#f5f2f2">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="pointsField" layoutX="848.0" layoutY="287.0" prefHeight="27.0" prefWidth="112.0" styleClass="textF" />
-      <TextField fx:id="firstNameField" layoutX="752.0" layoutY="123.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
-      <Label layoutX="747.0" layoutY="333.0" prefHeight="27.0" prefWidth="92.0" styleClass="textF" text="Pendings :" textFill="#f5f2f2">
+      <TextField fx:id="pointsField" layoutX="848.0" layoutY="344.0" prefHeight="27.0" prefWidth="112.0" styleClass="textF" />
+      <TextField fx:id="firstNameField" layoutX="752.0" layoutY="186.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
+      <Label layoutX="747.0" layoutY="391.0" prefHeight="27.0" prefWidth="92.0" styleClass="textF" text="Pendings :" textFill="#f5f2f2">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="pendingsField" layoutX="848.0" layoutY="332.0" prefHeight="27.0" prefWidth="112.0" styleClass="textF" />
-      <TextField fx:id="lastNameField" layoutX="752.0" layoutY="177.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
-      <Button layoutX="860.0" layoutY="387.0" mnemonicParsing="false" text="Cancel" />
-      <Button layoutX="746.0" layoutY="387.0" mnemonicParsing="false" text="Finish" />
-      <TextField fx:id="categoryPlanField" layoutX="752.0" layoutY="232.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
-      <Label layoutX="747.0" layoutY="52.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Number" textFill="#f8f6f6" />
-      <Label layoutX="747.0" layoutY="106.0" prefHeight="17.0" prefWidth="133.0" text="Name" textFill="#f8f6f6" />
-      <Label layoutX="747.0" layoutY="160.0" prefHeight="17.0" prefWidth="133.0" text="Last Name" textFill="#f8f6f6" />
-      <Label layoutX="747.0" layoutY="215.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Membership" textFill="#f8f6f6" />
-      <Label fx:id="searchLabelForLoyalty" layoutX="929.0" layoutY="72.0" onMouseClicked="#getLoyaltyNumber2" prefHeight="24.0" prefWidth="47.0" styleClass="transparent">
+      <TextField fx:id="pendingsField" layoutX="848.0" layoutY="391.0" prefHeight="27.0" prefWidth="112.0" styleClass="textF" />
+      <TextField fx:id="lastNameField" layoutX="752.0" layoutY="239.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
+      <Button fx:id="cancelRentalButton" layoutX="859.0" layoutY="447.0" mnemonicParsing="false" onAction="#cancelOnClick" text="Cancel" />
+      <Button fx:id="finishRentalButon" layoutX="744.0" layoutY="447.0" mnemonicParsing="false" onAction="#finishOnClick" text="Finish" />
+      <TextField fx:id="categoryPlanField" layoutX="752.0" layoutY="299.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
+      <Label layoutX="754.0" layoutY="118.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Number" textFill="#f8f6f6" />
+      <Label layoutX="752.0" layoutY="169.0" prefHeight="17.0" prefWidth="133.0" text="Name" textFill="#f8f6f6" />
+      <Label layoutX="754.0" layoutY="222.0" prefHeight="17.0" prefWidth="133.0" text="Last Name" textFill="#f8f6f6" />
+      <Label layoutX="754.0" layoutY="282.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Membership" textFill="#f8f6f6" />
+      <Label fx:id="searchLabelForLoyalty" layoutX="923.0" layoutY="135.0" onMouseClicked="#getLoyaltyNumber2" prefHeight="24.0" prefWidth="47.0" styleClass="transparent">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="40.0" onMouseClicked="#getLoyaltyNumber2" pickOnBounds="true" preserveRatio="true" styleClass="textF">
                <image>
@@ -102,5 +92,16 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="752.0" layoutY="54.0" prefHeight="50.0" prefWidth="206.0" styleClass="textF" text="Rental Control" textFill="#fffefe">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="125.0" fitWidth="143.0" layoutX="349.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" styleClass="textF">
+         <image>
+            <Image url="@images/cart.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="listView" layoutX="19.0" layoutY="393.0" prefHeight="109.0" prefWidth="329.0" styleClass="textF" />
    </children>
 </AnchorPane>

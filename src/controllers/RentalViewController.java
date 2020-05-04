@@ -13,15 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.Connection;
-import models.ItemsData;
-import models.RentalDataCustomer;
-import models.RentalDataTable;
+import models.*;
 import view.ViewFactory;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RentalViewController<EventKey> extends MainController implements Initializable {
@@ -31,6 +30,7 @@ public class RentalViewController<EventKey> extends MainController implements In
     // populateCustomerData
     private RentalDataCustomer rentalDataCustomer;
     private MainWindowController mwc = new MainWindowController(); // to be able to get the method currentTime
+
     String tableQuery;
 
 
@@ -95,6 +95,120 @@ public class RentalViewController<EventKey> extends MainController implements In
             viewFactory.closeStage(stage);
     }
 
+
+
+
+    @FXML
+    private TableView<RentalDataBasket> basketTable;
+
+    @FXML
+    private TableColumn<RentalDataBasket, String> col_basketTitle;
+
+    @FXML
+    private TableColumn<RentalDataBasket, Integer> col_basketQuantity;
+
+    @FXML
+    private ListView  listView ;
+    RentalDataBasket item;// object to fill the list and the UI// used in methods addOnClick and removeOnClick
+    List list = new ArrayList<>();
+
+    ObservableList observableListBasket = FXCollections.observableArrayList(); // this arraylist holds list of
+                                     // items in the basket
+
+
+
+        ArrayList<Double> prices = new ArrayList<>();// to hold prices
+        @FXML
+    private void addOnClick() {
+            String title = table.getSelectionModel().getSelectedItem().getTitleName(); // get item title from table
+        double price = table.getSelectionModel().getSelectedItem().getPrice();// get item price
+        int quantity = 1;
+          item = new RentalDataBasket(title, price, quantity);
+//            observableListBasket.add( item); // add item to UI
+            listView.getItems().add(item.getTitleName());
+//            listView.getItems().add(item.getPrice());
+            prices.add(item.getPrice()); // get price everytime user click button
+
+
+        }
+
+           @FXML
+    private void removeOnClick() {
+               listView.getItems().toArray();// in order to work with it better
+               listView.getItems().remove(0);
+               prices.remove(item.getPrice());
+
+           }
+    @FXML
+    private void cancelOnClick(ActionEvent event) throws SQLException {
+        // this method cancel the entire operation
+        listView.getItems().clear();
+        loyaltyNumberField.clear();
+        getLoyaltyNumber();
+
+
+
+
+    }
+    //************************bill process starts here***************************************************
+
+
+
+    @FXML
+    private void finishOnClick(ActionEvent event) {
+
+            // When clickon button finish is clicked  the bill is printed
+        double bill = calculateBill();
+        double discount = applyDiscount();
+        final double finalBill = bill - discount;
+        System.out.println("bill =" +finalBill);
+        System.out.println("remaining point  ="+points);
+    }
+    private  int points ; // used int the applyDiscount method
+    private  double bill; // used in the methods below
+    private double greatestPrice; // used in the method below
+    private double  calculateBill(){
+        // Calculate bill wit no discountt yet
+        bill = 0.0;
+        for (Object p : prices // loop through the array of prices, which is not shown in the basket
+        ) {
+            bill += (double) p;
+        }
+        return  bill;
+
+    }
+
+    // This method is to get the points , get the highest price and apply discount
+    // base on the points that the customer has.
+    // Point will remove most expensive items from the bill and charge the restof the bill on their card
+    // whichis alredy stored in the Database
+    private double  applyDiscount() {
+        double greatestPrice = getHighestPrice();
+        double discount = 0;
+        points = rentalDataCustomer.getLoyaltyPoints();
+        int counter = 0;
+
+        while (counter != prices.size() && points > 100){
+            discount += greatestPrice;
+        counter++;
+        points -= 100;
+          }
+
+        return discount;
+    }
+
+    // This methos gets the greatestprice to be used in the applyDiscount method
+    private double getHighestPrice(){
+
+             greatestPrice = 0.0 ;
+            for(int i = 0; i < prices.size(); i++) {
+                if (prices.get(i) > greatestPrice) {
+                    greatestPrice = prices.get(i);
+                }
+            }
+            return greatestPrice;
+    }
+    //***************************** bill process finishes here***************************************
 
 
     private RentalDataCustomer rentalData; // Object to hold data from database to fill rentalview fileds
