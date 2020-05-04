@@ -19,9 +19,9 @@ import view.ViewFactory;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class RentalViewController<EventKey> extends MainController implements Initializable {
 
@@ -153,23 +153,70 @@ public class RentalViewController<EventKey> extends MainController implements In
     //************************bill process starts here***************************************************
 
 
-
+    int pointsUsed= 0; // Used to build report/receipt in the object of  ReportRentalData
+    double pointsRemaining =  0 ;
+    double finalBill;
+    String  receiptNumber ;
     @FXML
-    private void finishOnClick(ActionEvent event) {
+    private void finishOnClick(ActionEvent event) throws SQLException {
+//
 
-            // When clickon button finish is clicked  the bill is printed
+//        When clickon button finish is clicked  the bill is printed
         double bill = calculateBill();
         double discount = applyDiscount();
         int extraPoints = prices.size() * 10;
-        final double finalBill = bill - discount;
-        System.out.println("bill =" +finalBill);
-        System.out.println("remaining point  ="+(points+extraPoints));
-        System.out.println("extra points = " + extraPoints);
+        finalBill = bill - discount;
+        pointsUsed = Integer.parseInt(pointsField.getText()) - points;
+         pointsRemaining = points+extraPoints;
+
+        openConfirmationWindow();
     }
+    // This methos is to call other method to get information for report/receipt
+    private void openConfirmationWindow() throws SQLException {
+
+
+        createReport();
+
+
+
+    }
+    // This is to create report/receipt
+    private void createReport(){
+        // This Object is to fill up  the report/recepit
+        ReportRentalData confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
+                loyaltyNumberField.getText(), getPickupDate(),getReturnDate(),pointsUsed,pointsRemaining,finalBill,
+                Integer.parseInt(pendingsField.getText()),receiptNumber);
+    }
+
+    //This method provides date to store pckUpdate in DB and print on Report
+    private String getPickupDate(){
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date currentDate = new Date();
+        String date =  dateFormat.format(currentDate);
+            return  date;
+    }
+
+
+    //This method provides date to store returnDate in DB and print on Report
+    private String getReturnDate (){
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date currentDate = new Date();
+        dateFormat.format(currentDate);
+        Calendar c = Calendar.getInstance();
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 3);
+        Date returneDate = c.getTime();
+        String returnDate =  dateFormat.format(returneDate);
+        return returnDate;
+    }
+
+
     private  int points ; // used int the applyDiscount method
     private  double bill; // used in the methods below
     private double greatestPrice; // used in the method below
-    private double  calculateBill(){
+    private double  calculateBill() throws SQLException {
+        CustomerData customerData = new CustomerData();
+        receiptNumber = customerData.getLoyaltyCardNumber();//
         // Calculate bill wit no discountt yet
         bill = 0.0;
         for (Object p : prices // loop through the array of prices, which is not shown in the basket
@@ -184,17 +231,22 @@ public class RentalViewController<EventKey> extends MainController implements In
     // base on the points that the customer has.
     // Point will remove most expensive items from the bill and charge the restof the bill on their card
     // whichis alredy stored in the Database
+
     private double  applyDiscount() {
         double greatestPrice = getHighestPrice();
         double discount = 0;
         points = rentalDataCustomer.getLoyaltyPoints();
         int counter = 0;
 
-        while (counter != prices.size() && points > 100){
-            discount += greatestPrice;
+        // This loop check for the points being and for the number of items in the basket
+        // as long as there are points , the customer will not be charged , as soon  as the  points
+        // go below 100 , charge starts
+        while (counter <= prices.size() && points >= 100){
         counter++;
+            discount = (counter * greatestPrice);
         points -= 100;
           }
+
 
         return discount;
     }
@@ -223,10 +275,9 @@ public class RentalViewController<EventKey> extends MainController implements In
                             // by calling getloyaltyNumber that searches for Number as well
     }
     @FXML
+    // Here it gets loyalty number and retrive data from DB that match the number
     void getLoyaltyNumber() throws SQLException {
-
         String query = "SELECT * FROM Customers WHERE membershipNumber = '"+loyaltyNumberField.getText()+"';";
-
         populateCustomerData(loyaltyNumberField.getText(),query);// receiver loyalty number an query
 
 
