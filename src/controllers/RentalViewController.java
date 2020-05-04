@@ -185,7 +185,7 @@ public class RentalViewController<EventKey> extends MainController implements In
         // This Object is to fill up  the report/recepit
         ReportRentalData confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
                 loyaltyNumberField.getText(), getPickupDate(),getReturnDate(),pointsUsed,pointsRemaining,finalBill,
-                Integer.parseInt(pendingsField.getText()),receiptNumber);
+                pendingsForReport,receiptNumber);
     }
 
     //This method provides date to store pckUpdate in DB and print on Report
@@ -214,6 +214,9 @@ public class RentalViewController<EventKey> extends MainController implements In
     private  int points ; // used int the applyDiscount method
     private  double bill; // used in the methods below
     private double greatestPrice; // used in the method below
+    private int pendingsForReport = 0;// this pendings is to use after transaction is finishe
+                                    // and number of items will be stored as pending for returning or another
+                                    // rental in case customer didnt return yest.
     private double  calculateBill() throws SQLException {
         CustomerData customerData = new CustomerData();
         receiptNumber = customerData.getLoyaltyCardNumber();//
@@ -245,8 +248,9 @@ public class RentalViewController<EventKey> extends MainController implements In
         counter++;
             discount = (counter * greatestPrice);
         points -= 100;
-          }
 
+          }
+        pendingsForReport = prices.size() + Integer.parseInt(pendingsField.getText());
 
         return discount;
     }
