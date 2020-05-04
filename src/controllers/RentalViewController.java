@@ -160,9 +160,11 @@ public class RentalViewController<EventKey> extends MainController implements In
             // When clickon button finish is clicked  the bill is printed
         double bill = calculateBill();
         double discount = applyDiscount();
+        int extraPoints = prices.size() * 10;
         final double finalBill = bill - discount;
         System.out.println("bill =" +finalBill);
-        System.out.println("remaining point  ="+points);
+        System.out.println("remaining point  ="+(points+extraPoints));
+        System.out.println("extra points = " + extraPoints);
     }
     private  int points ; // used int the applyDiscount method
     private  double bill; // used in the methods below
