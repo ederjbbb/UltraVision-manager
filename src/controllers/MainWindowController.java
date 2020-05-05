@@ -116,6 +116,7 @@ public class MainWindowController extends MainController implements Initializabl
         }
         @FXML
         void closeBTN() {
+        viewFactory.showLoginWindow();
         closeWindow();
 
 

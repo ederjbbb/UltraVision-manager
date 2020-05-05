@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="520.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="633.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="514.0" fitWidth="976.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -47,7 +47,7 @@
             </ImageView>
          </graphic></Button>
       <Button fx:id="goBackButton" layoutX="449.0" layoutY="21.0" mnemonicParsing="false" onAction="#goBackOnClick" text="Go Back" />
-      <Button fx:id="logoutButton" layoutX="633.0" layoutY="15.0" mnemonicParsing="false" onAction="#openRentalOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="transparent">
+      <Button fx:id="logoutButton" layoutX="633.0" layoutY="15.0" mnemonicParsing="false" onAction="#logouOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="transparent">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -71,8 +71,6 @@
       </Label>
       <TextField fx:id="pendingsField" layoutX="848.0" layoutY="391.0" prefHeight="27.0" prefWidth="112.0" styleClass="textF" />
       <TextField fx:id="lastNameField" layoutX="752.0" layoutY="239.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
-      <Button fx:id="cancelRentalButton" layoutX="859.0" layoutY="447.0" mnemonicParsing="false" onAction="#cancelOnClick" text="Cancel" />
-      <Button fx:id="finishRentalButon" layoutX="744.0" layoutY="447.0" mnemonicParsing="false" onAction="#finishOnClick" text="Finish" />
       <TextField fx:id="categoryPlanField" layoutX="752.0" layoutY="299.0" prefHeight="27.0" prefWidth="206.0" styleClass="textF" />
       <Label layoutX="754.0" layoutY="118.0" prefHeight="17.0" prefWidth="133.0" text="Loyalty Number" textFill="#f8f6f6" />
       <Label layoutX="752.0" layoutY="169.0" prefHeight="17.0" prefWidth="133.0" text="Name" textFill="#f8f6f6" />
@@ -103,5 +101,25 @@
          </image>
       </ImageView>
       <ListView fx:id="listView" layoutX="19.0" layoutY="393.0" prefHeight="109.0" prefWidth="329.0" styleClass="textF" />
+      <ImageView fitHeight="109.0" fitWidth="976.0" layoutX="6.0" layoutY="517.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/reportBackground.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="reportFirstname" layoutX="20.0" layoutY="522.0" prefHeight="17.0" prefWidth="280.0" textFill="#030303">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportLastname" layoutX="20.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportMemberNumber" layoutX="20.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportPlan" layoutX="20.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportPoints" layoutX="412.0" layoutY="522.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportPendings" layoutX="412.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportpickupDate" layoutX="412.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" />
+      <Label fx:id="reportReturnDate" layoutX="412.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" />
+      <Button fx:id="finishRentalButon" layoutX="736.0" layoutY="558.0" mnemonicParsing="false" onAction="#finishOnClick" text="Finish" />
+      <Button fx:id="cancelRentalButton" layoutX="856.0" layoutY="558.0" mnemonicParsing="false" onAction="#cancelOnClick" text="Cancel" />
+      <Button fx:id="submitButton" layoutX="747.0" layoutY="445.0" mnemonicParsing="false" onAction="#createReport" prefHeight="27.0" prefWidth="213.0" text="Submit" />
    </children>
 </AnchorPane>

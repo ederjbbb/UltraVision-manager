@@ -85,6 +85,7 @@ public class ViewFactory{
 
     }
 
+
 // this is in charge of creating stage and scenes
     //as every view has to have it.
     // I just have to call this method inside of every method in the ViewFactory

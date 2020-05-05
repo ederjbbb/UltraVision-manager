@@ -1,9 +1,7 @@
 package models;
 
 public class ReportRentalData {
-    RentalDataBasket rentalDataBasket;
-    RentalDataCustomer rentalDataCustomer;
-    RentalDataTable rentalDataTable;
+
     private String firstName;
     private String lastName;
     private String  memberNumber;
@@ -14,6 +12,7 @@ public class ReportRentalData {
     private double amountChargedOnCard;
     private int pendings;
     private String receiptNumber;
+
 
     public ReportRentalData(String firstName, String lastName, String memberNumber,
                             String pickUpDate, String returnDate, double pointsUsed, double pointsRemaining,
@@ -30,6 +29,7 @@ public class ReportRentalData {
         this.amountChargedOnCard = amountChargedOnCard;
         this.pendings = pendings;
         this.receiptNumber = receiptNumber;
+
         System.out.println("name :" +firstName );
         System.out.println("last name :" +lastName);
         System.out.println("PickUp Date : "+pickUpDate);
@@ -38,17 +38,13 @@ public class ReportRentalData {
         System.out.println("Charged :"+amountChargedOnCard+"Euros");
         System.out.println("Trasaction pending : "+ pendings);
         System.out.println("Receipt number :"+receiptNumber);
+
+
+
+
+
     }
 
-
-
-
-
-
-
-    public void setRentalDataTable(RentalDataTable rentalDataTable) {
-        this.rentalDataTable = rentalDataTable;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -129,4 +125,7 @@ public class ReportRentalData {
     public void setReceiptNumber(String receiptNumber) {
         this.receiptNumber = receiptNumber;
     }
+
+
+
 }

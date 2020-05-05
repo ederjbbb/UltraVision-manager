@@ -63,5 +63,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+      <Label layoutX="501.0" layoutY="372.0" prefHeight="24.0" prefWidth="97.0" text="Eder De Brito" textFill="#f8f5f5">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

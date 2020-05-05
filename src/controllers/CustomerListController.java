@@ -37,6 +37,7 @@ public class CustomerListController extends MainController implements Initializa
     CustomerData userDataObject = null;
     MemberCategories categories[] = MemberCategories.values();
     private String addQuery; // This query variable is for use fo the method addOnClick
+    String category;
 
 
 
@@ -120,7 +121,9 @@ public class CustomerListController extends MainController implements Initializa
 
     @FXML
     private TableColumn<CustomerData, String> col_creditCard;
-    String category;
+
+
+
 
 
 
@@ -229,8 +232,7 @@ public class CustomerListController extends MainController implements Initializa
 
             if (row > 0) {
                 closeWindow();
-                Stage stage = (Stage) deleteButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
+
                 viewFactory.showCustomerList();
 
             } else {
@@ -290,8 +292,8 @@ public class CustomerListController extends MainController implements Initializa
     }
     @FXML
     void exitOnClick(ActionEvent event) {
-        Stage stage = (Stage)deleteButton.getScene().getWindow();
-        viewFactory.closeStage(stage);
+        viewFactory.showLoginWindow();
+        closeWindow();
 
     }
 
@@ -299,8 +301,7 @@ public class CustomerListController extends MainController implements Initializa
     void goBackOnClick(ActionEvent event) throws SQLException {
 
         viewFactory.showMainWindow();
-        Stage stage = (Stage)deleteButton.getScene().getWindow();
-        viewFactory.closeStage(stage);
+        closeWindow();
     }
     @FXML
 

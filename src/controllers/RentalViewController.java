@@ -23,7 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class RentalViewController<EventKey> extends MainController implements Initializable {
+public class RentalViewController extends MainController implements Initializable {
 
     private ObservableList dbDataListTable;// Used in the populateTable methos to get data into tableview/
     ResultSet data= null; // variable used to get data from db , used in populateTable method and in
@@ -37,6 +37,9 @@ public class RentalViewController<EventKey> extends MainController implements In
     public RentalViewController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
         super(itemsManager, viewFactory, fxmlName);
 
+
+    }
+    public RentalViewController(){
 
     }
 
@@ -169,24 +172,59 @@ public class RentalViewController<EventKey> extends MainController implements In
         pointsUsed = Integer.parseInt(pointsField.getText()) - points;
          pointsRemaining = points+extraPoints;
 
-        openConfirmationWindow();
-    }
-    // This methos is to call other method to get information for report/receipt
-    private void openConfirmationWindow() throws SQLException {
-
-
         createReport();
-
-
-
     }
-    // This is to create report/receipt
+    @FXML
     private void createReport(){
         // This Object is to fill up  the report/recepit
         ReportRentalData confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
                 loyaltyNumberField.getText(), getPickupDate(),getReturnDate(),pointsUsed,pointsRemaining,finalBill,
                 pendingsForReport,receiptNumber);
+        fillUpReport();
+
     }
+    // Mthod to fill the report when submit is clicked
+    private void fillUpReport() {
+        reportFirstname.setText("Name  :  "+firstNameField.getText());
+        reportLastname.setText("Surname:  "+lastNameField.getText());
+        reportMemberNumber.setText("Loyalty Nº  :"+ loyaltyNumberField.getText());
+    }
+    @FXML
+    void submitOnClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    private Label searchLabelForLoyalty;
+
+
+
+
+
+    @FXML
+    private Label reportFirstname;
+
+    @FXML
+    private Label reportLastname;
+
+    @FXML
+    private Label reportMemberNumber;
+
+    @FXML
+    private Label reportPlan;
+
+    @FXML
+    private Label reportPoints;
+
+    @FXML
+    private Label reportPendings;
+
+    @FXML
+    private Label reportpickupDate;
+
+    @FXML
+    private Label reportReturnDate;
+
 
     //This method provides date to store pckUpdate in DB and print on Report
     private String getPickupDate(){
@@ -244,7 +282,7 @@ public class RentalViewController<EventKey> extends MainController implements In
         // This loop check for the points being and for the number of items in the basket
         // as long as there are points , the customer will not be charged , as soon  as the  points
         // go below 100 , charge starts
-        while (counter <= prices.size() && points >= 100){
+        while (counter < prices.size() && points >= 100){
         counter++;
             discount = (counter * greatestPrice);
         points -= 100;
@@ -257,7 +295,6 @@ public class RentalViewController<EventKey> extends MainController implements In
 
     // This methos gets the greatestprice to be used in the applyDiscount method
     private double getHighestPrice(){
-
              greatestPrice = 0.0 ;
             for(int i = 0; i < prices.size(); i++) {
                 if (prices.get(i) > greatestPrice) {
@@ -319,18 +356,18 @@ public class RentalViewController<EventKey> extends MainController implements In
         pointsField.setText(Integer.toString(points));
         pendingsField.setText(Integer.toString(pendings));
 //        triggerTable = true;// used to load table after customer number is entered
-
         populateTable();
 
     }
-
-
-    @FXML
-    void openRentalOnClick(ActionEvent event) {
+    private void closeWindow(){
         Stage stage = (Stage)searchField.getScene().getWindow();
         viewFactory.closeStage(stage);
     }
-
+    @FXML
+    void logouOnClick(ActionEvent event) {
+        viewFactory.showLoginWindow();
+        closeWindow();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -446,6 +483,8 @@ public class RentalViewController<EventKey> extends MainController implements In
 
 
         });
+
+
     }
 
 }
