@@ -30,14 +30,7 @@ public class ReportRentalData {
         this.pendings = pendings;
         this.receiptNumber = receiptNumber;
 
-        System.out.println("name :" +firstName );
-        System.out.println("last name :" +lastName);
-        System.out.println("PickUp Date : "+pickUpDate);
-        System.out.println("Return Date :" + returnDate);
-        System.out.println("points remaining :"+pointsRemaining);
-        System.out.println("Charged :"+amountChargedOnCard+"Euros");
-        System.out.println("Trasaction pending : "+ pendings);
-        System.out.println("Receipt number :"+receiptNumber);
+
 
 
 

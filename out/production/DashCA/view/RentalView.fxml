@@ -111,15 +111,43 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="reportLastname" layoutX="20.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportMemberNumber" layoutX="20.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportPlan" layoutX="20.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportPoints" layoutX="412.0" layoutY="522.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportPendings" layoutX="412.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportpickupDate" layoutX="412.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" />
-      <Label fx:id="reportReturnDate" layoutX="412.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" />
-      <Button fx:id="finishRentalButon" layoutX="736.0" layoutY="558.0" mnemonicParsing="false" onAction="#finishOnClick" text="Finish" />
+      <Label fx:id="reportLastname" layoutX="20.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" textFill="#030000">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportMemberNumber" layoutX="20.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" textFill="#070707">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportCharges" layoutX="20.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" textFill="#070707">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportUsedPoints" layoutX="412.0" layoutY="522.0" prefHeight="17.0" prefWidth="280.0" textFill="#070707">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportPendings" layoutX="412.0" layoutY="548.0" prefHeight="17.0" prefWidth="280.0" textFill="#0d0d0d">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportpickupDate" layoutX="412.0" layoutY="576.0" prefHeight="17.0" prefWidth="280.0" textFill="#070707">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportReturnDate" layoutX="412.0" layoutY="602.0" prefHeight="17.0" prefWidth="280.0" textFill="#111010">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="finishRentalButon" layoutX="736.0" layoutY="558.0" mnemonicParsing="false" onAction="#ConfirmTransaction" text="Confirm" />
       <Button fx:id="cancelRentalButton" layoutX="856.0" layoutY="558.0" mnemonicParsing="false" onAction="#cancelOnClick" text="Cancel" />
-      <Button fx:id="submitButton" layoutX="747.0" layoutY="445.0" mnemonicParsing="false" onAction="#createReport" prefHeight="27.0" prefWidth="213.0" text="Submit" />
+      <Button fx:id="submitButton" layoutX="747.0" layoutY="445.0" mnemonicParsing="false" onAction="#finishOnClick" prefHeight="27.0" prefWidth="213.0" text="Submit" />
    </children>
 </AnchorPane>

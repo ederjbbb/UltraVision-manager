@@ -32,6 +32,7 @@ public class RentalViewController extends MainController implements Initializabl
     private MainWindowController mwc = new MainWindowController(); // to be able to get the method currentTime
 
     String tableQuery;
+    private ReportRentalData confirmation; // Ued int the method createReport for object confirmation
 
 
     public RentalViewController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
@@ -143,14 +144,20 @@ public class RentalViewController extends MainController implements Initializabl
 
            }
     @FXML
-    private void cancelOnClick(ActionEvent event) throws SQLException {
-        // this method cancel the entire operation
+    private void cancelOnClick() throws SQLException {
+        // this method cancel the entire operation , and clear all fields
         listView.getItems().clear();
         loyaltyNumberField.clear();
         getLoyaltyNumber();
-
-
-
+        reportFirstname.setText("");
+        reportLastname.setText("");
+        reportMemberNumber.setText("");
+        reportpickupDate.setText("");
+        reportReturnDate.setText("");
+        reportUsedPoints.setText("");
+        reportPendings.setText("");
+        reportCharges.setText("");
+        table.getItems().clear();
 
     }
     //************************bill process starts here***************************************************
@@ -160,6 +167,7 @@ public class RentalViewController extends MainController implements Initializabl
     double pointsRemaining =  0 ;
     double finalBill;
     String  receiptNumber ;
+    int extraPoints;
     @FXML
     private void finishOnClick(ActionEvent event) throws SQLException {
 //
@@ -167,7 +175,7 @@ public class RentalViewController extends MainController implements Initializabl
 //        When clickon button finish is clicked  the bill is printed
         double bill = calculateBill();
         double discount = applyDiscount();
-        int extraPoints = prices.size() * 10;
+         extraPoints = prices.size() * 10;
         finalBill = bill - discount;
         pointsUsed = Integer.parseInt(pointsField.getText()) - points;
          pointsRemaining = points+extraPoints;
@@ -175,19 +183,25 @@ public class RentalViewController extends MainController implements Initializabl
         createReport();
     }
     @FXML
+
     private void createReport(){
         // This Object is to fill up  the report/recepit
-        ReportRentalData confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
+        confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
                 loyaltyNumberField.getText(), getPickupDate(),getReturnDate(),pointsUsed,pointsRemaining,finalBill,
                 pendingsForReport,receiptNumber);
         fillUpReport();
-
+        isReady = true;
     }
     // Mthod to fill the report when submit is clicked
     private void fillUpReport() {
-        reportFirstname.setText("Name  :  "+firstNameField.getText());
-        reportLastname.setText("Surname:  "+lastNameField.getText());
+        reportFirstname.setText("Name       :  "+firstNameField.getText());
+        reportLastname.setText("Surname     :  "+lastNameField.getText());
         reportMemberNumber.setText("Loyalty Nº  :"+ loyaltyNumberField.getText());
+        reportpickupDate.setText("Pick Up   :"+getPickupDate());
+        reportReturnDate.setText("Return    :"+getReturnDate());
+        reportUsedPoints.setText("Used Points :"+pointsUsed+"   Remaining :"+pointsRemaining );
+        reportPendings.setText("Nº of Items   :"+pendingsForReport+" = "+extraPoints+" Points" );
+        reportCharges.setText("Final Bill        :"+finalBill+" €");
     }
     @FXML
     void submitOnClick(ActionEvent event) {
@@ -198,7 +212,8 @@ public class RentalViewController extends MainController implements Initializabl
     private Label searchLabelForLoyalty;
 
 
-
+    @FXML
+    private Label reportCharges;
 
 
     @FXML
@@ -214,7 +229,7 @@ public class RentalViewController extends MainController implements Initializabl
     private Label reportPlan;
 
     @FXML
-    private Label reportPoints;
+    private Label reportUsedPoints;
 
     @FXML
     private Label reportPendings;
@@ -224,7 +239,44 @@ public class RentalViewController extends MainController implements Initializabl
 
     @FXML
     private Label reportReturnDate;
+    @FXML
+    void ConfirmTransaction(ActionEvent event) throws SQLException {
+        if(isReady && listView.getItems().size() > 0 && prices.size() > 0){// this boolean check for all fields ready to store in DB
+            registerTransaction();
+        }else{
 
+        }
+    }
+    // this method is called inside ConfirTransaction methos after verification
+    // and it will store the transaction in the DB
+    private void registerTransaction() {
+        String query = "INSERT INTO Reports (first_name, last_name, member_number ,pickup_date, return_date, " +
+                "points_used, points_remaining, amount_charged,pendings,receipt_number)"
+                + "values ('" + confirmation.getFirstName() + "','" + confirmation.getLastName()+
+                "','" + confirmation.getMemberNumber() + "','" + confirmation.getPickUpDate() +
+                "','" + confirmation.getReturnDate() + "','" +   confirmation.getPointsUsed() +
+                "', '" + confirmation.getPointsRemaining() + "','" + confirmation.getAmountChargedOnCard() +
+                "' ,'" + confirmation.getPendings()+ "','"+confirmation.getReceiptNumber()+"');";
+        System.out.println(query);/////// test
+        Connection connection = new Connection();
+        int row; // holds number of rows affected
+        try {
+            row = connection.updateOrDelete(query);
+            if(row > 0){
+
+                viewFactory.showTransactionConfirmation();
+                cancelOnClick();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            viewFactory.showActionConfirmation();
+
+        }
+    }
+
+
+    private boolean isReady = false;
 
     //This method provides date to store pckUpdate in DB and print on Report
     private String getPickupDate(){

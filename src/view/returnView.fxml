@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="508.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ReturnView">
+   <children>
+      <ImageView fitHeight="492.0" fitWidth="917.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/color2.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="290.0" layoutY="27.0" prefHeight="44.0" prefWidth="267.0" text="Return Control" textFill="#fcf9f9">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeLabel" layoutX="701.0" layoutY="14.0" prefHeight="25.0" prefWidth="202.0" text="timelaabel" />
+   </children>
+</AnchorPane>

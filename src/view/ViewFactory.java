@@ -84,6 +84,11 @@ public class ViewFactory{
         initializeStage(controller);
 
     }
+    public void showTransactionConfirmation() {
+        MainController controller = new RentalViewController(itemsManager,this, "transactionConfirmation.fxml");
+        initializeStage(controller);
+
+    }
 
 
 // this is in charge of creating stage and scenes

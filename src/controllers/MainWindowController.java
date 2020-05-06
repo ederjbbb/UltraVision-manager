@@ -33,7 +33,6 @@ public class MainWindowController extends MainController implements Initializabl
         public MainWindowController  (ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) throws SQLException {
                 super(itemsManager, viewFactory, fxmlName);
 
-
         }
         public  MainWindowController(){
 
