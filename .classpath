@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/KotlinJavaRuntime"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-swt"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx-swt"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix-9.0.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx.base"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.mail"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql-connector-java-8.0.18"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.11"/>
+	<classpathentry kind="var" path="USER_HOME/Desktop/javax.mail-1.6.1.jar"/>
+	<classpathentry kind="output" path="out/production/DashCA"/>
+</classpath>

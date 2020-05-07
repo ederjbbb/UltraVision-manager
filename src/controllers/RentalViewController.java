@@ -122,22 +122,32 @@ public class RentalViewController extends MainController implements Initializabl
 
 
         ArrayList<Double> prices = new ArrayList<>();// to hold prices
+    int rentLimit; // tracks the number of items in the lis , limit for each customer
+    int addedItems =0;
+    int removedItems = 0;
         @FXML
     private void addOnClick() {
-            String title = table.getSelectionModel().getSelectedItem().getTitleName(); // get item title from table
-        double price = table.getSelectionModel().getSelectedItem().getPrice();// get item price
-        int quantity = 1;
-          item = new RentalDataBasket(title, price, quantity);
+            rentLimit = 0;
+            addedItems++;
+
+            if(rentLimit < 4){
+                String title = table.getSelectionModel().getSelectedItem().getTitleName(); // get item title from table
+                double price = table.getSelectionModel().getSelectedItem().getPrice();// get item price
+                int quantity = 1;
+                item = new RentalDataBasket(title, price, quantity);
 //            observableListBasket.add( item); // add item to UI
-            listView.getItems().add(item.getTitleName());
+                listView.getItems().add(item.getTitleName());
 //            listView.getItems().add(item.getPrice());
-            prices.add(item.getPrice()); // get price everytime user click button
+                prices.add(item.getPrice()); // get price everytime user click button
+            }
+
 
 
         }
 
            @FXML
     private void removeOnClick() {
+            addedItems = addedItems-1;
                listView.getItems().toArray();// in order to work with it better
                listView.getItems().remove(0);
                prices.remove(item.getPrice());
@@ -188,7 +198,7 @@ public class RentalViewController extends MainController implements Initializabl
         // This Object is to fill up  the report/recepit
         confirmation = new ReportRentalData(firstNameField.getText(), lastNameField.getText(),
                 loyaltyNumberField.getText(), getPickupDate(),getReturnDate(),pointsUsed,pointsRemaining,finalBill,
-                pendingsForReport,receiptNumber);
+                pendingsForReport,receiptNumber,basketTitleLoop);
         fillUpReport();
         isReady = true;
     }
@@ -202,6 +212,8 @@ public class RentalViewController extends MainController implements Initializabl
         reportUsedPoints.setText("Used Points :"+pointsUsed+"   Remaining :"+pointsRemaining );
         reportPendings.setText("Nº of Items   :"+pendingsForReport+" = "+extraPoints+" Points" );
         reportCharges.setText("Final Bill        :"+finalBill+" €");
+
+
     }
     @FXML
     void submitOnClick(ActionEvent event) {
@@ -224,6 +236,8 @@ public class RentalViewController extends MainController implements Initializabl
 
     @FXML
     private Label reportMemberNumber;
+    @FXML
+    private Label titleNameLabel;
 
     @FXML
     private Label reportPlan;
@@ -249,23 +263,40 @@ public class RentalViewController extends MainController implements Initializabl
     }
     // this method is called inside ConfirTransaction methos after verification
     // and it will store the transaction in the DB
-    private void registerTransaction() {
-        String query = "INSERT INTO Reports (first_name, last_name, member_number ,pickup_date, return_date, " +
-                "points_used, points_remaining, amount_charged,pendings,receipt_number)"
-                + "values ('" + confirmation.getFirstName() + "','" + confirmation.getLastName()+
-                "','" + confirmation.getMemberNumber() + "','" + confirmation.getPickUpDate() +
-                "','" + confirmation.getReturnDate() + "','" +   confirmation.getPointsUsed() +
-                "', '" + confirmation.getPointsRemaining() + "','" + confirmation.getAmountChargedOnCard() +
-                "' ,'" + confirmation.getPendings()+ "','"+confirmation.getReceiptNumber()+"');";
-        System.out.println(query);/////// test
-        Connection connection = new Connection();
-        int row; // holds number of rows affected
-        try {
-            row = connection.updateOrDelete(query);
-            if(row > 0){
+    String basketTitleLoop;
+    int trackForClear = 0;
+    private void registerTransaction() throws SQLException {
 
-                viewFactory.showTransactionConfirmation();
-                cancelOnClick();
+        int rowaffected = 0; // holds number of rows affected
+
+
+        for (int i = 0; i < prices.size(); i++) { // Loop over the table list/basket to get tibles
+                            // and entry each title seperatly in the database
+        trackForClear++;
+        basketTitleLoop = (String) listView.getItems().get(i);
+
+
+        String query = "INSERT INTO Reports (first_name, title_name, last_name, member_number ,pickup_date, return_date, " +
+                "points_used, points_remaining, amount_charged,pendings,receipt_number)"
+                + "values ('" + confirmation.getFirstName() + "','" + basketTitleLoop + "','" + confirmation.getLastName() +
+                "','" + confirmation.getMemberNumber() + "','" + confirmation.getPickUpDate() +
+                "','" + confirmation.getReturnDate() + "','" + confirmation.getPointsUsed() +
+                "', '" + confirmation.getPointsRemaining() + "','" + confirmation.getAmountChargedOnCard() +
+                "' ,'" + confirmation.getPendings() + "','" + confirmation.getReceiptNumber() + "');";
+
+
+
+        Connection connection = new Connection();
+
+
+
+        try {
+            connection.updateOrDelete(query);
+
+            if (addedItems == trackForClear) {
+
+            cancelOnClick();
+            viewFactory.showTransactionConfirmation();
 
             }
         } catch (SQLException e) {
@@ -273,6 +304,7 @@ public class RentalViewController extends MainController implements Initializabl
             viewFactory.showActionConfirmation();
 
         }
+    }
     }
 
 

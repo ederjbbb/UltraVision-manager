@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class Connection {
 
@@ -28,7 +27,7 @@ public class Connection {
    public Connection() {
       try {
           getConnection(query);
-          getResultsArray();
+
 
 
       } catch (SQLException throwables) {
@@ -36,12 +35,7 @@ public class Connection {
       }
    }
 
-   private void getResultsArray() throws SQLException {
-      ArrayList list = new ArrayList();
-//
-//      }
-      list.forEach(item -> System.out.println(item));
-   }
+
 
    public ResultSet getConnection(String query) throws SQLException {
 

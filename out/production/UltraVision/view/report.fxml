@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/reportBackground.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="32.0" layoutY="83.0" prefHeight="17.0" prefWidth="110.0" text="Name :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportSurname" layoutX="248.0" layoutY="123.0" prefHeight="23.0" prefWidth="164.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="121.0" prefHeight="17.0" prefWidth="110.0" text="Surname :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportPickupDate" layoutX="247.0" layoutY="163.0" prefHeight="23.0" prefWidth="156.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportReturnDate" layoutX="247.0" layoutY="202.0" prefHeight="17.0" prefWidth="178.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportRemainingPoints" layoutX="247.0" layoutY="237.0" prefHeight="17.0" prefWidth="178.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="ReportChargedCard" layoutX="247.0" layoutY="302.0" prefHeight="17.0" prefWidth="178.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="159.0" prefHeight="23.0" prefWidth="116.0" text="Pickup Date:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="198.0" prefHeight="17.0" prefWidth="110.0" text="Return Date:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="235.0" prefHeight="23.0" prefWidth="156.0" text="Remaining Points:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="301.0" prefHeight="23.0" prefWidth="187.0" text="Charged by Card :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="ReportItems" layoutX="247.0" layoutY="347.0" prefHeight="17.0" prefWidth="178.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="344.0" prefHeight="23.0" prefWidth="187.0" text="Nº of Items :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportName" layoutX="247.0" layoutY="83.0" prefHeight="23.0" prefWidth="156.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="81.0" layoutY="35.0" prefHeight="29.0" prefWidth="441.0" text="Ultra Vision  Transaction Confirmation" textFill="#171717">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="384.0" prefHeight="23.0" prefWidth="187.0" text="Receipt Nº :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="membershipReport" layoutX="248.0" layoutY="420.0" prefHeight="23.0" prefWidth="126.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="389.0" layoutY="456.0" onMouseClicked="#backToRentalControl" prefHeight="23.0" prefWidth="72.0" styleClass="transparent" text="Go back" textFill="#0d0d0d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="505.0" layoutY="453.0" onMouseClicked="#ConfirmTransaction" prefHeight="23.0" prefWidth="72.0" styleClass="transparent" text="Confirm">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Line endX="389.0" layoutX="182.0" layoutY="66.0" startX="-158.0" />
+      <Line endX="394.0" layoutX="185.0" layoutY="448.0" startX="-162.0" />
+      <Label layoutX="27.0" layoutY="420.0" prefHeight="23.0" prefWidth="187.0" text="Membership Nº :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportReceiptNumber1" layoutX="248.0" layoutY="384.0" prefHeight="23.0" prefWidth="126.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="267.0" prefHeight="23.0" prefWidth="156.0" text="Nº of Items :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="reportNºOfItems" layoutX="247.0" layoutY="267.0" prefHeight="17.0" prefWidth="178.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

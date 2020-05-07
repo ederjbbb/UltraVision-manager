@@ -90,7 +90,11 @@ public class MainWindowController extends MainController implements Initializabl
         @FXML
         private Label userNameLabel;
 
-
+    @FXML
+    void openReturnControl(ActionEvent event) {
+        viewFactory.showReturn();
+        closeWindow();
+    }
 
     @FXML
     void openStockOnClick(ActionEvent event) {

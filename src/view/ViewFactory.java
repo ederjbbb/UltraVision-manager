@@ -84,8 +84,13 @@ public class ViewFactory{
         initializeStage(controller);
 
     }
-    public void showTransactionConfirmation() {
-        MainController controller = new RentalViewController(itemsManager,this, "transactionConfirmation.fxml");
+    public void showTransactionConfirmation() throws SQLException {
+        MainController controller = new ConfirmationController(itemsManager,this, "transactionConfirmation.fxml");
+        initializeStage(controller);
+
+    }
+    public void showReturn() {
+        MainController controller = new ReturnController(itemsManager,this, "returnView.fxml");
         initializeStage(controller);
 
     }

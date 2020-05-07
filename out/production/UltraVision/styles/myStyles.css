@@ -1,0 +1,109 @@
+/*
+Login stylesheet beginshere
+
+*/
+
+.button:hover{
+   -fx-color:#0040ff;
+
+
+}
+.button{
+-fx-font-size: 20px;
+-fx-color:#b3d9ff;
+-fx-font-color:red;
+
+}
+.textF{
+        -fx-effect: dropshadow( one-pass-box , black , 20 , 0.0 , 15 , 0 );
+}
+.background{
+    -fx-background-color: white;
+
+}
+.lightgreen{
+
+    -fx-background-color: linear-gradient(from 25px 25px to 100px 100px, #008080, #5142f5);
+}
+
+.button{
+-fx-effect: dropshadow( one-pass-box , black , 20 , 0.0 , 15 , 0 );
+
+}
+.exitDash{
+
+-fx-effect: dropshadow( one-pass-box , black , 15 , 0.0 , 10 , 0 );
+
+}
+.transparent{
+
+-fx-border-radius: 55%;
+}
+
+.transparent:hover{
+-fx-border-color: #0040ff ;
+-fx-border-color:white;
+-fx-border-radius: 55%;
+    -fx-border-width: 1 ;
+
+
+}
+.buttonLogout: hover{
+  -fx-border-color: #0040ff ;
+}
+.buttonLogout{
+-fx-background-color: transparent;
+-fx-border-radius: 50px;
+}
+.transparent{
+-fx-background-color: transparent;
+}
+.regularButton{
+-fx-background-radius: 5px;
+        -fx-border-radius: 5px;
+
+}
+
+
+.button{
+
+        -fx-background-radius: 25px;
+        -fx-border-radius: 25px;
+
+}
+.danger.button{
+
+-fx-background-color: rgb(242,7,7);
+
+}
+.attention.button{
+-fx-background-color: yellow ;
+}
+.free.button{
+-fx-background-color: green ;
+}
+.fields{
+-fx-effect: dropshadow( one-pass-box , black , 20 , 0.0 , 15 , 0 );
+ -fx-border-color: #0040ff ;
+    -fx-border-width: 2 ;
+}
+
+#customerBtn{
+
+}
+
+#forgotPassword{
+    -fx-font-color: red;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+#forgotPassword:hover{
+    -fx-background: black;
+
+}
+
+
+/*
+Login stylesheet finishes here
+
+*/

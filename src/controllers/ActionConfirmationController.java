@@ -16,12 +16,11 @@ public class ActionConfirmationController extends MainController {
     private Button okButton;
 
 
-    @FXML
-    void closeConfirmation(ActionEvent event) {
 
+    @FXML
+    void closeOkConfirmation(ActionEvent event) {
         Stage stage = (Stage) okButton.getScene().getWindow();
         viewFactory.closeStage(stage);
-
     }
 
 }

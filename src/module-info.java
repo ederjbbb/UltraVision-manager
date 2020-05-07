@@ -1,4 +1,4 @@
-module DashCA {
+module UltraVision {
     requires javafx.fxml;
     requires javafx.controls;
     requires javafx.graphics;

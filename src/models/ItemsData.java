@@ -48,6 +48,7 @@ public class ItemsData {
         this.totalQuantity = new SimpleIntegerProperty(total_qty);
         this.mediaType = new SimpleStringProperty(mediaType);
     }
+
     public int getId() {
         return id.get();
     }

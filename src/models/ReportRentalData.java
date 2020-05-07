@@ -12,13 +12,22 @@ public class ReportRentalData {
     private double amountChargedOnCard;
     private int pendings;
     private String receiptNumber;
+    private String titleName;
 
+
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
 
     public ReportRentalData(String firstName, String lastName, String memberNumber,
                             String pickUpDate, String returnDate, double pointsUsed, double pointsRemaining,
-                            double amountChargedOnCard, int pendings, String receiptNumber) {
+                            double amountChargedOnCard, int pendings, String receiptNumber, String titleName) {
 
-
+        this.firstName = titleName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.memberNumber = memberNumber;

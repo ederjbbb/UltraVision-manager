@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/out/test/DashCA"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="KotlinJavaRuntime" value="project"/>
+		<level name="javafx-swt" value="project"/>
+		<level name="jfoenix-9.0.8" value="project"/>
+		<level name="javafx.base" value="project"/>
+		<level name="javax.mail" value="project"/>
+		<level name="mysql-connector-java-8.0.18" value="project"/>
+		<level name="activation-1.1" value="project"/>
+		<level name="activation-1.11" value="project"/>
+	</levels>
+</component>

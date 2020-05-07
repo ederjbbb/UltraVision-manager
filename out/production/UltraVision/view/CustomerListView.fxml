@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="520.0" prefWidth="990.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="511.0" fitWidth="976.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" styleClass="border">
+         <image>
+            <Image url="@images/color.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="table" layoutX="26.0" layoutY="185.0" prefHeight="296.0" prefWidth="926.0" styleClass="textF">
+        <columns>
+            <TableColumn fx:id="col_id" prefWidth="41.0" text="Id" />
+          <TableColumn fx:id="col_name" onEditCommit="#editNameOnClick" prefWidth="97.0" text="Name" />
+          <TableColumn fx:id="col_lastname" onEditCommit="#editLastnameOnClick" prefWidth="114.0" text="Last Name" />
+            <TableColumn fx:id="col_email" onEditCommit="#editEmailOnClick" prefWidth="139.0" text="Email" />
+            <TableColumn fx:id="col_address" onEditCommit="#editAddressOnClick" prefWidth="167.0" text="Address" />
+            <TableColumn fx:id="col_category" maxWidth="159.0" onEditCommit="#editCategoryOnClick" prefWidth="119.0" text="Category" />
+            <TableColumn fx:id="col_membership" prefWidth="81.0" text="Membership Nº" />
+            <TableColumn fx:id="col_creditCard" minWidth="0.0" prefWidth="167.0" text="Credit Card" />
+        </columns>
+      </TableView>
+      <TextField fx:id="firstnameField" layoutX="26.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="First Name" styleClass="textF" />
+      <TextField fx:id="lastnameField" layoutX="193.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="Last name" styleClass="textF" />
+      <TextField fx:id="emailField" layoutX="362.0" layoutY="54.0" prefHeight="27.0" prefWidth="142.0" promptText="E-mail" styleClass="textF" />
+      <TextField fx:id="addressField" layoutX="192.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Address" styleClass="textF" />
+      <Button layoutX="681.0" layoutY="58.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="54.0" prefWidth="179.0" styleClass="lightgreen" text="Add Customer">
+         <font>
+            <Font size="9.0" />
+         </font></Button>
+      <Label layoutX="26.0" layoutY="144.0" prefHeight="29.0" prefWidth="268.0" text="Customer List Control" textFill="#110000">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="goBackButton" layoutX="294.0" layoutY="136.0" mnemonicParsing="false" onAction="#goBackOnClick" styleClass="customerButton" text="Go Back" />
+      <Button fx:id="deleteButton" layoutX="430.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteOnClick" styleClass="danger" text="Delete" />
+      <TextField fx:id="memberNumberField" layoutX="362.0" layoutY="93.0" prefHeight="27.0" prefWidth="142.0" promptText="Member Number" styleClass="textF" />
+      <TextField fx:id="creditCardField" layoutX="26.0" layoutY="91.0" prefHeight="27.0" prefWidth="142.0" promptText="Debid/Credit Card Nº" styleClass="textF" />
+      <Line endX="204.0" endY="9.0" layoutX="752.0" layoutY="118.0" startX="-726.0" startY="9.0" stroke="#000d01" strokeWidth="2.0" />
+      <Button fx:id="exitButton" layoutX="900.0" layoutY="53.0" mnemonicParsing="false" onAction="#exitOnClick" prefHeight="35.0" prefWidth="35.0" styleClass="buttonLogout" textFill="TRANSPARENT">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logoutbtn2.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <TextField fx:id="searchField" layoutX="689.0" layoutY="146.0" onKeyTyped="#searchOnKeyTyped" prefHeight="26.0" prefWidth="262.0" promptText=" Type any information for searching" styleClass="textF">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></TextField>
+      <Label fx:id="timeLable" layoutX="753.0" layoutY="9.0" prefHeight="29.0" prefWidth="229.0" styleClass="textF" textFill="#ebe7e7">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="memberChoices" layoutX="523.0" layoutY="54.0" prefHeight="28.0" prefWidth="136.0" styleClass="textF" />
+      <Label fx:id="tlabel" layoutX="50.0" layoutY="14.0" prefHeight="18.0" prefWidth="229.0" />
+      <Button fx:id="generatorButton" layoutX="528.0" layoutY="89.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#generateNumberOnClick" prefHeight="33.0" prefWidth="33.0" styleClass="transparent" textFill="#00000003">
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/dice.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="523.0" layoutY="30.0" prefHeight="18.0" prefWidth="127.0" text="Choose Category" textFill="#f2eded" />
+   </children>
+</AnchorPane>
