@@ -9,9 +9,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx.base"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.mail"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mysql-connector-java-8.0.18"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.1"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.1"/>
+
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/activation-1.11"/>
-	<classpathentry kind="var" path="USER_HOME/Desktop/javax.mail-1.6.1.jar"/>
+	<classpathentry kind="var" path="org.eclipse.jdt.USER_LIBRARY/javax.mail-1.6.1.jar"/>
 	<classpathentry kind="output" path="out/production/DashCA"/>
 </classpath>
