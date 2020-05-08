@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import enums.MemberCategories;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +23,8 @@ import view.ViewFactory;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -30,23 +32,23 @@ public class CustomerListController extends MainController implements Initializa
     User user;
     ObservableList dbDataListTable = FXCollections.observableArrayList();
 
-    private ResultSet data ; // used in method populateTable
+    private ResultSet data; // used in method populateTable
     MainWindowController mc = new MainWindowController();
     UsersTableController uc = new UsersTableController();
-    InformationTagController tagController = new InformationTagController() ;// Used in hideInformation method down below
+    InformationTagController tagController = new InformationTagController();// Used in hideInformation method down below
     CustomerData userDataObject = null;
     MemberCategories categories[] = MemberCategories.values();
     private String addQuery; // This query variable is for use fo the method addOnClick
     String category;
 
 
-
     // this list is to get a list of enums for populating the field of categories
     private ObservableList categories1List = FXCollections.observableArrayList(categories[0].getValue(), categories[1].getValue(), categories[2].getValue(), categories[3].getValue());
     private CustomerData customerDataObject; // used to create the object , get data and insert in table
-                                            // used as well for searching in method searchOnClick
-    public CustomerListController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+
+    // used as well for searching in method searchOnClick
+    public CustomerListController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
 
     }
 
@@ -123,65 +125,57 @@ public class CustomerListController extends MainController implements Initializa
     private TableColumn<CustomerData, String> col_creditCard;
 
 
-
-
-
-
-   //******************************Seach method starts*****************************************************************
-
+    //******************************Seach method starts*****************************************************************
 
 
     @FXML
-     private void searchOnKeyTyped(KeyEvent event ) throws SQLException {
+    private void searchOnKeyTyped(KeyEvent event) throws SQLException {
 
 
+        FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filter.setPredicate(customer -> {
 
-            FilteredList<CustomerData> filter = new FilteredList<>(dbDataListTable, p -> true);
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filter.setPredicate(customer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newValue.toLowerCase();
+                if (customer.getFirstName().toLowerCase().indexOf(typedText) != -1) {
 
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    String typedText = newValue.toLowerCase();
-                    if (customer.getFirstName().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getLastName().toLowerCase().indexOf(typedText) != -1) {
 
-                        return true;
-                    }
-                    if (customer.getLastName().toLowerCase().indexOf(typedText) != -1) {
-
-                        return true;
-                    }
-                    if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
-                        return true;
-                    }
-                    if (customer.getAddress().toLowerCase().indexOf(typedText) != -1){
-                        return  true;
-                    }
-                    if (customer.getMembershipNumber().toLowerCase().indexOf(typedText) != -1){
-                        return  true;
-                    }
-                    if (customer.getCardNumber().toLowerCase().indexOf(typedText) != -1){
-                        return  true;
-                    }
-
-
-                    return false;
-                });
-                SortedList<CustomerData> sortedList = new SortedList<>(filter);
-                sortedList.comparatorProperty().bind(table.comparatorProperty());
-                table.setItems(sortedList);
+                    return true;
+                }
+                if (customer.getEmail().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getAddress().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getMembershipNumber().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (customer.getCardNumber().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
 
 
+                return false;
             });
+            SortedList<CustomerData> sortedList = new SortedList<>(filter);
+            sortedList.comparatorProperty().bind(table.comparatorProperty());
+            table.setItems(sortedList);
 
+
+        });
 
 
     }
 
 
 //***********************************Search method finishes************************************************************
-
 
 
     private void setCategories() {
@@ -202,7 +196,8 @@ public class CustomerListController extends MainController implements Initializa
             return false;
         }
     }
-    private void closeWindow(){
+
+    private void closeWindow() {
         // this method is to close windows, wnhen they are closed or changed
         Stage stage = (Stage) deleteButton.getScene().getWindow();
         viewFactory.closeStage(stage);
@@ -210,43 +205,69 @@ public class CustomerListController extends MainController implements Initializa
     }
 
 
-
     @FXML
     void addOnClick() throws SQLException {
-        // This query variable is declared up  in the class scope, in order to make this method reusable in
-        // other Controllers
-        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
-        addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
-                + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
-                + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
-
         Connection connection = new Connection();
-        int row = 0;
-//        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
-        if (isEmptyField()) {
+        ///////// Check for valid email and repeated email
+        String selectAll = "select * form Users";
+        ResultSet resultSetToCheck = connection.getConnection(selectAll);
+        List list = new ArrayList();// store emails to be checked
+
+        while (resultSetToCheck.next()) {
+            list.add(resultSetToCheck.getString("email")); // add all emails to list
+        }
+        if (list.contains(emailField.getText())) {// check is email is in the list
+
+            viewFactory.showEmailAlreadyExist();
+        } else if (!Validations.isWord(firstnameField.getText()) || !Validations.isWord(lastnameField.getText()) ||
+                !Validations.isEmail(emailField.getText())) {// check if for validation
             viewFactory.showActionConfirmation();
         } else {
+            // This query variable is declared up  in the class scope, in order to make this method reusable in
+            // other Controllers
+            category = (String) memberChoices.getSelectionModel().
+
+                    getSelectedItem();// get selected category
+
+            addQuery = "INSERT INTO Customers (firstname, lastname, email, address, card_number, membershipNumber, category_plan) "
+                    + "values ('" + firstnameField.getText() + "','" + lastnameField.getText() + "','" + emailField.getText() + "','"
+                    + addressField.getText() + "', '" + creditCardField.getText() + "','" + memberNumberField.getText() + "' ,'" + category + "');";
 
 
-            row = connection.updateOrDelete(addQuery);
+            int row = 0;
+//        category = (String) memberChoices.getSelectionModel().getSelectedItem();// get selected category
+            if (
 
-            if (row > 0) {
-                closeWindow();
-
-                viewFactory.showCustomerList();
-
-            } else {
+                    isEmptyField()) {
                 viewFactory.showActionConfirmation();
+            } else {
+
+
+                row = connection.updateOrDelete(addQuery);
+
+                if (row > 0) {
+                    closeWindow();
+
+                    viewFactory.showCustomerList();
+
+                } else {
+                    viewFactory.showActionConfirmation();
+                }
+
+
             }
-
-
         }
-
-
-        //******************************************************************************************************
-
-
+        ///// finishes checking validation
     }
+
+
+
+
+
+    //******************************************************************************************************
+
+
+
 
 
     @FXML

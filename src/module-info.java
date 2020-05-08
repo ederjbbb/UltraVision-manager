@@ -17,6 +17,6 @@ module UltraVision {
     opens controllers;
     opens models;
     opens styles;
-    opens classManagers;
+    opens classManager;
     opens view;
 }

@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 import view.ViewFactory;
 
 public class InformationTagController  extends  MainController{
-    public InformationTagController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+    public InformationTagController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
 
     }
     public InformationTagController(){

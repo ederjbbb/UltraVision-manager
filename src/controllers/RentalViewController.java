@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -35,8 +35,8 @@ public class RentalViewController extends MainController implements Initializabl
     private ReportRentalData confirmation; // Ued int the method createReport for object confirmation
 
 
-    public RentalViewController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+    public RentalViewController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
 
 
     }

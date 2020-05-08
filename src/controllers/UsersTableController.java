@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,14 +10,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.Connection;
 import models.User;
 import models.UserData;
 import view.ViewFactory;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UsersTableController extends MainController implements Initializable {
@@ -31,8 +35,8 @@ public class UsersTableController extends MainController implements Initializabl
         private ObservableList list = FXCollections.observableArrayList();
 
 
-    public UsersTableController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+    public UsersTableController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
 
 
     }
@@ -140,31 +144,46 @@ public class UsersTableController extends MainController implements Initializabl
 
     @FXML
     void exitOnClick(){
+        viewFactory.showLoginWindow();
         closeWindow();
     }
 
     @FXML
     void addOnClick() throws SQLException {
-        String addQuery = "INSERT INTO Users (firstname , lastname , email , password) values ('"+firstnameField.getText()+"','"+lasnameField.getText()+"','"+emailField.getText()+"','"+passwordField.getText()+"');";
-        System.out.println(addQuery);
-        int row = 0;
-        if(firstnameField.getText().isEmpty() || lasnameField.getText().isEmpty() ||
-                emailField.getText().isEmpty() || passwordField.getText().isEmpty()){
-            viewFactory.showActionConfirmation();
-        }else{
-             row  = connection.updateOrDelete(addQuery);
+
+        //****************this part checks is email already exist in DBt****
+        String selectAll = "select * form Users";
+        ResultSet resultSet = connection.getConnection(selectAll);
+        List list = new ArrayList();// store emails to be checked
+
+        while (resultSet.next()) {
+            list.add(resultSet.getString("email")); // add all emails to list
         }
+            if(list.contains(emailField.getText())){// check is email is in the list
 
-            if(row > 0){
-                Stage stage = (Stage) deleteButton.getScene().getWindow();
-                viewFactory.closeStage(stage);
-                viewFactory.showUsersWindow();
-
-            }else{
+                viewFactory.showEmailAlreadyExist();
+            }else if (!Validations.isWord(firstnameField.getText()) || !Validations.isWord(lasnameField.getText()) ||
+                    !Validations.isEmail(emailField.getText())) {// check if for validation
                 viewFactory.showActionConfirmation();
-            }
+            }else{
+                String addQuery = "INSERT INTO Users (firstname , lastname , email , password) values ('"+firstnameField.getText()+"','"+lasnameField.getText()+"','"+emailField.getText()+"','"+passwordField.getText()+"');";
 
+                int row = 0;
+
+                    row  = connection.updateOrDelete(addQuery);
+
+
+                if(row > 0){
+                    Stage stage = (Stage) deleteButton.getScene().getWindow();
+                    viewFactory.closeStage(stage);
+                    viewFactory.showUsersWindow();
+
+                }else{
+                    viewFactory.showActionConfirmation();
+                }
+            }
     }
+
 
     @FXML
     void updateOnClick(){

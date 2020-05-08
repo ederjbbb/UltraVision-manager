@@ -1,6 +1,6 @@
 package view;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import controllers.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,15 +16,16 @@ import java.util.ArrayList;
 // wiil be able to controll its own view.
 public class ViewFactory{
     // this way we can haave access Itemsmanager class.
-    ItemsManager itemsManager;
+    Validations validations;
     // this Arraylist contais all active stages
     private ArrayList<Stage> activeStages ;
 
 
-    public ViewFactory(ItemsManager itemsManager) {
+    public ViewFactory(Validations validations) {
         this.activeStages = new ArrayList<>();
-        this.itemsManager = itemsManager;
+        this.validations = validations;
     }
+
 
 
 
@@ -33,7 +34,7 @@ public class ViewFactory{
         // This way the controller can have access to the views as
         // I pass the controller to its views .
 
-        MainController controller = new LoginController(itemsManager,this, "LoginView.fxml");
+        MainController controller = new LoginController(validations,this, "LoginView.fxml");
         initializeStage(controller);
 
 
@@ -47,50 +48,54 @@ public class ViewFactory{
         // This way the controller can have access to the views as
         // I pass the controller to its views .
 
-        MainController controller = new MainWindowController(itemsManager,this, "DashboardView.fxml");
+        MainController controller = new MainWindowController(validations,this, "DashboardView.fxml");
         initializeStage(controller);
 
     }
     public void showUsersWindow() {
-        MainController controller = new UsersTableController(itemsManager,this, "UsersTable.fxml");
+        MainController controller = new UsersTableController(validations,this, "UsersTable.fxml");
+        initializeStage(controller);
+    }
+    public void showEmailAlreadyExist() {
+        MainController controller = new emailInvalidController(validations,this, "email_Invalid.fxml");
         initializeStage(controller);
     }
     public void showNotFound() {
-        MainController controller = new NotFoundController(itemsManager,this, "notfound.fxml");
+        MainController controller = new NotFoundController(validations,this, "notfound.fxml");
         initializeStage(controller);
     }
     public void showActionConfirmation() {
-        MainController controller = new ActionConfirmationController(itemsManager,this, "actionConfirmation.fxml");
+        MainController controller = new ActionConfirmationController(validations,this, "actionConfirmation.fxml");
         initializeStage(controller);
     }
     public void showEmailSentConfirmation() {
-        MainController controller = new EmailSentController(itemsManager,this, "emailSentConfirmation.fxml");
+        MainController controller = new EmailSentController(validations,this, "emailSentConfirmation.fxml");
         initializeStage(controller);
     }
 
     public void showCustomerList() {
-        MainController controller = new CustomerListController(itemsManager,this, "CustomerListView.fxml");
+        MainController controller = new CustomerListController(validations,this, "CustomerListView.fxml");
         initializeStage(controller);
 
     }
     public void showStock() {
-        MainController controller = new StockController(itemsManager,this, "StockView.fxml");
+        MainController controller = new StockController(validations,this, "StockView.fxml");
         initializeStage(controller);
 
     }
 
     public void showRentalView() {
-        MainController controller = new RentalViewController(itemsManager,this, "RentalView.fxml");
+        MainController controller = new RentalViewController(validations,this, "RentalView.fxml");
         initializeStage(controller);
 
     }
     public void showTransactionConfirmation() throws SQLException {
-        MainController controller = new ConfirmationController(itemsManager,this, "transactionConfirmation.fxml");
+        MainController controller = new ConfirmationController(validations,this, "transactionConfirmation.fxml");
         initializeStage(controller);
 
     }
     public void showReturn() {
-        MainController controller = new ReturnController(itemsManager,this, "returnView.fxml");
+        MainController controller = new ReturnController(validations,this, "returnView.fxml");
         initializeStage(controller);
 
     }

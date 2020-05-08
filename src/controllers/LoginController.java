@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +12,7 @@ import models.EmailChecker;
 import models.User;
 import view.ViewFactory;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class LoginController extends MainController  {
         ResultSet data;
         private String email;
         private String query = "SELECT email,password FROM Users;";
-        public LoginController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-                super(itemsManager, viewFactory, fxmlName);
+        public LoginController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+                super(validations, viewFactory, fxmlName);
                 dataList = new ArrayList<String>();
 
         }
@@ -52,39 +53,45 @@ public class LoginController extends MainController  {
 
         @FXML
          void loginActionButton() throws SQLException {
+
+            if (!Validations.isEmail(textField.getText())) {
+                viewFactory.showNotFound();
+            } else {
+
+
                 connection = new Connection();
-                 // NEED TO BE VALIDATED
+                // NEED TO BE VALIDATED
                 //  NEED TO CHECKED
                 email = textField.getText();
                 String password = passwordField.getText();
                 user = new User(email, password);
 
 
-
-
                 data = connection.getConnection(query);// This line receives the result from method
-                                                                    // in the model connection
+                // in the model connection
 
 
-
-                while(data.next()){
+                while (data.next()) {
                     //This one will loop over the db and get all of the passwords and emails to compare
                     // with the object email and password
-                        dataList.add(data.getString("email"));
-                        dataList.add(data.getString("password"));
+                    dataList.add(data.getString("email"));
+                    dataList.add(data.getString("password"));
                 }
-                if(dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())){
-                        viewFactory.showMainWindow();
-                    Stage stage = (Stage)loginButton.getScene().getWindow();
+                if (dataList.contains(user.getEmail()) && dataList.contains(user.getPassword())) {
+                    viewFactory.showMainWindow();
+                    Stage stage = (Stage) loginButton.getScene().getWindow();
                     viewFactory.closeStage(stage);
 
 
-                }else{
+                } else {
                     viewFactory.showNotFound();
                     //in case there is no match , popupwindow
                 }
-
+            }
         }
+
+
+
 
 
 

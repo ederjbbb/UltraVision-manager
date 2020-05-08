@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 import view.ViewFactory;
 
 public class NotFoundController  extends MainController{
-    public NotFoundController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+    public NotFoundController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
     }
     @FXML
     private Button exitButon;

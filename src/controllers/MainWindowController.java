@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,8 +30,8 @@ public class MainWindowController extends MainController implements Initializabl
             User userData  ;
 
 
-        public MainWindowController  (ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) throws SQLException {
-                super(itemsManager, viewFactory, fxmlName);
+        public MainWindowController  (Validations validations, ViewFactory viewFactory, String fxmlName) throws SQLException {
+                super(validations, viewFactory, fxmlName);
 
         }
         public  MainWindowController(){

@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,8 +18,8 @@ public class ConfirmationController extends MainController implements Initializa
 
 
 
-    public ConfirmationController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) throws SQLException {
-        super(itemsManager, viewFactory, fxmlName);
+    public ConfirmationController(Validations validations, ViewFactory viewFactory, String fxmlName) throws SQLException {
+        super(validations, viewFactory, fxmlName);
 
 
     }

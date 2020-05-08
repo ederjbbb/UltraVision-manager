@@ -1,6 +1,6 @@
 package controllers;
 
-import classManagers.ItemsManager;
+import classManager.Validations;
 import enums.MediaCategories;
 import enums.Titletype;
 import javafx.collections.FXCollections;
@@ -41,8 +41,8 @@ public class StockController extends MainController implements Initializable {
     private ObservableList titletypeCategories = FXCollections.observableArrayList(titletype[0].toString(),
             titletype[1].toString(), titletype[2].toString(),titletype[3].toString() ); //Used to create Object
     CustomerListController customerListController;// in order to reuse methods from CustomerListController
-    public StockController(ItemsManager itemsManager, ViewFactory viewFactory, String fxmlName) {
-        super(itemsManager, viewFactory, fxmlName);
+    public StockController(Validations validations, ViewFactory viewFactory, String fxmlName) {
+        super(validations, viewFactory, fxmlName);
 
     }
 
@@ -357,6 +357,7 @@ public class StockController extends MainController implements Initializable {
 
     @FXML
     void exitOnClick(ActionEvent event) {
+        viewFactory.showLoginWindow();
         closeWindow();
 
     }
