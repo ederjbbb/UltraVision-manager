@@ -16,7 +16,7 @@ public class ActionConfirmationController extends MainController {
     private Button okButton;
 
 
-
+//test
     @FXML
     void closeOkConfirmation(ActionEvent event) {
         Stage stage = (Stage) okButton.getScene().getWindow();
